@@ -12,7 +12,9 @@
     "main": {
       "type": "page-brand-story",
       "settings": {
-        "founder_image": "shopify://shop_images/IMG_6578.jpg"
+        "hero_image": "shopify://shop_images/brand.png",
+        "founder_image": "shopify://shop_images/IMG_6578.jpg",
+        "cta_image": "shopify://shop_images/join.jpg"
       }
     }
   },

@@ -18,6 +18,7 @@
       "type": "page-custom",
       "name": "Custom Hoodie Page",
       "settings": {
+        "hero_image": "shopify://shop_images/custom.png",
         "cta_url": "",
         "cta_label": "Start Designing",
         "quality_image": "shopify://shop_images/IMG_0191.png",
