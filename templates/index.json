@@ -1,1 +1,43 @@
-{"sections":{"hero":{"type":"hero","settings":{"eyebrow":"New Collection","headline":"Night Runner","subline":"Premium streetwear inspired by Tokyo nights.","cta_primary_label":"Shop Now","cta_primary_url":"/collections/all","cta_secondary_label":"Our Story","cta_secondary_url":"/pages/about"}},"featured":{"type":"featured-collection","settings":{"eyebrow":"Featured","title":"Shop the Drop","products_to_show":8}}},"order":["hero","featured"]}
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge":              "Limited Drop 001",
+        "headline_line1":    "BESTELLE DEINEN",
+        "headline_outline":  "EIGENEN",
+        "headline_line2":    "HOODIE",
+        "cta_primary_label": "Dein Hoodie",
+        "cta_primary_url":   "/collections/all",
+        "cta_secondary_label":"Lookbook",
+        "cta_secondary_url": "/pages/brand-story"
+      }
+    },
+    "featured_duo": {
+      "type": "featured-duo",
+      "settings": {
+        "title_line1": "Tokyo Drift",
+        "title_line2": "Edition",
+        "description": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed."
+      }
+    },
+    "passion": {
+      "type": "passion-banner",
+      "settings": {
+        "bg_text":        "PASSION",
+        "headline_line1": "PASSION IS NOT",
+        "headline_line2": "A CRIME.",
+        "subline":        "Street Heritage // 2024"
+      }
+    },
+    "collection_grid": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow":          "Kollektion",
+        "title":            "Unsere Hoodies",
+        "products_to_show": 8
+      }
+    }
+  },
+  "order": ["hero", "featured_duo", "passion", "collection_grid"]
+}

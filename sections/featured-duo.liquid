@@ -1,0 +1,58 @@
+{% assign featured_coll = collections[section.settings.collection] %}
+
+<!-- Tokyo Drift Featured -->
+<section class="bg-surface py-32 px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
+      <h2 class="font-headline text-4xl md:text-6xl uppercase font-black tracking-tighter">
+        {{ section.settings.title_line1 }}<br>
+        <span class="text-primary-fixed-dim">{{ section.settings.title_line2 }}</span>
+      </h2>
+      <p class="max-w-md text-tertiary-container font-body leading-relaxed">
+        {{ section.settings.description }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {% for product in featured_coll.products limit: 2 %}
+        <div class="group relative overflow-hidden bg-surface-container-low">
+          <div class="aspect-[4/5] overflow-hidden">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '800x1000', crop: 'center' }}"
+                   alt="{{ product.featured_image.alt | escape }}"
+                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+            {% else %}
+              <div class="w-full h-full bg-surface-container-highest"></div>
+            {% endif %}
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-background to-transparent translate-y-4 group-hover:translate-y-0 transition-transform">
+            <div class="flex justify-between items-end">
+              <div>
+                <span class="text-primary text-xs tracking-widest font-bold uppercase">{{ product.type }}</span>
+                <h3 class="font-headline text-2xl uppercase font-bold mt-2">
+                  <a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a>
+                </h3>
+              </div>
+              <span class="text-2xl font-headline font-bold">{{ product.price | money }}</span>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <p class="col-span-2 text-white/30 text-center py-20">Kollektion im Theme-Editor auswählen.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Duo",
+  "settings": [
+    { "type": "collection", "id": "collection",    "label": "Kollektion" },
+    { "type": "text",       "id": "title_line1",   "label": "Titel Zeile 1",   "default": "Tokyo Drift" },
+    { "type": "text",       "id": "title_line2",   "label": "Titel Zeile 2",   "default": "Edition" },
+    { "type": "textarea",   "id": "description",   "label": "Beschreibung",    "default": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed." }
+  ],
+  "presets": [{ "name": "Featured Duo" }]
+}
+{% endschema %}
