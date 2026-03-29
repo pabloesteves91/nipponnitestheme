@@ -1,1 +1,42 @@
-{"current":{"color_primary":"#F05241","color_background":"#131313","color_card":"#1b1b1b","color_accent":"#ffb4a9"},"presets":{}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "color_primary": "#F05241",
+    "color_background": "#131313",
+    "color_card": "#1b1b1b",
+    "color_accent": "#ffb4a9",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": true,
+          "announcement_text": "Free shipping on orders over ¥10,000 🇯🇵"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/logo_nippon.png",
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "tagline": "Premium streetwear for those who run the night.",
+          "footer_menu": "footer"
+        }
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {}
+}

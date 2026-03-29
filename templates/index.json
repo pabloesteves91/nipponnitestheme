@@ -1,21 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
-        "badge":              "Limited Drop 001",
-        "headline_line1":    "BESTELLE DEINEN",
-        "headline_outline":  "EIGENEN",
-        "headline_line2":    "HOODIE",
+        "bg_image": "shopify://shop_images/Guide-to-Experience-Tokyo-Nightlife-1.jpg",
+        "bg_image_alt": "Tokyo night street",
+        "badge": "Limited Drop 001",
+        "headline_line1": "BESTELLE DEINEN",
+        "headline_outline": "EIGENEN",
+        "headline_line2": "HOODIE",
         "cta_primary_label": "Dein Hoodie",
-        "cta_primary_url":   "/collections/all",
-        "cta_secondary_label":"Lookbook",
+        "cta_primary_url": "/collections/all",
+        "cta_secondary_label": "Lookbook",
         "cta_secondary_url": "/pages/brand-story"
       }
     },
     "featured_duo": {
       "type": "featured-duo",
       "settings": {
+        "collection": "custom",
         "title_line1": "Tokyo Drift",
         "title_line2": "Edition",
         "description": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed."
@@ -24,20 +36,26 @@
     "passion": {
       "type": "passion-banner",
       "settings": {
-        "bg_text":        "PASSION",
+        "bg_text": "PASSION",
         "headline_line1": "PASSION IS NOT",
         "headline_line2": "A CRIME.",
-        "subline":        "Street Heritage // 2024"
+        "subline": "Street Heritage // 2024"
       }
     },
     "collection_grid": {
       "type": "featured-collection",
       "settings": {
-        "eyebrow":          "Kollektion",
-        "title":            "Unsere Hoodies",
+        "eyebrow": "Kollektion",
+        "title": "Unsere Hoodies",
+        "collection": "",
         "products_to_show": 8
       }
     }
   },
-  "order": ["hero", "featured_duo", "passion", "collection_grid"]
+  "order": [
+    "hero",
+    "featured_duo",
+    "passion",
+    "collection_grid"
+  ]
 }
