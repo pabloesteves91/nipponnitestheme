@@ -1,27 +1,188 @@
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-  <div class="mb-12">
-    <h1 class="font-display font-black text-5xl text-white">{{ collection.title }}</h1>
-    {% if collection.description != blank %}<p class="text-white/50 mt-4 max-w-2xl">{{ collection.description }}</p>{% endif %}
-    <p class="text-white/30 text-sm mt-2">{{ collection.products_count }} products</p>
+{% paginate collection.products by 12 %}
+
+<!-- Hero / Breadcrumb -->
+<section class="px-8 py-16 bg-[#1b1b1b]">
+  <div class="max-w-screen-xl mx-auto">
+    <span class="font-label tracking-[0.2em] uppercase text-primary mb-4 block text-sm">
+      {{ 'collections.general.catalog' | t | default: 'Collection' }} / {{ collection.title }}
+    </span>
+    <h1 class="text-6xl md:text-8xl font-black font-headline uppercase tracking-tighter mb-8 leading-none">
+      {{ collection.title }}
+    </h1>
+    {% if collection.description != blank %}
+      <p class="text-white/50 max-w-xl font-body leading-relaxed">{{ collection.description }}</p>
+    {% endif %}
   </div>
-  {% if collection.products.size > 0 %}
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-      {% for product in collection.products %}
-        <div class="group bg-card rounded-sm overflow-hidden card-glow">
-          <a href="{{ product.url }}" class="block relative overflow-hidden aspect-square">
-            {% if product.featured_image %}<img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            {% else %}<div class="w-full h-full bg-white/5 flex items-center justify-center text-white/20 font-display text-xs">No image</div>{% endif %}
-            {% if product.compare_at_price > product.price %}<span class="absolute top-2 left-2 bg-primary text-white text-xs font-display font-bold px-2 py-1 uppercase">Sale</span>{% endif %}
-          </a>
-          <div class="p-4">
-            <h3 class="font-display font-bold text-sm text-white truncate mb-1"><a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a></h3>
-            <span class="text-white font-bold text-sm">{{ product.price | money }}</span>
-          </div>
-        </div>
-      {% endfor %}
+</section>
+
+<!-- Product Listing -->
+<section class="max-w-screen-xl mx-auto px-8 py-12 flex flex-col md:flex-row gap-12">
+
+  <!-- Sidebar -->
+  <aside class="w-full md:w-64 shrink-0 space-y-12">
+    <!-- Sort -->
+    <div>
+      <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Sort By</h3>
+      <select
+        onchange="window.location = '{{ collection.url }}?sort_by=' + this.value"
+        class="w-full bg-[#1b1b1b] border border-[#5a403d] text-sm font-headline uppercase tracking-widest text-primary focus:ring-0 cursor-pointer py-3 px-4"
+      >
+        <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>Featured</option>
+        <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest Arrivals</option>
+        <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
+        <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
+        <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+      </select>
     </div>
-  {% else %}
-    <p class="text-white/40 text-center py-24">No products in this collection yet.</p>
-  {% endif %}
-</div>
-{% schema %}{"name":"Main Collection","settings":[]}{% endschema %}
+
+    <!-- Product Count -->
+    <div class="bg-[#1b1b1b] p-6 border-l-4 border-primary">
+      <p class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50 mb-1">Products Found</p>
+      <p class="font-headline font-black text-3xl text-primary">{{ collection.products_count }}</p>
+    </div>
+
+    <!-- Back to All -->
+    {% unless collection.handle == 'all' %}
+      <a href="/collections/all" class="flex items-center gap-3 font-headline font-bold text-xs tracking-widest uppercase text-white/40 hover:text-primary transition-colors">
+        <span class="material-symbols-outlined text-sm">arrow_back</span>
+        All Products
+      </a>
+    {% endunless %}
+  </aside>
+
+  <!-- Product Grid -->
+  <div class="flex-1">
+    <div class="flex justify-between items-center mb-12 border-b border-[#353535] pb-4">
+      <span class="text-xs font-headline uppercase tracking-widest text-white/50">
+        {{ paginate.items }} {{ 'products.general.products' | t | default: 'Products' }}
+      </span>
+    </div>
+
+    {% if collection.products.size > 0 %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
+        {% for product in collection.products %}
+          <div class="group relative">
+            <div class="aspect-[3/4] overflow-hidden bg-[#1b1b1b] mb-6 relative">
+              <a href="{{ product.url }}">
+                {% if product.featured_image %}
+                  <img
+                    src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  >
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center text-white/10 font-headline text-xs uppercase">No image</div>
+                {% endif %}
+              </a>
+
+              {% if product.available == false %}
+                <div class="absolute top-4 left-4">
+                  <span class="bg-[#353535] text-white/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest">Sold Out</span>
+                </div>
+              {% elsif product.compare_at_price > product.price %}
+                <div class="absolute top-4 left-4">
+                  <span class="bg-primary text-[#410000] px-3 py-1 text-[10px] font-black uppercase tracking-widest">Sale</span>
+                </div>
+              {% elsif product.created_at > 'now' | date: '%s' | minus: 2592000 | date: '%Y-%m-%dT%H:%M:%SZ' %}
+                <div class="absolute top-4 left-4">
+                  <span class="bg-primary text-[#410000] px-3 py-1 text-[10px] font-black uppercase tracking-widest">New Drop</span>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-start gap-4">
+                <h3 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                <span class="font-body text-sm font-light text-white/70 shrink-0">{{ product.price | money }}</span>
+              </div>
+              {% if product.type != blank %}
+                <p class="text-xs text-white/40 font-body uppercase tracking-tighter">{{ product.type }}</p>
+              {% endif %}
+              <a
+                href="{{ product.url }}"
+                class="block w-full mt-4 py-4 bg-[#353535] border border-[#5a403d] hover:bg-primary hover:text-[#410000] font-headline uppercase text-xs tracking-[0.2em] text-center transition-all active:scale-[0.98]"
+              >
+                {% if product.available %}
+                  View Product
+                {% else %}
+                  Sold Out
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if paginate.pages > 1 %}
+        <div class="mt-20 flex justify-center items-center space-x-4">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="w-12 h-12 flex items-center justify-center border border-[#5a403d] text-white/50 hover:text-primary transition-colors">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+          {% else %}
+            <span class="w-12 h-12 flex items-center justify-center border border-[#353535] text-white/20">
+              <span class="material-symbols-outlined">chevron_left</span>
+            </span>
+          {% endif %}
+
+          {% for part in paginate.parts %}
+            {% if part.is_link %}
+              <a href="{{ part.url }}" class="w-12 h-12 flex items-center justify-center border border-[#5a403d] text-white/50 hover:text-primary transition-colors font-headline font-bold">{{ part.title }}</a>
+            {% elsif part.title == paginate.current_page %}
+              <span class="w-12 h-12 flex items-center justify-center bg-primary text-[#410000] font-headline font-bold">{{ part.title }}</span>
+            {% else %}
+              <span class="w-12 h-12 flex items-center justify-center text-white/20 font-headline font-bold">{{ part.title }}</span>
+            {% endif %}
+          {% endfor %}
+
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="w-12 h-12 flex items-center justify-center border border-[#5a403d] text-white/50 hover:text-primary transition-colors">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+          {% else %}
+            <span class="w-12 h-12 flex items-center justify-center border border-[#353535] text-white/20">
+              <span class="material-symbols-outlined">chevron_right</span>
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+    {% else %}
+      <div class="text-center py-32">
+        <p class="font-headline text-4xl font-black uppercase tracking-tighter text-white/20">No products yet.</p>
+        <a href="/collections/all" class="inline-block mt-8 px-12 py-4 bg-gradient-to-r from-primary to-[#fb5a48] text-[#410000] font-headline font-black uppercase tracking-widest">
+          View All
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Marquee Banner -->
+<section class="py-16 bg-[#0e0e0e] overflow-hidden">
+  <div class="whitespace-nowrap flex">
+    <span class="font-headline font-black text-[8vw] text-[#353535] uppercase leading-none px-8 animate-[marquee_20s_linear_infinite]">
+      PASSION IS NOT A CRIME •&nbsp;
+    </span>
+    <span class="font-headline font-black text-[8vw] text-[#353535] uppercase leading-none px-8 animate-[marquee_20s_linear_infinite]">
+      PASSION IS NOT A CRIME •&nbsp;
+    </span>
+  </div>
+</section>
+
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection Page"
+    }
+  ]
+}
+{% endschema %}
