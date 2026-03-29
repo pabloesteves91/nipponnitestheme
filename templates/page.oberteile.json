@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-oberteile",
+      "settings": {
+        "title": "Oberteile",
+        "subtitle": "Hoodies, T-Shirts und mehr. Hand-illustriert. Bio-Baumwolle."
+      }
+    }
+  },
+  "order": ["main"]
+}
