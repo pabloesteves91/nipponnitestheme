@@ -1,6 +1,18 @@
 {% assign col = collections[section.settings.collection_handle] %}
 {% assign products = col.products | default: collections.all.products %}
 
+{% comment %} Build unique product types {% endcomment %}
+{% assign product_types_raw = '' %}
+{% for product in products %}
+  {% if product.type != blank %}
+    {% assign pt_lower = product.type | downcase %}
+    {% unless product_types_raw contains pt_lower %}
+      {% assign product_types_raw = product_types_raw | append: product.type | append: '|||' %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% assign type_array = product_types_raw | split: '|||' %}
+
 <!-- Hero -->
 <section class="px-8 py-16 bg-surface-container-low">
   <div class="max-w-screen-xl mx-auto">
@@ -21,12 +33,39 @@
   <aside class="w-full md:w-64 shrink-0 space-y-12">
     <div class="bg-surface-container-low p-6 border-l-4 border-primary">
       <p class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50 mb-1">Produkte</p>
-      <p class="font-headline font-black text-3xl text-primary">{{ products.size }}</p>
+      <p id="product-count" class="font-headline font-black text-3xl text-primary">{{ products.size }}</p>
     </div>
-    <a href="/collections/all" class="flex items-center gap-3 font-headline font-bold text-xs tracking-widest uppercase text-white/40 hover:text-primary transition-colors">
-      <span class="material-symbols-outlined text-sm">arrow_back</span>
-      Alle Produkte
-    </a>
+
+    <!-- Filter Tabs -->
+    {% if type_array.size > 0 %}
+      <div>
+        <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Filter</h3>
+        <div class="flex flex-col gap-2">
+          <button
+            onclick="filterProducts('all', this)"
+            data-filter="all"
+            class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-primary bg-primary text-[#410000] transition-all"
+          >
+            Alle ({{ products.size }})
+          </button>
+          {% for type in type_array %}
+            {% if type != blank %}
+              {% assign type_count = 0 %}
+              {% for p in products %}
+                {% if p.type == type %}{% assign type_count = type_count | plus: 1 %}{% endif %}
+              {% endfor %}
+              <button
+                onclick="filterProducts('{{ type | downcase | escape }}', this)"
+                data-filter="{{ type | downcase | escape }}"
+                class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-[#5a403d] text-white/50 hover:text-primary hover:border-primary transition-all"
+              >
+                {{ type }} ({{ type_count }})
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
   </aside>
 
   <!-- Grid -->
@@ -34,7 +73,7 @@
     {% if products.size > 0 %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
         {% for product in products %}
-          <div class="group relative">
+          <div class="group relative product-card" data-type="{{ product.type | downcase | escape }}">
             <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6 relative">
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
@@ -58,15 +97,15 @@
               {% endif %}
             </div>
             <div class="space-y-2">
+              {% if product.type != blank %}
+                <p class="text-[10px] text-primary font-headline font-bold uppercase tracking-[0.2em]">{{ product.type }}</p>
+              {% endif %}
               <div class="flex justify-between items-start gap-4">
                 <h3 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">
                   <a href="{{ product.url }}">{{ product.title }}</a>
                 </h3>
                 <span class="font-body text-sm font-light text-white/70 shrink-0">{{ product.price | money }}</span>
               </div>
-              {% if product.type != blank %}
-                <p class="text-xs text-white/40 font-body uppercase tracking-tighter">{{ product.type }}</p>
-              {% endif %}
               <a
                 href="{{ product.url }}"
                 class="block w-full mt-4 py-4 bg-surface-container-highest border border-outline-variant hover:bg-primary hover:text-on-primary-fixed font-headline uppercase text-xs tracking-[0.2em] text-center transition-all active:scale-[0.98]"
@@ -96,32 +135,36 @@
   </div>
 </section>
 
+<script>
+function filterProducts(type, btn) {
+  document.querySelectorAll('.filter-tab').forEach(function(b) {
+    b.classList.remove('bg-primary', 'text-[#410000]', 'border-primary');
+    b.classList.add('text-white/50', 'border-[#5a403d]');
+  });
+  btn.classList.remove('text-white/50', 'border-[#5a403d]');
+  btn.classList.add('bg-primary', 'text-[#410000]', 'border-primary');
+  var cards = document.querySelectorAll('.product-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    if (type === 'all' || card.dataset.type === type) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  document.getElementById('product-count').textContent = visible;
+}
+</script>
+
 {% schema %}
 {
   "name": "Oberteile Page",
   "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Seitentitel",
-      "default": "Oberteile"
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Untertitel",
-      "default": "Hoodies, T-Shirts und mehr. Hand-illustriert. Bio-Baumwolle."
-    },
-    {
-      "type": "collection",
-      "id": "collection_handle",
-      "label": "Collection anzeigen"
-    }
+    { "type": "text", "id": "title", "label": "Seitentitel", "default": "Oberteile" },
+    { "type": "text", "id": "subtitle", "label": "Untertitel", "default": "Hoodies, T-Shirts und mehr. Hand-illustriert. Bio-Baumwolle." },
+    { "type": "collection", "id": "collection_handle", "label": "Collection anzeigen" }
   ],
-  "presets": [
-    {
-      "name": "Oberteile Page"
-    }
-  ]
+  "presets": [{ "name": "Oberteile Page" }]
 }
 {% endschema %}
