@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-brand-story",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
