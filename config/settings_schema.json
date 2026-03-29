@@ -1,0 +1,14 @@
+[
+  {"name":"theme_info","theme_name":"NIPPON NITES – Night Runner","theme_version":"1.0.0","theme_author":"Stitch AI","theme_documentation_url":"https://stitch.withgoogle.com","theme_support_url":"https://stitch.withgoogle.com"},
+  {"name":"Colors","settings":[
+    {"type":"color","id":"color_primary","label":"Primary (Red)","default":"#F05241"},
+    {"type":"color","id":"color_background","label":"Page Background","default":"#131313"},
+    {"type":"color","id":"color_card","label":"Card Background","default":"#1b1b1b"},
+    {"type":"color","id":"color_accent","label":"Accent","default":"#ffb4a9"}
+  ]},
+  {"name":"Social Media","settings":[
+    {"type":"url","id":"social_instagram","label":"Instagram URL"},
+    {"type":"url","id":"social_twitter","label":"Twitter / X URL"},
+    {"type":"url","id":"social_tiktok","label":"TikTok URL"}
+  ]}
+]

@@ -1,0 +1,38 @@
+<header class="sticky top-0 z-50 bg-night/90 backdrop-blur border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="/" class="flex items-center gap-2 no-underline">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="h-8 w-auto object-contain">
+        {% else %}
+          <span class="font-display font-black text-xl tracking-tight text-white">{{ shop.name | upcase }}</span>
+        {% endif %}
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        {% for link in linklists[section.settings.menu].links %}
+          <a href="{{ link.url }}" class="text-sm font-display font-bold uppercase tracking-widest text-white/70 hover:text-primary transition-colors">{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+      <div class="flex items-center gap-4">
+        <a href="/search" class="text-white/70 hover:text-white transition-colors" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg>
+        </a>
+        <a href="/cart" class="relative text-white/70 hover:text-white transition-colors" aria-label="Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span data-cart-count class="cart-badge" hidden>0</span>
+        </a>
+        <button id="mobile-menu-btn" class="md:hidden text-white/70 hover:text-white" aria-expanded="false" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <nav id="mobile-nav" class="hidden md:hidden border-t border-white/10 bg-night">
+    <div class="px-4 py-4 flex flex-col gap-4">
+      {% for link in linklists[section.settings.menu].links %}
+        <a href="{{ link.url }}" class="text-sm font-display font-bold uppercase tracking-widest text-white/70 hover:text-primary transition-colors">{{ link.title }}</a>
+      {% endfor %}
+    </div>
+  </nav>
+</header>
+{% schema %}{"name":"Header","settings":[{"type":"image_picker","id":"logo","label":"Logo image"},{"type":"link_list","id":"menu","label":"Navigation menu","default":"main-menu"}]}{% endschema %}

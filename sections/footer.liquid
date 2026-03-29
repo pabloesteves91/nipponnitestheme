@@ -1,0 +1,28 @@
+<footer class="border-t border-white/10 mt-24">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <div>
+        <p class="font-display font-black text-2xl text-white mb-4">{{ shop.name | upcase }}</p>
+        <p class="text-white/50 text-sm leading-relaxed">{{ section.settings.tagline }}</p>
+      </div>
+      <div>
+        <p class="font-display font-bold text-xs uppercase tracking-widest text-white/40 mb-4">Navigate</p>
+        <ul class="space-y-2">
+          {% for link in linklists[section.settings.footer_menu].links %}
+            <li><a href="{{ link.url }}" class="text-white/60 hover:text-primary text-sm transition-colors">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <p class="font-display font-bold text-xs uppercase tracking-widest text-white/40 mb-4">Legal</p>
+        <ul class="space-y-2">
+          {% for policy in shop.policies %}{% if policy.body != blank %}<li><a href="{{ policy.url }}" class="text-white/60 hover:text-primary text-sm transition-colors">{{ policy.title }}</a></li>{% endif %}{% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-white/30 text-xs">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+{% schema %}{"name":"Footer","settings":[{"type":"text","id":"tagline","label":"Brand tagline","default":"Premium streetwear for those who run the night."},{"type":"link_list","id":"footer_menu","label":"Footer navigation","default":"footer"}]}{% endschema %}

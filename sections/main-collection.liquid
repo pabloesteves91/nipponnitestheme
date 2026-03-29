@@ -1,0 +1,27 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="mb-12">
+    <h1 class="font-display font-black text-5xl text-white">{{ collection.title }}</h1>
+    {% if collection.description != blank %}<p class="text-white/50 mt-4 max-w-2xl">{{ collection.description }}</p>{% endif %}
+    <p class="text-white/30 text-sm mt-2">{{ collection.products_count }} products</p>
+  </div>
+  {% if collection.products.size > 0 %}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {% for product in collection.products %}
+        <div class="group bg-card rounded-sm overflow-hidden card-glow">
+          <a href="{{ product.url }}" class="block relative overflow-hidden aspect-square">
+            {% if product.featured_image %}<img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            {% else %}<div class="w-full h-full bg-white/5 flex items-center justify-center text-white/20 font-display text-xs">No image</div>{% endif %}
+            {% if product.compare_at_price > product.price %}<span class="absolute top-2 left-2 bg-primary text-white text-xs font-display font-bold px-2 py-1 uppercase">Sale</span>{% endif %}
+          </a>
+          <div class="p-4">
+            <h3 class="font-display font-bold text-sm text-white truncate mb-1"><a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a></h3>
+            <span class="text-white font-bold text-sm">{{ product.price | money }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-white/40 text-center py-24">No products in this collection yet.</p>
+  {% endif %}
+</div>
+{% schema %}{"name":"Main Collection","settings":[]}{% endschema %}

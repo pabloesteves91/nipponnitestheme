@@ -1,0 +1,40 @@
+{% assign coll = collections[section.settings.collection] %}
+<section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex items-end justify-between mb-12">
+    <div>
+      <p class="font-display text-primary text-sm font-bold uppercase tracking-[0.3em] mb-2">{{ section.settings.eyebrow | default: 'Featured' }}</p>
+      <h2 class="font-display font-black text-4xl md:text-5xl text-white">{{ section.settings.title | default: coll.title }}</h2>
+    </div>
+    {% if coll != blank %}<a href="{{ coll.url }}" class="btn-outline hidden md:inline-flex">View All</a>{% endif %}
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+    {% assign products = coll.products | default: collections.all.products %}
+    {% for product in products limit: section.settings.products_to_show %}
+      <div class="group bg-card rounded-sm overflow-hidden card-glow">
+        <a href="{{ product.url }}" class="block relative overflow-hidden aspect-square">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out">
+          {% else %}
+            <div class="w-full h-full bg-white/5 flex items-center justify-center text-white/20 font-display text-xs uppercase tracking-widest">No image</div>
+          {% endif %}
+          {% if product.compare_at_price > product.price %}<span class="absolute top-2 left-2 bg-primary text-white text-xs font-display font-bold px-2 py-1 uppercase">Sale</span>{% endif %}
+        </a>
+        <div class="p-4">
+          <h3 class="font-display font-bold text-sm text-white truncate mb-1"><a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a></h3>
+          <div class="flex items-center gap-2">
+            <span class="text-white font-bold text-sm">{{ product.price | money }}</span>
+            {% if product.compare_at_price > product.price %}<span class="text-white/40 line-through text-xs">{{ product.compare_at_price | money }}</span>{% endif %}
+          </div>
+          {% if product.variants.size == 1 %}
+            <form action="/cart/add" method="post" class="mt-3"><input type="hidden" name="id" value="{{ product.variants.first.id }}"><button type="submit" class="btn-primary w-full text-xs py-2">Add to Cart</button></form>
+          {% else %}
+            <a href="{{ product.url }}" class="btn-outline w-full text-xs py-2 mt-3 text-center block">Select Options</a>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <p class="col-span-full text-white/40 text-center py-12">No products found.</p>
+    {% endfor %}
+  </div>
+</section>
+{% schema %}{"name":"Featured Collection","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow text","default":"Featured"},{"type":"text","id":"title","label":"Section title","default":"Shop the Drop"},{"type":"collection","id":"collection","label":"Collection"},{"type":"range","id":"products_to_show","label":"Products to show","min":4,"max":12,"step":4,"default":8}],"presets":[{"name":"Featured Collection"}]}{% endschema %}
