@@ -1,22 +1,24 @@
 {% assign col = collections[section.settings.collection_handle] %}
 {% assign products = col.products | default: collections.all.products %}
 
-{% comment %} Build unique product types {% endcomment %}
-{% assign product_types_raw = '' %}
+{% comment %} Build unique collections from all products {% endcomment %}
+{% assign seen_colls = '' %}
+{% assign coll_data = '' %}
 {% for product in products %}
-  {% if product.type != blank %}
-    {% assign pt_lower = product.type | downcase %}
-    {% unless product_types_raw contains pt_lower %}
-      {% assign product_types_raw = product_types_raw | append: product.type | append: '|||' %}
+  {% for c in product.collections %}
+    {% assign check = '|' | append: c.handle | append: '|' %}
+    {% unless seen_colls contains check %}
+      {% assign seen_colls = seen_colls | append: check %}
+      {% assign coll_data = coll_data | append: c.title | append: ':::' | append: c.handle | append: '|||' %}
     {% endunless %}
-  {% endif %}
+  {% endfor %}
 {% endfor %}
-{% assign type_array = product_types_raw | split: '|||' %}
+{% assign coll_array = coll_data | split: '|||' %}
 
 <!-- Hero -->
 <section class="px-8 py-16 bg-surface-container-low">
   <div class="max-w-screen-xl mx-auto">
-    <span class="font-label tracking-[0.2em] uppercase text-primary mb-4 block text-sm">Streetwear / Oberteile</span>
+    <span class="font-label tracking-[0.2em] uppercase text-primary mb-4 block text-sm">Streetwear</span>
     <h1 class="text-6xl md:text-8xl font-black font-headline uppercase tracking-tighter mb-8 leading-none">
       {{ section.settings.title | default: 'Oberteile' }}
     </h1>
@@ -36,30 +38,36 @@
       <p id="product-count" class="font-headline font-black text-3xl text-primary">{{ products.size }}</p>
     </div>
 
-    <!-- Filter Tabs -->
-    {% if type_array.size > 0 %}
+    <!-- Collection Filter Tabs -->
+    {% if coll_array.size > 0 %}
       <div>
-        <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Filter</h3>
+        <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Kollektion</h3>
         <div class="flex flex-col gap-2">
           <button
-            onclick="filterProducts('all', this)"
+            onclick="filterByCollection('all', this)"
             data-filter="all"
             class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-primary bg-primary text-[#410000] transition-all"
           >
             Alle ({{ products.size }})
           </button>
-          {% for type in type_array %}
-            {% if type != blank %}
-              {% assign type_count = 0 %}
+          {% for entry in coll_array %}
+            {% if entry != blank %}
+              {% assign parts = entry | split: ':::' %}
+              {% assign coll_title = parts[0] %}
+              {% assign coll_handle = parts[1] %}
+              {% comment %} Count products in this collection {% endcomment %}
+              {% assign coll_count = 0 %}
               {% for p in products %}
-                {% if p.type == type %}{% assign type_count = type_count | plus: 1 %}{% endif %}
+                {% for c in p.collections %}
+                  {% if c.handle == coll_handle %}{% assign coll_count = coll_count | plus: 1 %}{% endif %}
+                {% endfor %}
               {% endfor %}
               <button
-                onclick="filterProducts('{{ type | downcase | escape }}', this)"
-                data-filter="{{ type | downcase | escape }}"
+                onclick="filterByCollection('{{ coll_handle | escape }}', this)"
+                data-filter="{{ coll_handle | escape }}"
                 class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-[#5a403d] text-white/50 hover:text-primary hover:border-primary transition-all"
               >
-                {{ type }} ({{ type_count }})
+                {{ coll_title }} ({{ coll_count }})
               </button>
             {% endif %}
           {% endfor %}
@@ -73,7 +81,12 @@
     {% if products.size > 0 %}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
         {% for product in products %}
-          <div class="group relative product-card" data-type="{{ product.type | downcase | escape }}">
+          {% comment %} Build collection handles string for this product {% endcomment %}
+          {% assign product_colls = '' %}
+          {% for c in product.collections %}
+            {% assign product_colls = product_colls | append: c.handle | append: ' ' %}
+          {% endfor %}
+          <div class="group relative product-card" data-collections="{{ product_colls | strip }}">
             <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6 relative">
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
@@ -136,17 +149,19 @@
 </section>
 
 <script>
-function filterProducts(type, btn) {
+function filterByCollection(handle, btn) {
   document.querySelectorAll('.filter-tab').forEach(function(b) {
     b.classList.remove('bg-primary', 'text-[#410000]', 'border-primary');
     b.classList.add('text-white/50', 'border-[#5a403d]');
   });
   btn.classList.remove('text-white/50', 'border-[#5a403d]');
   btn.classList.add('bg-primary', 'text-[#410000]', 'border-primary');
+
   var cards = document.querySelectorAll('.product-card');
   var visible = 0;
   cards.forEach(function(card) {
-    if (type === 'all' || card.dataset.type === type) {
+    var colls = card.dataset.collections ? card.dataset.collections.split(' ') : [];
+    if (handle === 'all' || colls.indexOf(handle) !== -1) {
       card.style.display = '';
       visible++;
     } else {
