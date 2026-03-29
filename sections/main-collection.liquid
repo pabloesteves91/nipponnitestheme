@@ -1,10 +1,22 @@
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 50 %}
+
+{% comment %} Build unique product types for filter tabs {% endcomment %}
+{% assign product_types_raw = '' %}
+{% for product in collection.products %}
+  {% if product.type != blank %}
+    {% assign pt_lower = product.type | downcase %}
+    {% unless product_types_raw contains pt_lower %}
+      {% assign product_types_raw = product_types_raw | append: product.type | append: '|||' %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% assign type_array = product_types_raw | split: '|||' %}
 
 <!-- Hero / Breadcrumb -->
 <section class="px-8 py-16 bg-[#1b1b1b]">
   <div class="max-w-screen-xl mx-auto">
     <span class="font-label tracking-[0.2em] uppercase text-primary mb-4 block text-sm">
-      {{ 'collections.general.catalog' | t | default: 'Collection' }} / {{ collection.title }}
+      Collection / {{ collection.title }}
     </span>
     <h1 class="text-6xl md:text-8xl font-black font-headline uppercase tracking-tighter mb-8 leading-none">
       {{ collection.title }}
@@ -20,48 +32,68 @@
 
   <!-- Sidebar -->
   <aside class="w-full md:w-64 shrink-0 space-y-12">
+
+    <!-- Product Count -->
+    <div class="bg-[#1b1b1b] p-6 border-l-4 border-primary">
+      <p class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50 mb-1">Produkte</p>
+      <p id="product-count" class="font-headline font-black text-3xl text-primary">{{ collection.products_count }}</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    {% if type_array.size > 0 %}
+      <div>
+        <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Filter</h3>
+        <div class="flex flex-col gap-2">
+          <button
+            onclick="filterProducts('all', this)"
+            data-filter="all"
+            class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-primary bg-primary text-[#410000] transition-all"
+          >
+            Alle ({{ collection.products_count }})
+          </button>
+          {% for type in type_array %}
+            {% if type != blank %}
+              {% assign type_count = 0 %}
+              {% for p in collection.products %}
+                {% if p.type == type %}{% assign type_count = type_count | plus: 1 %}{% endif %}
+              {% endfor %}
+              <button
+                onclick="filterProducts('{{ type | downcase | escape }}', this)"
+                data-filter="{{ type | downcase | escape }}"
+                class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-[#5a403d] text-white/50 hover:text-primary hover:border-primary transition-all"
+              >
+                {{ type }} ({{ type_count }})
+              </button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
     <!-- Sort -->
     <div>
-      <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Sort By</h3>
+      <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Sortieren</h3>
       <select
         onchange="window.location = '{{ collection.url }}?sort_by=' + this.value"
         class="w-full bg-[#1b1b1b] border border-[#5a403d] text-sm font-headline uppercase tracking-widest text-primary focus:ring-0 cursor-pointer py-3 px-4"
       >
         <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>Featured</option>
-        <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Newest Arrivals</option>
-        <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Price: Low to High</option>
-        <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Price: High to Low</option>
-        <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Best Selling</option>
+        <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Neueste</option>
+        <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Preis aufsteigend</option>
+        <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Preis absteigend</option>
+        <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Bestseller</option>
       </select>
     </div>
 
-    <!-- Product Count -->
-    <div class="bg-[#1b1b1b] p-6 border-l-4 border-primary">
-      <p class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50 mb-1">Products Found</p>
-      <p class="font-headline font-black text-3xl text-primary">{{ collection.products_count }}</p>
-    </div>
-
-    <!-- Back to All -->
-    {% unless collection.handle == 'all' %}
-      <a href="/collections/all" class="flex items-center gap-3 font-headline font-bold text-xs tracking-widest uppercase text-white/40 hover:text-primary transition-colors">
-        <span class="material-symbols-outlined text-sm">arrow_back</span>
-        All Products
-      </a>
-    {% endunless %}
   </aside>
 
   <!-- Product Grid -->
   <div class="flex-1">
-    <div class="flex justify-between items-center mb-12 border-b border-[#353535] pb-4">
-      <span class="text-xs font-headline uppercase tracking-widest text-white/50">
-        {{ paginate.items }} {{ 'products.general.products' | t | default: 'Products' }}
-      </span>
-    </div>
 
     {% if collection.products.size > 0 %}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
+      <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
         {% for product in collection.products %}
-          <div class="group relative">
+          <div class="group relative product-card" data-type="{{ product.type | downcase | escape }}">
             <div class="aspect-[3/4] overflow-hidden bg-[#1b1b1b] mb-6 relative">
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
@@ -83,31 +115,27 @@
                 <div class="absolute top-4 left-4">
                   <span class="bg-primary text-[#410000] px-3 py-1 text-[10px] font-black uppercase tracking-widest">Sale</span>
                 </div>
-              {% elsif product.created_at > 'now' | date: '%s' | minus: 2592000 | date: '%Y-%m-%dT%H:%M:%SZ' %}
-                <div class="absolute top-4 left-4">
-                  <span class="bg-primary text-[#410000] px-3 py-1 text-[10px] font-black uppercase tracking-widest">New Drop</span>
-                </div>
               {% endif %}
             </div>
 
             <div class="space-y-2">
+              {% if product.type != blank %}
+                <p class="text-[10px] text-primary font-headline font-bold uppercase tracking-[0.2em]">{{ product.type }}</p>
+              {% endif %}
               <div class="flex justify-between items-start gap-4">
                 <h3 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">
                   <a href="{{ product.url }}">{{ product.title }}</a>
                 </h3>
                 <span class="font-body text-sm font-light text-white/70 shrink-0">{{ product.price | money }}</span>
               </div>
-              {% if product.type != blank %}
-                <p class="text-xs text-white/40 font-body uppercase tracking-tighter">{{ product.type }}</p>
-              {% endif %}
               <a
                 href="{{ product.url }}"
                 class="block w-full mt-4 py-4 bg-[#353535] border border-[#5a403d] hover:bg-primary hover:text-[#410000] font-headline uppercase text-xs tracking-[0.2em] text-center transition-all active:scale-[0.98]"
               >
                 {% if product.available %}
-                  View Product
+                  Ansehen
                 {% else %}
-                  Sold Out
+                  Ausverkauft
                 {% endif %}
               </a>
             </div>
@@ -115,46 +143,11 @@
         {% endfor %}
       </div>
 
-      <!-- Pagination -->
-      {% if paginate.pages > 1 %}
-        <div class="mt-20 flex justify-center items-center space-x-4">
-          {% if paginate.previous %}
-            <a href="{{ paginate.previous.url }}" class="w-12 h-12 flex items-center justify-center border border-[#5a403d] text-white/50 hover:text-primary transition-colors">
-              <span class="material-symbols-outlined">chevron_left</span>
-            </a>
-          {% else %}
-            <span class="w-12 h-12 flex items-center justify-center border border-[#353535] text-white/20">
-              <span class="material-symbols-outlined">chevron_left</span>
-            </span>
-          {% endif %}
-
-          {% for part in paginate.parts %}
-            {% if part.is_link %}
-              <a href="{{ part.url }}" class="w-12 h-12 flex items-center justify-center border border-[#5a403d] text-white/50 hover:text-primary transition-colors font-headline font-bold">{{ part.title }}</a>
-            {% elsif part.title == paginate.current_page %}
-              <span class="w-12 h-12 flex items-center justify-center bg-primary text-[#410000] font-headline font-bold">{{ part.title }}</span>
-            {% else %}
-              <span class="w-12 h-12 flex items-center justify-center text-white/20 font-headline font-bold">{{ part.title }}</span>
-            {% endif %}
-          {% endfor %}
-
-          {% if paginate.next %}
-            <a href="{{ paginate.next.url }}" class="w-12 h-12 flex items-center justify-center border border-[#5a403d] text-white/50 hover:text-primary transition-colors">
-              <span class="material-symbols-outlined">chevron_right</span>
-            </a>
-          {% else %}
-            <span class="w-12 h-12 flex items-center justify-center border border-[#353535] text-white/20">
-              <span class="material-symbols-outlined">chevron_right</span>
-            </span>
-          {% endif %}
-        </div>
-      {% endif %}
-
     {% else %}
       <div class="text-center py-32">
-        <p class="font-headline text-4xl font-black uppercase tracking-tighter text-white/20">No products yet.</p>
+        <p class="font-headline text-4xl font-black uppercase tracking-tighter text-white/20">Keine Produkte.</p>
         <a href="/collections/all" class="inline-block mt-8 px-12 py-4 bg-gradient-to-r from-primary to-[#fb5a48] text-[#410000] font-headline font-black uppercase tracking-widest">
-          View All
+          Alle ansehen
         </a>
       </div>
     {% endif %}
@@ -175,14 +168,37 @@
 
 {% endpaginate %}
 
+<script>
+function filterProducts(type, btn) {
+  // Update tab styles
+  document.querySelectorAll('.filter-tab').forEach(function(b) {
+    b.classList.remove('bg-primary', 'text-[#410000]', 'border-primary');
+    b.classList.add('text-white/50', 'border-[#5a403d]');
+  });
+  btn.classList.remove('text-white/50', 'border-[#5a403d]');
+  btn.classList.add('bg-primary', 'text-[#410000]', 'border-primary');
+
+  // Show/hide cards
+  var cards = document.querySelectorAll('.product-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    if (type === 'all' || card.dataset.type === type) {
+      card.style.display = '';
+      visible++;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Update count
+  document.getElementById('product-count').textContent = visible;
+}
+</script>
+
 {% schema %}
 {
   "name": "Collection Page",
   "settings": [],
-  "presets": [
-    {
-      "name": "Collection Page"
-    }
-  ]
+  "presets": [{ "name": "Collection Page" }]
 }
 {% endschema %}
