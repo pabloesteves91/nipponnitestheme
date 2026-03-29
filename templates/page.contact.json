@@ -11,8 +11,16 @@
   "sections": {
     "main": {
       "type": "page-contact",
-      "settings": {}
+      "settings": {
+        "hq_image": "shopify://shop_images/shibuyya.png",
+        "instagram_url": "",
+        "twitter_url": "",
+        "discord_url": "",
+        "youtube_url": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

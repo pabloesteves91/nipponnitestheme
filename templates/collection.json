@@ -1,1 +1,35 @@
-{"sections":{"main":{"type":"main-collection","settings":{}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "disabled": true,
+      "settings": {}
+    },
+    "page_custom_Yk3G47": {
+      "type": "page-custom",
+      "name": "Custom Hoodie Page",
+      "settings": {
+        "cta_url": "",
+        "cta_label": "Start Designing",
+        "quality_image": "shopify://shop_images/IMG_0191.png",
+        "step1_image": "shopify://shop_images/step1.png",
+        "step2_image": "shopify://shop_images/step2.png",
+        "step3_image": "shopify://shop_images/step4.png",
+        "passion_image": "shopify://shop_images/modell.png"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_custom_Yk3G47"
+  ]
+}
