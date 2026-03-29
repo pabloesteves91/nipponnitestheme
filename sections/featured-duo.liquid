@@ -15,26 +15,28 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
       {% for product in featured_coll.products limit: 2 %}
-        <div class="group relative overflow-hidden bg-surface-container-low">
-          <div class="aspect-[4/5] overflow-hidden">
+        <div class="group">
+          <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '800x1000', crop: 'center' }}"
-                   alt="{{ product.featured_image.alt | escape }}"
-                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              <a href="{{ product.url }}" class="block w-full h-full">
+                <img src="{{ product.featured_image | img_url: '800x1000', crop: 'center' }}"
+                     alt="{{ product.featured_image.alt | escape }}"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              </a>
             {% else %}
               <div class="w-full h-full bg-surface-container-highest"></div>
             {% endif %}
           </div>
-          <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-background to-transparent translate-y-4 group-hover:translate-y-0 transition-transform">
-            <div class="flex justify-between items-end">
-              <div>
-                <span class="text-primary text-xs tracking-widest font-bold uppercase">{{ product.type }}</span>
-                <h3 class="font-headline text-2xl uppercase font-bold mt-2">
-                  <a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a>
-                </h3>
-              </div>
-              <span class="text-2xl font-headline font-bold">{{ product.price | money }}</span>
+          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
+            <div>
+              {% if product.type != blank %}
+                <span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ product.type }}</span>
+              {% endif %}
+              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
+                <a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a>
+              </h3>
             </div>
+            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{{ product.price | money }}</span>
           </div>
         </div>
       {% else %}
