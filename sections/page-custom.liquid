@@ -1,0 +1,213 @@
+<!-- Hero -->
+<section class="relative h-screen flex items-end overflow-hidden pt-20 bg-surface">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.hero_image != blank %}
+      <img
+        src="{{ section.settings.hero_image | img_url: '2000x' }}"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        class="w-full h-full object-cover brightness-50"
+      >
+    {% else %}
+      <div class="w-full h-full bg-surface-container-high"></div>
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+  </div>
+  <div class="relative z-10 w-full px-8 pb-16 md:pb-24 flex flex-col items-start max-w-7xl mx-auto">
+    <span class="font-label text-primary uppercase tracking-[0.4em] mb-4 text-sm">Individualität ohne Kompromisse</span>
+    <h1 class="font-headline text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.85] mb-8 max-w-4xl">
+      Bestelle deinen <span style="-webkit-text-stroke: 2px #ffb4a9; color: transparent;">eigenen</span> Hoodie
+    </h1>
+    <p class="font-body text-xl text-on-surface/70 max-w-xl mb-10 leading-relaxed">
+      Verwandle deine Vision in Realität. Wir kreieren Streetwear, die deine Leidenschaft für die Strasse widerspiegelt.
+    </p>
+    <a
+      href="{{ section.settings.cta_url | default: '/collections/custom' }}"
+      class="bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold uppercase py-6 px-12 tracking-wider hover:brightness-110 active:scale-95 transition-all"
+    >
+      {{ section.settings.cta_label | default: 'Jetzt anfragen' }}
+    </a>
+  </div>
+</section>
+
+<!-- Quality Section -->
+<section class="bg-surface py-32 px-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+    <div class="lg:col-span-7 relative">
+      <div class="aspect-[4/5] bg-surface-container-low overflow-hidden relative">
+        {% if section.settings.quality_image != blank %}
+          <img
+            src="{{ section.settings.quality_image | img_url: '1200x' }}"
+            alt="{{ section.settings.quality_image.alt | escape }}"
+            class="w-full h-full object-cover"
+          >
+        {% else %}
+          <div class="w-full h-full bg-surface-container-high"></div>
+        {% endif %}
+      </div>
+      <div class="absolute top-8 left-8 bg-surface-container-highest px-4 py-2 flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+        <span class="font-label text-xs uppercase tracking-widest">Premium Quality: 450GSM</span>
+      </div>
+    </div>
+    <div class="lg:col-span-5 flex flex-col justify-center">
+      <h2 class="font-headline text-4xl font-black uppercase mb-8 leading-tight">
+        Qualität, die den Drift übersteht.
+      </h2>
+      <div class="space-y-8">
+        <div class="group">
+          <div class="h-[1px] w-full bg-surface-variant group-hover:bg-primary transition-colors duration-500 mb-6"></div>
+          <h3 class="font-headline text-xl uppercase mb-2">Heavyweight Fabrics</h3>
+          <p class="text-on-surface/60">Ultradichter 450GSM Baumwoll-Mix für maximalen Komfort und Langlebigkeit.</p>
+        </div>
+        <div class="group">
+          <div class="h-[1px] w-full bg-surface-variant group-hover:bg-primary transition-colors duration-500 mb-6"></div>
+          <h3 class="font-headline text-xl uppercase mb-2">Hand-illustriert</h3>
+          <p class="text-on-surface/60">Kein KI. Jedes Design von Hand gezeichnet — einzigartig wie du.</p>
+        </div>
+        <div class="group">
+          <div class="h-[1px] w-full bg-surface-variant group-hover:bg-primary transition-colors duration-500 mb-6"></div>
+          <h3 class="font-headline text-xl uppercase mb-2">Bio-Baumwolle</h3>
+          <p class="text-on-surface/60">100% organisch. Für dich und den Planeten.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 Steps -->
+<section class="bg-surface-container-low py-32 px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+      <h2 class="font-headline text-5xl md:text-7xl font-black uppercase max-w-2xl leading-[0.9]">
+        Dein Weg zum<br>Unikat.
+      </h2>
+      <div class="text-primary font-headline text-6xl italic opacity-20">01—03</div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+      <div class="bg-surface-container border-r border-surface-variant p-12 flex flex-col min-h-[350px]">
+        <span class="font-headline text-primary text-4xl mb-8">01.</span>
+        <h3 class="font-headline text-2xl uppercase mb-4">Hoodie wählen</h3>
+        <p class="text-on-surface/60 flex-grow">Wähle aus unseren Basis-Modellen. Verschiedene Farben und Schnitte stehen als Leinwand bereit.</p>
+      </div>
+      <div class="bg-surface p-12 flex flex-col min-h-[350px]">
+        <span class="font-headline text-primary text-4xl mb-8">02.</span>
+        <h3 class="font-headline text-2xl uppercase mb-4">Design anfragen</h3>
+        <p class="text-on-surface/60 flex-grow">Schick uns deine Idee. Wir illustrieren dein Design von Hand — kein KI, echte Handarbeit.</p>
+      </div>
+      <div class="bg-surface-container border-l border-surface-variant p-12 flex flex-col min-h-[350px]">
+        <span class="font-headline text-primary text-4xl mb-8">03.</span>
+        <h3 class="font-headline text-2xl uppercase mb-4">Final Order</h3>
+        <p class="text-on-surface/60 flex-grow">Wir prüfen, produzieren und senden dein Einzelstück direkt zu dir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Unikat Section -->
+<section class="bg-surface py-32 px-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+    <div>
+      {% if section.settings.unikat_image != blank %}
+        <img
+          src="{{ section.settings.unikat_image | img_url: '1200x' }}"
+          alt="{{ section.settings.unikat_image.alt | escape }}"
+          class="w-full h-auto object-cover grayscale"
+        >
+      {% else %}
+        <div class="aspect-[4/3] bg-surface-container-high"></div>
+      {% endif %}
+    </div>
+    <div class="flex flex-col items-start">
+      <h2 class="font-headline text-5xl font-black uppercase mb-8 leading-tight">Passion is not a crime.</h2>
+      <p class="font-body text-xl text-on-surface/70 mb-12 leading-relaxed">
+        Wir glauben, dass Kleidung mehr ist als nur Stoff. Es ist ein Statement. Nippon Nites wurde in den nächtlichen Parkhäusern geboren. Dein Custom Hoodie trägt diese Energie weiter.
+      </p>
+      <div class="flex flex-col gap-6 w-full">
+        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+          <div>
+            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Unikat Garantie</span>
+            <span class="text-on-surface/60 text-sm">Jedes Design wird nur für dich angefertigt.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">speed</span>
+          <div>
+            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Express Production</span>
+            <span class="text-on-surface/60 text-sm">Fertigstellung innerhalb von 7–10 Werktagen.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="bg-primary py-24 text-center">
+  <div class="max-w-4xl mx-auto px-8">
+    <h2 class="font-headline text-4xl md:text-6xl font-black text-on-primary-fixed uppercase tracking-tighter mb-12">
+      Bereit für deinen Drift?
+    </h2>
+    <a
+      href="{{ section.settings.cta_url | default: '/collections/custom' }}"
+      class="inline-block bg-surface text-primary font-headline font-bold uppercase py-6 px-16 tracking-widest hover:scale-105 active:scale-95 transition-transform"
+    >
+      {{ section.settings.cta_label | default: 'Jetzt anfragen' }}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hoodie Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Hintergrundbild"
+    },
+    {
+      "type": "header",
+      "content": "Quality Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "quality_image",
+      "label": "Quality Bild (Hoodie Detail)"
+    },
+    {
+      "type": "header",
+      "content": "Unikat Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "unikat_image",
+      "label": "Unikat Bild"
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Text",
+      "default": "Jetzt anfragen"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hoodie Page"
+    }
+  ]
+}
+{% endschema %}
