@@ -207,10 +207,10 @@
       Bereit für deinen Drift?
     </h2>
     <a
-      href="{{ section.settings.cta_url | default: '/pages/contact' }}"
+      href="{{ section.settings.cta_url | default: '/pages/shop?filter=custom' }}"
       class="inline-block bg-surface text-primary font-headline font-bold uppercase py-6 px-16 tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-2xl"
     >
-      {{ section.settings.cta_label | default: 'Jetzt anfragen' }}
+      {{ section.settings.cta_label | default: 'GET YOUR OWN' }}
     </a>
   </div>
 </section>
@@ -237,7 +237,7 @@
       "type": "text",
       "id": "cta_label",
       "label": "CTA Button Text",
-      "default": "Start Designing"
+      "default": "GET YOUR OWN"
     },
     {
       "type": "header",
