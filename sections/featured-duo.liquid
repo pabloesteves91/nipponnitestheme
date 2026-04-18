@@ -20,7 +20,7 @@
             {% if product.featured_image %}
               <a href="{{ product.url }}" class="block w-full h-full">
                 <img src="{{ product.featured_image | img_url: '800x1000', crop: 'center' }}"
-                     alt="{{ product.featured_image.alt | escape }}"
+                     alt="{{ product.featured_image.alt | default: product.title | escape }}"
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
               </a>
             {% else %}

@@ -56,7 +56,7 @@
                       {% if product.featured_image %}
                         <img
                           src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}"
-                          alt="{{ product.featured_image.alt | escape }}"
+                          alt="{{ product.featured_image.alt | default: product.title | escape }}"
                           class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         >
                       {% else %}

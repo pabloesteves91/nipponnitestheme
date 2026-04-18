@@ -1,3 +1,20 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "description": "{{ product.description | strip_html | escape }}",
+  "image": "{{ product.featured_image | img_url: '1200x' }}",
+  "brand": { "@type": "Brand", "name": "{{ shop.name | escape }}" },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ product.price | money_without_currency }}",
+    "priceCurrency": "{{ cart.currency.iso_code }}",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": "{{ shop.url }}{{ product.url }}"
+  }
+}
+</script>
 <div class="grid grid-cols-1 md:grid-cols-12 min-h-screen">
 
   <!-- Left: Visual Column -->
@@ -6,7 +23,7 @@
       {% if product.featured_image %}
         <img id="main-product-image"
              src="{{ product.featured_image | img_url: '1000x1333', crop: 'center' }}"
-             alt="{{ product.featured_image.alt | escape }}"
+             alt="{{ product.featured_image.alt | default: product.title | escape }}"
              class="w-full h-full object-cover">
       {% endif %}
       <!-- Limited badge -->
@@ -26,7 +43,7 @@
         {% for image in product.images offset: 1 limit: 2 %}
           <div class="{% if forloop.last %}translate-y-12{% endif %} aspect-square bg-surface-container-low overflow-hidden">
             <img src="{{ image | img_url: '600x600', crop: 'center' }}"
-                 alt="{{ image.alt | escape }}"
+                 alt="{{ image.alt | default: product.title | escape }}"
                  class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
                  onclick="document.getElementById('main-product-image').src='{{ image | img_url: '1000x1333', crop: 'center' }}'">
           </div>

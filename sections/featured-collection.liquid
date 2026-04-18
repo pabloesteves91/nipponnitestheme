@@ -14,7 +14,7 @@
         <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-5 relative">
           <a href="{{ product.url }}" class="block w-full h-full">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+              <img src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
             {% else %}
               <div class="w-full h-full bg-surface-container-high flex items-center justify-center text-white/20 font-headline text-xs uppercase tracking-widest">No image</div>
             {% endif %}
