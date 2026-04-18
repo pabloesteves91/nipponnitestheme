@@ -149,6 +149,16 @@
 </section>
 
 <script>
+// Auto-apply filter from URL param ?filter=
+document.addEventListener('DOMContentLoaded', function() {
+  var params = new URLSearchParams(window.location.search);
+  var f = params.get('filter');
+  if (f) {
+    var btn = document.querySelector('[data-filter="' + f + '"]');
+    if (btn) filterByCollection(f, btn);
+  }
+});
+
 function filterByCollection(handle, btn) {
   document.querySelectorAll('.filter-tab').forEach(function(b) {
     b.classList.remove('bg-primary', 'text-[#410000]', 'border-primary');
