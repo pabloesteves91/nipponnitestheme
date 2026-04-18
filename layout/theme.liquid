@@ -7,6 +7,20 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <title>{{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
   {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+  {% if settings.logo %}
+    <link rel="icon" type="image/png" href="{{ settings.logo | img_url: '64x64' }}">
+    <link rel="apple-touch-icon" href="{{ settings.logo | img_url: '180x180' }}">
+  {% endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  {% if page_description %}<meta property="og:description" content="{{ page_description | escape }}">{% endif %}
+  {% if settings.logo %}<meta property="og:image" content="{{ settings.logo | img_url: '1200x630' }}">{% endif %}
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page_title | escape }}">
+  {% if page_description %}<meta name="twitter:description" content="{{ page_description | escape }}">{% endif %}
+  {% if settings.logo %}<meta name="twitter:image" content="{{ settings.logo | img_url: '1200x630' }}">{% endif %}
   {{ content_for_header }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
