@@ -16,3 +16,22 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', sans-serif; }
 ::-webkit-scrollbar-thumb { background: #fb5a48; border-radius: 3px; }
 :focus-visible { outline: 2px solid #ffb4a9; outline-offset: 2px; }
 .shopify-payment-button__button { border-radius: 0 !important; font-family: 'Space Grotesk',sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; }
+
+/* ── Shopify Reviews – Dark Theme Override ───────────────────────────────── */
+.spr-container, .spr-header, .spr-content { background: transparent !important; color: #e2e2e2 !important; border-color: rgba(255,255,255,0.1) !important; }
+.spr-summary, .spr-form, .spr-reviews { background: transparent !important; }
+.spr-review, .spr-review-header { background: transparent !important; border-color: rgba(255,255,255,0.08) !important; }
+.spr-review-content p, .spr-review-header-title, .spr-review-header-byline { color: rgba(255,255,255,0.7) !important; }
+.spr-starrating .spr-icon { color: #ffb4a9 !important; }
+.spr-summary-starrating .spr-icon { color: #ffb4a9 !important; }
+.spr-icon-star { color: #ffb4a9 !important; }
+.spr-button, .spr-button-primary { background: linear-gradient(to right, #ffb4a9, #fb5a48) !important; color: #410000 !important; border: none !important; border-radius: 0 !important; font-family: 'Space Grotesk',sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; }
+.spr-form-input, .spr-form-input-text, .spr-form-input-textarea { background: #1b1b1b !important; border: 1px solid rgba(255,255,255,0.15) !important; color: #ffffff !important; border-radius: 0 !important; }
+.spr-form-label { color: rgba(255,255,255,0.5) !important; font-family: 'Space Grotesk',sans-serif !important; text-transform: uppercase !important; letter-spacing: 0.1em !important; font-size: 0.75rem !important; }
+.spr-header-title { font-family: 'Space Grotesk',sans-serif !important; text-transform: uppercase !important; color: #ffffff !important; }
+
+/* ── Judge.me Reviews – Dark Theme Override ──────────────────────────────── */
+.jdgm-widget { background: transparent !important; color: #e2e2e2 !important; }
+.jdgm-rev, .jdgm-rev__body { background: transparent !important; border-color: rgba(255,255,255,0.08) !important; color: rgba(255,255,255,0.7) !important; }
+.jdgm-star { color: #ffb4a9 !important; }
+.jdgm-write-rev-link { color: #ffb4a9 !important; }

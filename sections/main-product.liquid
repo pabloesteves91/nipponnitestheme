@@ -19,16 +19,44 @@
 
   <!-- Left: Visual Column -->
   <div class="md:col-span-7 bg-surface p-4 md:p-12 space-y-8">
-    <div class="relative aspect-[3/4] overflow-hidden bg-surface-container-low group">
-      {% if product.featured_image %}
-        <img id="main-product-image"
-             src="{{ product.featured_image | img_url: '1000x1333', crop: 'center' }}"
-             alt="{{ product.featured_image.alt | default: product.title | escape }}"
-             class="w-full h-full object-cover">
+    <!-- Image Slider -->
+    <div id="pdp-slider" class="relative aspect-[3/4] overflow-hidden bg-surface-container-low select-none">
+      <!-- Slides track -->
+      <div id="pdp-slides" style="display:flex; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; height:100%;">
+        {% for image in product.images %}
+          <div style="min-width:100%; height:100%; flex-shrink:0;">
+            <img src="{{ image | img_url: '1000x1333', crop: 'center' }}"
+                 alt="{{ image.alt | default: product.title | escape }}"
+                 style="width:100%; height:100%; object-fit:cover; display:block;">
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Prev / Next arrows (only if more than 1 image) -->
+      {% if product.images.size > 1 %}
+        <button onclick="pdpSlide(-1)" aria-label="Vorheriges Bild"
+          style="position:absolute; left:0.75rem; top:50%; transform:translateY(-50%); background:rgba(19,19,19,0.75); border:1px solid rgba(255,255,255,0.15); color:#ffb4a9; width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; transition:background 0.2s; padding:0;">
+          <span class="material-symbols-outlined" style="font-size:20px;">chevron_left</span>
+        </button>
+        <button onclick="pdpSlide(1)" aria-label="Nächstes Bild"
+          style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); background:rgba(19,19,19,0.75); border:1px solid rgba(255,255,255,0.15); color:#ffb4a9; width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; transition:background 0.2s; padding:0;">
+          <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
+        </button>
+        <!-- Dot indicators -->
+        <div style="position:absolute; bottom:1rem; left:50%; transform:translateX(-50%); display:flex; gap:0.4rem; z-index:10;">
+          {% for image in product.images %}
+            <button onclick="pdpGoTo({{ forloop.index0 }})"
+              aria-label="Bild {{ forloop.index }}"
+              class="pdp-dot"
+              style="width:0.4rem; height:0.4rem; border-radius:9999px; border:none; cursor:pointer; padding:0; transition:background 0.2s; background:{% if forloop.first %}#ffb4a9{% else %}rgba(255,255,255,0.3){% endif %};">
+            </button>
+          {% endfor %}
+        </div>
       {% endif %}
+
       <!-- Limited badge -->
       {% if product.tags contains 'limited' %}
-        <div class="absolute top-8 left-8">
+        <div style="position:absolute; top:2rem; left:2rem; z-index:10;">
           <span class="bg-surface-container-highest px-4 py-1 text-primary text-xs font-label tracking-[0.2em] uppercase flex items-center gap-2">
             <span class="w-2 h-2 bg-primary animate-pulse rounded-full"></span>
             Limited Edition
@@ -37,19 +65,43 @@
       {% endif %}
     </div>
 
-    <!-- Thumbnail grid -->
-    {% if product.images.size > 1 %}
-      <div class="grid grid-cols-2 gap-8">
-        {% for image in product.images offset: 1 limit: 2 %}
-          <div class="{% if forloop.last %}translate-y-12{% endif %} aspect-square bg-surface-container-low overflow-hidden">
-            <img src="{{ image | img_url: '600x600', crop: 'center' }}"
-                 alt="{{ image.alt | default: product.title | escape }}"
-                 class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
-                 onclick="document.getElementById('main-product-image').src='{{ image | img_url: '1000x1333', crop: 'center' }}'">
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
+    <script>
+      (function() {
+        var _cur = 0;
+        var _total = {{ product.images.size }};
+        var _touchStartX = 0;
+
+        function _update() {
+          var track = document.getElementById('pdp-slides');
+          if (track) track.style.transform = 'translateX(-' + (_cur * 100) + '%)';
+          document.querySelectorAll('.pdp-dot').forEach(function(d, i) {
+            d.style.background = (i === _cur) ? '#ffb4a9' : 'rgba(255,255,255,0.3)';
+          });
+        }
+
+        window.pdpSlide = function(dir) {
+          _cur = (_cur + dir + _total) % _total;
+          _update();
+        };
+
+        window.pdpGoTo = function(idx) {
+          _cur = idx;
+          _update();
+        };
+
+        // Touch / swipe support
+        var sl = document.getElementById('pdp-slider');
+        if (sl) {
+          sl.addEventListener('touchstart', function(e) {
+            _touchStartX = e.touches[0].clientX;
+          }, { passive: true });
+          sl.addEventListener('touchend', function(e) {
+            var dx = e.changedTouches[0].clientX - _touchStartX;
+            if (Math.abs(dx) > 40) pdpSlide(dx < 0 ? 1 : -1);
+          }, { passive: true });
+        }
+      })();
+    </script>
 
     <!-- Technical Specs -->
     {% if product.description != blank %}
@@ -75,7 +127,7 @@
           {{ product.title | split: ' ' | first }}<br>
           <span class="text-primary">{{ product.title | split: ' ' | last }}</span>
         </h1>
-        <p class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
+        <p id="product-price" class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
       </div>
 
       <!-- Short description -->
@@ -87,51 +139,30 @@
 
       {% form 'product', product %}
 
-        <!-- Variant selectors — one per option -->
-        <div class="space-y-6">
+        <!-- Variant selectors — buttons for every option -->
+        <div>
           {% for option in product.options_with_values %}
-            {% assign option_index = forloop.index %}
-            {% assign is_size = false %}
-            {% if option.name == 'Grösse' or option.name == 'Size' or option.name == 'Größe' %}
-              {% assign is_size = true %}
-            {% endif %}
-
-            <div class="space-y-3" data-option-index="{{ option_index }}">
-              <div class="flex justify-between items-center">
-                <label class="font-label text-xs uppercase tracking-widest text-white/50">{{ option.name }}</label>
-                {% if is_size %}
-                  <button type="button" onclick="document.getElementById('size-guide-modal').classList.remove('hidden')" class="font-label text-[10px] uppercase tracking-widest" style="color:#ffb4a9; text-decoration:underline;">
+            <div data-option-index="{{ forloop.index }}" style="margin-bottom:1.5rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                <label style="font-family:'Space Grotesk',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:rgba(255,255,255,0.5);">{{ option.name }}</label>
+                {% if forloop.last %}
+                  <button type="button" onclick="document.getElementById('size-guide-modal').classList.remove('hidden')"
+                    style="font-family:'Space Grotesk',sans-serif; font-size:0.625rem; text-transform:uppercase; letter-spacing:0.1em; color:#ffb4a9; text-decoration:underline; background:none; border:none; cursor:pointer; padding:0;">
                     Grössentabelle
                   </button>
                 {% endif %}
               </div>
-
-              {% if is_size %}
-                <!-- Size: Buttons -->
-                <div class="flex flex-wrap gap-2">
-                  {% for value in option.values %}
-                    <button type="button"
-                      data-option="{{ option_index }}"
-                      data-value="{{ value | escape }}"
-                      onclick="selectVariantOption({{ option_index }}, '{{ value | escape }}', this)"
-                      class="size-btn h-12 px-4 border font-label text-sm transition-colors {% if forloop.first %}active-opt{% else %}inactive-opt{% endif %}"
-                      style="{% if forloop.first %}border-color:#ffb4a9; color:#ffb4a9; background:rgba(255,180,169,0.1);{% else %}border-color:rgba(255,255,255,0.1); color:rgba(255,255,255,0.7);{% endif %}">
-                      {{ value }}
-                    </button>
-                  {% endfor %}
-                </div>
-              {% else %}
-                <!-- Color / other: Select dropdown -->
-                <select
-                  data-option="{{ option_index }}"
-                  onchange="selectVariantOption({{ option_index }}, this.value, this)"
-                  style="width:100%; background:#1b1b1b; border:1px solid rgba(255,255,255,0.15); color:#ffffff; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.1em; padding:0.875rem 1rem; appearance:none; cursor:pointer; background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23ffb4a9%22 viewBox=%220 0 16 16%22><path d=%22M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z%22/></svg>'); background-repeat:no-repeat; background-position:right 1rem center; background-size:0.75rem; padding-right:2.5rem;"
-                >
-                  {% for value in option.values %}
-                    <option value="{{ value | escape }}" {% if forloop.first %}selected{% endif %}>{{ value }}</option>
-                  {% endfor %}
-                </select>
-              {% endif %}
+              <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
+                {% for value in option.values %}
+                  <button type="button"
+                    data-option="{{ forloop.parentloop.index }}"
+                    data-value="{{ value | escape }}"
+                    onclick="selectVariantOption({{ forloop.parentloop.index }}, '{{ value | escape }}', this)"
+                    style="height:3rem; padding:0 1.25rem; border:1px solid {% if forloop.first %}#ffb4a9{% else %}rgba(255,255,255,0.15){% endif %}; color:{% if forloop.first %}#ffb4a9{% else %}rgba(255,255,255,0.7){% endif %}; background:{% if forloop.first %}rgba(255,180,169,0.1){% else %}transparent{% endif %}; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; transition:all 0.15s ease;">
+                    {{ value }}
+                  </button>
+                {% endfor %}
+              </div>
             </div>
           {% endfor %}
 
@@ -147,18 +178,16 @@
 
           function selectVariantOption(idx, value, el) {
             _selected[idx] = value;
-            // Update button styles if it's a button group
-            if (el.tagName === 'BUTTON') {
-              var group = el.closest('[data-option-index]');
-              group.querySelectorAll('button[data-option]').forEach(function(b) {
-                b.style.borderColor = 'rgba(255,255,255,0.1)';
-                b.style.color = 'rgba(255,255,255,0.7)';
-                b.style.background = 'transparent';
-              });
-              el.style.borderColor = '#ffb4a9';
-              el.style.color = '#ffb4a9';
-              el.style.background = 'rgba(255,180,169,0.1)';
-            }
+            // Update button styles in this option group
+            var group = el.closest('[data-option-index]');
+            group.querySelectorAll('button[data-option]').forEach(function(b) {
+              b.style.borderColor = 'rgba(255,255,255,0.15)';
+              b.style.color = 'rgba(255,255,255,0.7)';
+              b.style.background = 'transparent';
+            });
+            el.style.borderColor = '#ffb4a9';
+            el.style.color = '#ffb4a9';
+            el.style.background = 'rgba(255,180,169,0.1)';
             // Find matching variant
             var match = _variants.find(function(v) {
               return v.options.every(function(opt, i) {
@@ -167,6 +196,16 @@
             });
             if (match) {
               document.getElementById('variant-id').value = match.id;
+              // Update displayed price
+              var priceEl = document.getElementById('product-price');
+              if (priceEl && window.__moneyFormat) {
+                var fmt = window.__moneyFormat;
+                var amount = (match.price / 100).toFixed(2);
+                priceEl.textContent = fmt
+                  .replace('{{amount}}', amount)
+                  .replace('{{amount_with_comma_separator}}', amount.replace('.', ','))
+                  .replace('{{amount_no_decimals}}', String(Math.floor(match.price / 100)));
+              }
             }
           }
         </script>
