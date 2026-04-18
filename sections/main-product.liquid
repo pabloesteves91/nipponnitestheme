@@ -201,10 +201,14 @@
               if (priceEl && window.__moneyFormat) {
                 var fmt = window.__moneyFormat;
                 var amount = (match.price / 100).toFixed(2);
+                // Use concatenation so Liquid doesn't process {{ }} tokens
+                var _t1 = '{' + '{amount}}';
+                var _t2 = '{' + '{amount_with_comma_separator}}';
+                var _t3 = '{' + '{amount_no_decimals}}';
                 priceEl.textContent = fmt
-                  .replace('{{amount}}', amount)
-                  .replace('{{amount_with_comma_separator}}', amount.replace('.', ','))
-                  .replace('{{amount_no_decimals}}', String(Math.floor(match.price / 100)));
+                  .replace(_t1, amount)
+                  .replace(_t2, amount.replace('.', ','))
+                  .replace(_t3, String(Math.floor(match.price / 100)));
               }
             }
           }
