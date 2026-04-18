@@ -32,7 +32,10 @@
         "type": "footer",
         "settings": {
           "tagline": "Premium streetwear for those who run the night.",
-          "footer_menu": "footer"
+          "footer_menu": "footer",
+          "instagram_url": "https://www.instagram.com/nipponnites/",
+          "tiktok_url": "",
+          "youtube_url": ""
         }
       }
     },
