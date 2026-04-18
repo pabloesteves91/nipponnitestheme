@@ -17,7 +17,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "show_announcement": true,
+          "show_announcement": false,
           "announcement_text": "10% Discount: NIPPON10 🇯🇵"
         }
       },
