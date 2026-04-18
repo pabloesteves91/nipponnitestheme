@@ -1,0 +1,12 @@
+{
+  "name": "nipponnitestheme",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/tailwind.css -o ./assets/theme.min.css --minify",
+    "watch:css": "tailwindcss -i ./src/tailwind.css -o ./assets/theme.min.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^3.4.0"
+  }
+}

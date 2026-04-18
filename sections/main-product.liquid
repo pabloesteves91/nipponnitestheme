@@ -94,6 +94,9 @@
               <label class="font-label text-xs uppercase tracking-widest text-white/50">
                 {{ product.options.first }}
               </label>
+              <button type="button" onclick="document.getElementById('size-guide-modal').classList.remove('hidden')" class="font-label text-[10px] uppercase tracking-widest text-primary underline underline-offset-2 hover:brightness-125">
+                Grössentabelle
+              </button>
             </div>
             <div class="grid grid-cols-4 md:grid-cols-8 gap-1">
               {% for variant in product.variants %}
@@ -151,6 +154,38 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- Size Guide Modal -->
+<div id="size-guide-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('size-guide-modal').classList.add('hidden')"></div>
+  <div class="relative bg-surface-container-low border border-outline-variant w-full max-w-lg p-8 z-10">
+    <div class="flex justify-between items-center mb-8">
+      <h3 class="font-headline font-black text-2xl uppercase tracking-tighter">Grössentabelle</h3>
+      <button onclick="document.getElementById('size-guide-modal').classList.add('hidden')" class="text-white/40 hover:text-white text-2xl leading-none">×</button>
+    </div>
+    <p class="text-white/40 text-xs font-body mb-6 uppercase tracking-widest">Alle Masse in Zentimetern (cm)</p>
+    <table class="w-full text-sm font-body">
+      <thead>
+        <tr class="border-b border-white/10">
+          <th class="text-left py-3 font-headline text-xs uppercase tracking-widest text-white/40">Grösse</th>
+          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Brust</th>
+          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Länge</th>
+          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Schulter</th>
+          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Ärmel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-white/5 hover:bg-white/5"><td class="py-3 font-headline font-bold text-primary">XS</td><td class="py-3 text-center text-white/70">86</td><td class="py-3 text-center text-white/70">64</td><td class="py-3 text-center text-white/70">41</td><td class="py-3 text-center text-white/70">62</td></tr>
+        <tr class="border-b border-white/5 hover:bg-white/5"><td class="py-3 font-headline font-bold text-primary">S</td><td class="py-3 text-center text-white/70">92</td><td class="py-3 text-center text-white/70">66</td><td class="py-3 text-center text-white/70">43</td><td class="py-3 text-center text-white/70">64</td></tr>
+        <tr class="border-b border-white/5 hover:bg-white/5"><td class="py-3 font-headline font-bold text-primary">M</td><td class="py-3 text-center text-white/70">100</td><td class="py-3 text-center text-white/70">68</td><td class="py-3 text-center text-white/70">46</td><td class="py-3 text-center text-white/70">66</td></tr>
+        <tr class="border-b border-white/5 hover:bg-white/5"><td class="py-3 font-headline font-bold text-primary">L</td><td class="py-3 text-center text-white/70">108</td><td class="py-3 text-center text-white/70">72</td><td class="py-3 text-center text-white/70">49</td><td class="py-3 text-center text-white/70">68</td></tr>
+        <tr class="border-b border-white/5 hover:bg-white/5"><td class="py-3 font-headline font-bold text-primary">XL</td><td class="py-3 text-center text-white/70">116</td><td class="py-3 text-center text-white/70">74</td><td class="py-3 text-center text-white/70">52</td><td class="py-3 text-center text-white/70">70</td></tr>
+        <tr class="hover:bg-white/5"><td class="py-3 font-headline font-bold text-primary">XXL</td><td class="py-3 text-center text-white/70">124</td><td class="py-3 text-center text-white/70">76</td><td class="py-3 text-center text-white/70">55</td><td class="py-3 text-center text-white/70">72</td></tr>
+      </tbody>
+    </table>
+    <p class="text-white/30 text-xs font-body mt-6">Tipp: Im Zweifel eine Grösse grösser wählen — Oversized sitzt bei Nippon Nites am besten.</p>
   </div>
 </div>
 

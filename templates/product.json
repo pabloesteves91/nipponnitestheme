@@ -1,1 +1,8 @@
-{"sections":{"main":{"type":"main-product","settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "main": { "type": "main-product", "settings": {} },
+    "cross-sell": { "type": "product-cross-sell", "settings": {} },
+    "reviews": { "type": "product-reviews", "settings": {} }
+  },
+  "order": ["main", "cross-sell", "reviews"]
+}
