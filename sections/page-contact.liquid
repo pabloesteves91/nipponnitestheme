@@ -5,7 +5,7 @@
     <h1 class="font-headline text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-4">
       PIT <span class="text-primary italic">STOP</span>
     </h1>
-    <p class="font-label text-sm tracking-[0.3em] uppercase opacity-60">Technical Support &amp; Global Communication</p>
+    <p class="font-label text-sm tracking-[0.3em] uppercase opacity-60">Technischer Support &amp; Globale Kommunikation</p>
   </section>
 
   <!-- Content Grid -->
@@ -16,14 +16,14 @@
 
       <div class="space-y-12">
         <div class="space-y-4">
-          <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter">GET IN TOUCH</h2>
+          <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter">KONTAKT AUFNEHMEN</h2>
           <div class="w-24 h-1 bg-primary"></div>
         </div>
 
         {% form 'contact' %}
           {% if form.posted_successfully? %}
             <div class="bg-surface-container-low p-8 border-l-4 border-primary">
-              <p class="font-headline font-bold uppercase text-primary">Message sent. We'll be in touch.</p>
+              <p class="font-headline font-bold uppercase text-primary">Nachricht gesendet. Wir melden uns.</p>
             </div>
           {% endif %}
 
@@ -36,18 +36,18 @@
           <div class="space-y-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div class="space-y-2">
-                <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-name">Identity / Name</label>
+                <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-name">Name</label>
                 <input
                   id="contact-name"
                   type="text"
                   name="contact[name]"
                   value="{{ form.name }}"
-                  placeholder="DRIFTER NAME"
+                  placeholder="DEIN NAME"
                   class="w-full bg-transparent border-b-2 border-surface-variant focus:border-primary outline-none py-3 font-headline text-lg transition-colors placeholder:text-white/10 uppercase"
                 >
               </div>
               <div class="space-y-2">
-                <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-email">Signal / Email</label>
+                <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-email">E-Mail</label>
                 <input
                   id="contact-email"
                   type="email"
@@ -61,26 +61,26 @@
             </div>
 
             <div class="space-y-2">
-              <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-subject">Subject / Category</label>
+              <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-subject">Betreff</label>
               <select
                 id="contact-subject"
                 name="contact[subject]"
                 class="w-full bg-surface border-b-2 border-surface-variant focus:border-primary outline-none py-3 font-headline text-lg transition-colors appearance-none cursor-pointer text-white/80"
               >
-                <option value="ORDER STATUS">ORDER STATUS</option>
-                <option value="SHIPPING INQUIRY">SHIPPING INQUIRY</option>
-                <option value="CUSTOM FABRICATION">CUSTOM FABRICATION</option>
-                <option value="WHOLESALE">WHOLESALE</option>
+                <option value="BESTELLSTATUS">BESTELLSTATUS</option>
+                <option value="VERSANDANFRAGE">VERSANDANFRAGE</option>
+                <option value="CUSTOM ANFRAGE">CUSTOM ANFRAGE</option>
+                <option value="GROSSHANDEL">GROSSHANDEL</option>
               </select>
             </div>
 
             <div class="space-y-2">
-              <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-body">Transmission / Message</label>
+              <label class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50" for="contact-body">Nachricht</label>
               <textarea
                 id="contact-body"
                 name="contact[body]"
                 rows="4"
-                placeholder="ENTER YOUR MESSAGE HERE..."
+                placeholder="DEINE NACHRICHT..."
                 class="w-full bg-transparent border-b-2 border-surface-variant focus:border-primary outline-none py-3 font-headline text-lg transition-colors resize-none placeholder:text-white/10 uppercase"
               >{{ form.body }}</textarea>
             </div>
@@ -89,7 +89,7 @@
               type="submit"
               class="w-full md:w-auto px-12 py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-black uppercase tracking-widest text-lg hover:brightness-110 active:scale-[0.98] transition-all"
             >
-              SEND MESSAGE
+              NACHRICHT SENDEN
             </button>
           </div>
         {% endform %}
@@ -97,7 +97,7 @@
 
       <!-- Tokyo HQ -->
       <div class="space-y-8">
-        <h2 class="font-headline text-2xl font-bold uppercase tracking-tighter">TOKYO HEADQUARTERS</h2>
+        <h2 class="font-headline text-2xl font-bold uppercase tracking-tighter">HEADQUARTERS</h2>
         <div class="relative w-full aspect-video overflow-hidden">
           <div class="absolute inset-0 bg-primary/5 mix-blend-overlay z-10 pointer-events-none"></div>
           {% if section.settings.hq_image != blank %}
@@ -108,12 +108,12 @@
             >
           {% else %}
             <div class="w-full h-full bg-surface-container-high flex items-center justify-center">
-              <span class="font-headline text-white/10 text-4xl uppercase font-black">Tokyo</span>
+              <span class="font-headline text-white/10 text-4xl uppercase font-black">Winterthur</span>
             </div>
           {% endif %}
           <div class="absolute bottom-8 left-8 z-20 space-y-2">
-            <p class="font-headline text-xl font-bold">SHIBUYA DISTRICT</p>
-            <p class="font-body text-xs tracking-widest opacity-70">2-21-1 SHIBUYA, TOKYO 150-8510</p>
+            <p class="font-headline text-xl font-bold">SWITZERLAND</p>
+            <p class="font-body text-xs tracking-widest opacity-70">IM GRÜNTAL 10 | 8405 WINTERTHUR ZH</p>
           </div>
         </div>
       </div>
@@ -126,26 +126,26 @@
       <!-- FAQ -->
       <div class="space-y-12">
         <div class="space-y-4">
-          <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter">OPERATIONS</h2>
+          <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter">FAQ</h2>
           <div class="w-24 h-1 bg-primary"></div>
         </div>
         <div class="space-y-6">
           <div class="bg-surface-container-low p-8 border-l-4 border-transparent hover:border-primary transition-all">
-            <h3 class="font-headline font-bold text-lg mb-4 uppercase">SHIPPING PROTOCOL</h3>
+            <h3 class="font-headline font-bold text-lg mb-4 uppercase">VERSAND</h3>
             <p class="text-sm text-on-surface/60 leading-relaxed uppercase">
-              All orders are processed within 48 hours. International shipping takes 7–14 business days. Tracking numbers are transmitted once the package clears customs.
+              Alle Bestellungen werden innerhalb von 48 Stunden bearbeitet. Internationaler Versand dauert 7–14 Werktage. Tracking-Nummern werden nach dem Versand mitgeteilt.
             </p>
           </div>
           <div class="bg-surface-container-low p-8 border-l-4 border-transparent hover:border-primary transition-all">
-            <h3 class="font-headline font-bold text-lg mb-4 uppercase">RETURNS &amp; REFUNDS</h3>
+            <h3 class="font-headline font-bold text-lg mb-4 uppercase">RÜCKGABE &amp; RÜCKERSTATTUNG</h3>
             <p class="text-sm text-on-surface/60 leading-relaxed uppercase">
-              We accept returns within 14 days of receipt. Product must be in original packaging with tags intact. Custom fabricated pieces are final sale.
+              Rückgaben sind innerhalb von 14 Tagen möglich. Artikel müssen ungetragen und mit Etikett zurückgesendet werden. Custom-Produkte sind vom Umtausch ausgeschlossen.
             </p>
           </div>
           <div class="bg-surface-container-low p-8 border-l-4 border-transparent hover:border-primary transition-all">
-            <h3 class="font-headline font-bold text-lg mb-4 uppercase">CUSTOM FABRICATION</h3>
+            <h3 class="font-headline font-bold text-lg mb-4 uppercase">CUSTOM ANFRAGE</h3>
             <p class="text-sm text-on-surface/60 leading-relaxed uppercase">
-              Custom requests require a 50% deposit. Lead times vary between 4–6 weeks depending on material availability.
+              Custom-Anfragen erfordern eine Anzahlung von 50%. Die Lieferzeit beträgt je nach Verfügbarkeit 4–6 Wochen.
             </p>
           </div>
         </div>
@@ -153,7 +153,7 @@
 
       <!-- Social -->
       <div class="space-y-8">
-        <h2 class="font-headline text-2xl font-bold uppercase tracking-tighter">COMMUNITY CHANNELS</h2>
+        <h2 class="font-headline text-2xl font-bold uppercase tracking-tighter">COMMUNITY</h2>
         <div class="grid grid-cols-2 gap-4">
           {% if section.settings.instagram_url != blank %}
           <a href="{{ section.settings.instagram_url }}" class="group flex items-center justify-between p-6 bg-surface-container-highest hover:bg-primary transition-colors duration-300" target="_blank" rel="noopener">
@@ -188,7 +188,7 @@
           <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
           <span class="font-label text-xs tracking-widest uppercase font-bold">LIVE SUPPORT ONLINE</span>
         </div>
-        <span class="font-label text-[10px] opacity-40 uppercase">AVG RESPONSE: 12H</span>
+        <span class="font-label text-[10px] opacity-40 uppercase">Ø ANTWORTZEIT: 12H</span>
       </div>
 
     </div>
