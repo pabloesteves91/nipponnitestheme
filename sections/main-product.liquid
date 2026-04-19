@@ -196,6 +196,10 @@
             });
             if (match) {
               document.getElementById('variant-id').value = match.id;
+              // Jump slider to variant image (featured_image.position is 1-based)
+              if (match.featured_image && typeof pdpGoTo === 'function') {
+                pdpGoTo(match.featured_image.position - 1);
+              }
               // Update displayed price
               var priceEl = document.getElementById('product-price');
               if (priceEl && window.__moneyFormat) {
