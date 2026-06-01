@@ -29,57 +29,6 @@
   </div>
 </section>
 
-<!-- Quality Feature Section -->
-<section class="bg-surface py-32 px-8">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-
-    <!-- Image + Chip -->
-    <div class="lg:col-span-7 relative">
-      <div class="aspect-[4/5] bg-surface-container-low overflow-hidden">
-        {% if section.settings.quality_image != blank %}
-          <img
-            src="{{ section.settings.quality_image | img_url: '1200x' }}"
-            alt="{{ section.settings.quality_image.alt | escape }}"
-            class="w-full h-full object-cover"
-          >
-        {% else %}
-          <div class="w-full h-full bg-surface-container-high flex items-center justify-center">
-            <span class="font-headline text-white/10 text-2xl uppercase font-black tracking-widest">Hoodie Detail</span>
-          </div>
-        {% endif %}
-      </div>
-      <!-- Metric Chip Overlay -->
-      <div class="absolute top-8 left-8 bg-surface-container-highest px-4 py-2 flex items-center gap-2">
-        <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-        <span class="font-label text-xs uppercase tracking-widest">Premium Quality: 450GSM</span>
-      </div>
-    </div>
-
-    <!-- Specs -->
-    <div class="lg:col-span-5 flex flex-col justify-center">
-      <h2 class="font-headline text-4xl font-black uppercase mb-8 leading-tight">
-        Qualität, die den Drift übersteht.
-      </h2>
-      <div class="space-y-8">
-        <div class="group">
-          <div class="h-[1px] w-full bg-surface-variant group-hover:bg-primary transition-colors duration-500 mb-6"></div>
-          <h3 class="font-headline text-xl uppercase mb-2">Heavyweight Fabrics</h3>
-          <p class="text-on-surface/60">Ultradichter 450GSM Baumwoll-Mix für maximalen Komfort und Langlebigkeit.</p>
-        </div>
-        <div class="group">
-          <div class="h-[1px] w-full bg-surface-variant group-hover:bg-primary transition-colors duration-500 mb-6"></div>
-          <h3 class="font-headline text-xl uppercase mb-2">High-Def Embroidery</h3>
-          <p class="text-on-surface/60">Präzisionsstickerei, die auch nach unzähligen Waschgängen ihre Form behält.</p>
-        </div>
-        <div class="group">
-          <div class="h-[1px] w-full bg-surface-variant group-hover:bg-primary transition-colors duration-500 mb-6"></div>
-          <h3 class="font-headline text-xl uppercase mb-2">Oversized Silhouette</h3>
-          <p class="text-on-surface/60">Der perfekte Boxy-Fit für den authentischen Streetwear-Look.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- 3-Step Bento Grid -->
 <section class="bg-surface-container-low py-32 px-8">
@@ -239,16 +188,7 @@
       "label": "CTA Button Text",
       "default": "GET YOUR OWN"
     },
-    {
-      "type": "header",
-      "content": "Quality Section"
-    },
-    {
-      "type": "image_picker",
-      "id": "quality_image",
-      "label": "Hoodie Detail Bild"
-    },
-    {
+{
       "type": "header",
       "content": "3-Step Process"
     },
