@@ -61,7 +61,12 @@
         <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6">Navigation</p>
         <ul class="space-y-3">
           {% for link in linklists[section.settings.footer_menu].links %}
-            <li><a href="{{ link.url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ link.title }}</a></li>
+            {% assign nav_url = link.url %}
+            {% assign link_title_lower = link.title | downcase %}
+            {% if link_title_lower == 'faq' %}
+              {% assign nav_url = '/pages/faq' %}
+            {% endif %}
+            <li><a href="{{ nav_url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ link.title }}</a></li>
           {% endfor %}
         </ul>
       </div>
