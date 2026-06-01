@@ -126,7 +126,7 @@
                 <h3 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">
                   <a href="{{ product.url }}">{{ product.title }}</a>
                 </h3>
-                <span class="font-body text-sm font-light text-white/70 shrink-0">{{ product.price | money }}</span>
+                <span class="font-body text-sm font-light text-white/70 shrink-0">{% if product.price_varies %}ab {% endif %}{{ product.price_min | money }}</span>
               </div>
               <a
                 href="{{ product.url }}"
