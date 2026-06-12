@@ -106,7 +106,7 @@
     <!-- Technical Specs -->
     {% if product.description != blank %}
       <div class="pt-20 pb-12">
-        <h3 class="font-headline text-2xl font-bold uppercase tracking-tight mb-8">Technical Specs</h3>
+        <h3 class="font-headline text-2xl font-bold uppercase tracking-tight mb-8">Produktdetails</h3>
         <div class="text-white/50 font-body text-sm leading-relaxed max-w-xl">
           {{ product.description }}
         </div>
@@ -236,24 +236,71 @@
 
       {% endform %}
 
+      <!-- Trust-Badges -->
+      <div class="border-t border-white/5 pt-6 space-y-4">
+        <!-- Reassurance -->
+        <div class="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-label uppercase tracking-widest text-white/40">
+          <span class="flex items-center gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="20" height="20" rx="2" fill="#D52B1E"/>
+              <path d="M10 4L11.5 8H16L12.5 10.5L14 14.5L10 12L6 14.5L7.5 10.5L4 8H8.5L10 4Z" fill="white"/>
+            </svg>
+            Versand aus der Schweiz
+          </span>
+          <span>· Sichere Bezahlung</span>
+          <span>· Kostenlose Rückgabe 14 Tage</span>
+        </div>
+        <!-- Payment icons -->
+        <div class="flex items-center gap-3 flex-wrap">
+          <!-- Visa -->
+          <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;">
+            <rect width="38" height="24" rx="3" fill="#1A1F71"/>
+            <text x="19" y="16" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1">VISA</text>
+          </svg>
+          <!-- Mastercard -->
+          <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;">
+            <rect width="38" height="24" rx="3" fill="#252525"/>
+            <circle cx="15" cy="12" r="7" fill="#EB001B"/>
+            <circle cx="23" cy="12" r="7" fill="#F79E1B"/>
+            <path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/>
+          </svg>
+          <!-- TWINT -->
+          <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;">
+            <rect width="38" height="24" rx="3" fill="white"/>
+            <text x="19" y="16" font-family="Arial,sans-serif" font-size="8" font-weight="900" fill="#000" text-anchor="middle" letter-spacing="0.5">TWINT</text>
+          </svg>
+          <!-- Apple Pay -->
+          <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;">
+            <rect width="38" height="24" rx="3" fill="#000"/>
+            <path d="M13.5 8.2c.5-.6.8-1.4.7-2.2-.7 0-1.5.5-2 1.1-.4.5-.8 1.3-.7 2.1.8.1 1.5-.4 2-1z" fill="white"/>
+            <path d="M16.2 9.2c-1.1-.1-2.1.6-2.6.6s-1.3-.6-2.2-.6C10 9.3 8.6 10.1 8 11.4c-1.2 2.1-.3 5.2.9 6.9.6.8 1.3 1.7 2.2 1.7.9 0 1.2-.6 2.2-.6 1.1 0 1.3.6 2.2.6.9 0 1.6-.9 2.2-1.7.4-.5.5-1 .7-1-.7-.3-2.4-1.4-2.4-3.4 0-1.8 1.3-2.7 1.4-2.8-.7-1.1-1.9-1.9-3.2-1.9z" fill="white"/>
+          </svg>
+          <!-- PayPal -->
+          <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;">
+            <rect width="38" height="24" rx="3" fill="#002C8A"/>
+            <text x="19" y="16" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white" text-anchor="middle">PayPal</text>
+          </svg>
+        </div>
+      </div>
+
       <!-- Accordion -->
       <div class="border-t border-white/10 pt-8 mt-4 space-y-6">
         <details class="group cursor-pointer">
           <summary class="flex justify-between items-center py-2 list-none">
-            <h4 class="font-label uppercase tracking-widest text-sm">Shipping & Returns</h4>
+            <h4 class="font-label uppercase tracking-widest text-sm">Versand & Rückgabe</h4>
             <span class="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
           </summary>
           <p class="text-xs text-white/50 leading-relaxed font-body mt-3">
-            Express shipping worldwide. Swiss orders arrive in 2-3 business days. Free returns within 14 days.
+            Weltweiter Express-Versand. Schweizer Bestellungen in 2–3 Werktagen. Kostenlose Rückgabe innert 14 Tagen.
           </p>
         </details>
         <details class="group cursor-pointer">
           <summary class="flex justify-between items-center py-2 list-none">
-            <h4 class="font-label uppercase tracking-widest text-sm">Materials & Care</h4>
+            <h4 class="font-label uppercase tracking-widest text-sm">Material & Pflege</h4>
             <span class="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
           </summary>
           <p class="text-xs text-white/50 leading-relaxed font-body mt-3">
-            Wash cold inside out. Do not tumble dry. Iron on low heat (exclude print areas).
+            Kalt und auf links waschen. Nicht in den Trockner. Bei niedriger Temperatur bügeln (Druckstellen aussparen).
           </p>
         </details>
       </div>
