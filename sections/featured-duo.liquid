@@ -15,39 +15,58 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      {% assign duo_products = '' | split: '' %}
-      {% if p1 and p1.title != blank %}{% assign duo_products = duo_products | push: p1 %}{% endif %}
-      {% if p2 and p2.title != blank %}{% assign duo_products = duo_products | push: p2 %}{% endif %}
-
-      {% if duo_products.size > 0 %}
-        {% for product in duo_products %}
-          <div class="group">
-            <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
-              {% if product.featured_image %}
-                <a href="{{ product.url }}" class="block w-full h-full">
-                  <img src="{{ product.featured_image | img_url: '800x1000', crop: 'center' }}"
-                       alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                       class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                </a>
-              {% else %}
-                <div class="w-full h-full bg-surface-container-highest"></div>
-              {% endif %}
-            </div>
-            <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
-              <div>
-                {% if product.type != blank %}
-                  <span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ product.type }}</span>
-                {% endif %}
-                <h3 class="font-headline text-xl uppercase font-bold leading-tight">
-                  <a href="{{ product.url }}" class="hover:text-primary transition-colors">{{ product.title }}</a>
-                </h3>
-              </div>
-              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if product.price_varies %}ab {% endif %}{{ product.price_min | money }}</span>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
+      {% if p1.title == blank and p2.title == blank %}
         <p class="col-span-2 text-white/30 text-center py-20">Produkte im Theme-Editor auswählen.</p>
+      {% endif %}
+
+      {% if p1.title != blank %}
+        <div class="group">
+          <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
+            {% if p1.featured_image %}
+              <a href="{{ p1.url }}" class="block w-full h-full">
+                <img src="{{ p1.featured_image | img_url: '800x1000', crop: 'center' }}"
+                     alt="{{ p1.featured_image.alt | default: p1.title | escape }}"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              </a>
+            {% else %}
+              <div class="w-full h-full bg-surface-container-highest"></div>
+            {% endif %}
+          </div>
+          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
+            <div>
+              {% if p1.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p1.type }}</span>{% endif %}
+              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
+                <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
+              </h3>
+            </div>
+            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if p2.title != blank %}
+        <div class="group">
+          <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
+            {% if p2.featured_image %}
+              <a href="{{ p2.url }}" class="block w-full h-full">
+                <img src="{{ p2.featured_image | img_url: '800x1000', crop: 'center' }}"
+                     alt="{{ p2.featured_image.alt | default: p2.title | escape }}"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              </a>
+            {% else %}
+              <div class="w-full h-full bg-surface-container-highest"></div>
+            {% endif %}
+          </div>
+          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
+            <div>
+              {% if p2.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p2.type }}</span>{% endif %}
+              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
+                <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
+              </h3>
+            </div>
+            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
+          </div>
+        </div>
       {% endif %}
     </div>
   </div>
