@@ -27,9 +27,10 @@
     "featured_duo": {
       "type": "featured-duo",
       "settings": {
-        "collection": "custom",
-        "title_line1": "Tokyo Drift",
-        "title_line2": "Edition",
+        "product1": "konnichiwa-mthrfckrs",
+        "product2": "anti-stock-car-club",
+        "title_line1": "Brand New",
+        "title_line2": "Drops",
         "description": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed."
       }
     },
