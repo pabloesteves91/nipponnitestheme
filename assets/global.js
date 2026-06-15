@@ -199,3 +199,16 @@ document.addEventListener('submit', async (e) => {
   try { await fetch('/cart/add.js', { method:'POST', body: new FormData(form) }); await refreshAndOpenCart(); } catch(_) {}
   setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 1500);
 });
+
+// ── Scroll to Top (Mobile) ────────────────────────────────────────────────────
+(function () {
+  const btn = document.getElementById('scroll-top-btn');
+  if (!btn) return;
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 300) {
+      btn.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+      btn.classList.add('opacity-0', 'pointer-events-none');
+    }
+  }, { passive: true });
+})();

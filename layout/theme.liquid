@@ -57,5 +57,12 @@
   {% render 'cart-drawer' %}
   <ul hidden><li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li></ul>
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+  <button id="scroll-top-btn"
+    aria-label="Nach oben"
+    class="fixed bottom-8 right-6 z-40 md:hidden flex items-center justify-center w-12 h-12 opacity-0 pointer-events-none transition-opacity duration-300"
+    style="background:linear-gradient(to bottom right,#ffb4a9,#fb5a48);"
+    onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <span class="material-symbols-outlined" style="color:#410000;font-size:22px;">arrow_upward</span>
+  </button>
 </body>
 </html>
