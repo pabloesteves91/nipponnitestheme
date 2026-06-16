@@ -38,9 +38,11 @@
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
                 <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
               </h3>
+              {%- assign _p1_count = p1.metafields.judgeme.review_count | default: 0 -%}
+              {%- assign _p1_rating = p1.metafields.judgeme.average_rating | times: 1.0 -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
-                <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+                {%- if _p1_rating > 0 -%}{%- assign _p1_full = _p1_rating | floor -%}{%- for i in (1..5) -%}{%- if i <= _p1_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}{%- else -%}<span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>{%- endif -%}
+                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _p1_count }} Bewertungen</span>
               </div>
             </div>
             <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
@@ -67,9 +69,11 @@
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
                 <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
               </h3>
+              {%- assign _p2_count = p2.metafields.judgeme.review_count | default: 0 -%}
+              {%- assign _p2_rating = p2.metafields.judgeme.average_rating | times: 1.0 -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
-                <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+                {%- if _p2_rating > 0 -%}{%- assign _p2_full = _p2_rating | floor -%}{%- for i in (1..5) -%}{%- if i <= _p2_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}{%- else -%}<span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>{%- endif -%}
+                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _p2_count }} Bewertungen</span>
               </div>
             </div>
             <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
