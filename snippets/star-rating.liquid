@@ -1,10 +1,10 @@
-{%- assign jdgm_badge = product.metafields.judgeme.badge -%}
+{%- assign badge_text = product.metafields.judgeme.badge | strip_html | strip -%}
 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
-  {%- if jdgm_badge != blank -%}
-    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ jdgm_badge }}</div>
+  {%- if badge_text != blank -%}
+    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ product.metafields.judgeme.badge }}</div>
   {%- else -%}
     <span style="color:#ffb4a9;font-size:14px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">Noch keine Bewertungen</span>
+    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">0 Bewertungen</span>
   {%- endif -%}
   {%- if show_button -%}
     <button
