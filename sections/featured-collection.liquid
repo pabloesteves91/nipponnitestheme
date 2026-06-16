@@ -35,7 +35,10 @@
             </h3>
             <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
           </div>
-          {% render 'star-rating', product: product %}
+          <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:2px;">
+            <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
+            <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+          </div>
           {% if product.variants.size == 1 %}
             <form action="/cart/add" method="post" class="pt-3">
               <input type="hidden" name="id" value="{{ product.variants.first.id }}">

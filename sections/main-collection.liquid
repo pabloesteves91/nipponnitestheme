@@ -128,7 +128,10 @@
                 </h3>
                 <span class="font-body text-sm font-light text-white/70 shrink-0">{% if product.price_varies %}ab {% endif %}{{ product.price_min | money }}</span>
               </div>
-              {% render 'star-rating', product: product %}
+              <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:2px;">
+                <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
+                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+              </div>
               <a
                 href="{{ product.url }}"
                 class="block w-full mt-4 py-4 bg-[#353535] border border-[#5a403d] hover:bg-primary hover:text-[#410000] font-headline uppercase text-xs tracking-[0.2em] text-center transition-all active:scale-[0.98]"
