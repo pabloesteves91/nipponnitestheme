@@ -35,7 +35,7 @@
             </h3>
             <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
           </div>
-          <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ product.metafields.judgeme.badge }}</div>
+          {% render 'star-rating', product: product %}
           {% if product.variants.size == 1 %}
             <form action="/cart/add" method="post" class="pt-3">
               <input type="hidden" name="id" value="{{ product.variants.first.id }}">

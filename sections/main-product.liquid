@@ -128,7 +128,7 @@
           <span class="text-primary">{{ product.title | split: ' ' | last }}</span>
         </h1>
         <p id="product-price" class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
-        <div class="jdgm-widget jdgm-preview-badge mt-3" data-id="{{ product.id }}">{{ product.metafields.judgeme.badge }}</div>
+        {% render 'star-rating', product: product %}
       </div>
 
       <!-- Short description -->

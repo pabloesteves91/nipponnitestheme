@@ -128,7 +128,7 @@
                 </h3>
                 <span class="font-body text-sm font-light text-white/70 shrink-0">{% if product.price_varies %}ab {% endif %}{{ product.price_min | money }}</span>
               </div>
-              <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ product.metafields.judgeme.badge }}</div>
+              {% render 'star-rating', product: product %}
               <a
                 href="{{ product.url }}"
                 class="block w-full mt-4 py-4 bg-[#353535] border border-[#5a403d] hover:bg-primary hover:text-[#410000] font-headline uppercase text-xs tracking-[0.2em] text-center transition-all active:scale-[0.98]"
