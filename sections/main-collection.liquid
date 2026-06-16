@@ -128,9 +128,8 @@
                 </h3>
                 <span class="font-body text-sm font-light text-white/70 shrink-0">{% if product.price_varies %}ab {% endif %}{{ product.price_min | money }}</span>
               </div>
-              {%- assign _badge = product.metafields.judgeme.widget -%}
-              {%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-              {%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+              {%- assign _count = product.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- assign _rating = product.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
               {%- assign _full = _rating | floor -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:2px;">
                 {%- if _count > 0 -%}

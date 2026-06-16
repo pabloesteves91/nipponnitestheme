@@ -35,10 +35,9 @@
             </h3>
             <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
           </div>
-          {%- assign _badge = product.metafields.judgeme.widget -%}
-          {%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-          {%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
-          {%- assign _full = _rating | floor -%}
+          {%- assign _count = product.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- assign _rating = product.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
+              {%- assign _full = _rating | floor -%}
           <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:2px;">
             {%- if _count > 0 -%}
               {%- for i in (1..5) -%}{%- if i <= _full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}

@@ -1,6 +1,5 @@
-{%- assign _badge = product.metafields.judgeme.widget -%}
-{%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-{%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+{%- assign _count = product.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+{%- assign _rating = product.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
 {%- assign _full = _rating | floor -%}
 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
   <div style="display:flex;gap:2px;align-items:center;">

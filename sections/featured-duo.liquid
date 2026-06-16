@@ -38,9 +38,8 @@
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
                 <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
               </h3>
-              {%- assign _p1_badge = p1.metafields.judgeme.widget -%}
-              {%- assign _p1_count = _p1_badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-              {%- assign _p1_rating = _p1_badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+              {%- assign _p1_count = p1.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- assign _p1_rating = p1.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
               {%- assign _p1_full = _p1_rating | floor -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
                 {%- if _p1_count > 0 -%}
@@ -76,9 +75,8 @@
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
                 <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
               </h3>
-              {%- assign _p2_badge = p2.metafields.judgeme.widget -%}
-              {%- assign _p2_count = _p2_badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-              {%- assign _p2_rating = _p2_badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+              {%- assign _p2_count = p2.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- assign _p2_rating = p2.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
               {%- assign _p2_full = _p2_rating | floor -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
                 {%- if _p2_count > 0 -%}
