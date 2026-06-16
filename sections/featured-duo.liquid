@@ -38,6 +38,10 @@
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
                 <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
               </h3>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+                <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
+                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+              </div>
             </div>
             <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
           </div>
@@ -63,6 +67,10 @@
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
                 <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
               </h3>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+                <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
+                <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+              </div>
             </div>
             <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
           </div>
