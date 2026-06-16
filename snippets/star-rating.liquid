@@ -1,5 +1,5 @@
 {%- assign jdgm_badge = product.metafields.judgeme.badge -%}
-<div class="mt-2">
+<div class="mt-2" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
   {%- if jdgm_badge != blank -%}
     <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ jdgm_badge }}</div>
   {%- else -%}
@@ -8,4 +8,10 @@
       <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">Noch keine Bewertungen</span>
     </div>
   {%- endif -%}
+  <a class="jdgm-write-rev-link"
+     data-id="{{ product.id }}"
+     href="#"
+     style="font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#ffb4a9;text-decoration:none;border:1px solid rgba(255,180,169,0.4);padding:3px 10px;white-space:nowrap;transition:all 0.2s;">
+    + Bewertung schreiben
+  </a>
 </div>
