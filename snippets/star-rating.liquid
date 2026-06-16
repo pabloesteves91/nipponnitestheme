@@ -1,4 +1,4 @@
-{%- assign _badge = product.metafields.judgeme.badge -%}
+{%- assign _badge = product.metafields.judgeme.widget -%}
 {%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
 {%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
 {%- assign _full = _rating | floor -%}
