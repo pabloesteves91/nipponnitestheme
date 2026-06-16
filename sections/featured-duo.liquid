@@ -39,11 +39,11 @@
                 <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
               </h3>
               {%- assign _p1_badge = p1.metafields.judgeme.badge -%}
+              {%- assign _p1_count = _p1_badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
+              {%- assign _p1_rating = _p1_badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+              {%- assign _p1_full = _p1_rating | floor -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
-                {%- if _p1_badge contains '★' -%}
-                  {%- assign _p1_count = _p1_badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-                  {%- assign _p1_rating = _p1_badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
-                  {%- assign _p1_full = _p1_rating | floor -%}
+                {%- if _p1_count > 0 -%}
                   {%- for i in (1..5) -%}{%- if i <= _p1_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
                   <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _p1_count }} Bewertungen</span>
                 {%- else -%}
@@ -77,11 +77,11 @@
                 <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
               </h3>
               {%- assign _p2_badge = p2.metafields.judgeme.badge -%}
+              {%- assign _p2_count = _p2_badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
+              {%- assign _p2_rating = _p2_badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+              {%- assign _p2_full = _p2_rating | floor -%}
               <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
-                {%- if _p2_badge contains '★' -%}
-                  {%- assign _p2_count = _p2_badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-                  {%- assign _p2_rating = _p2_badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
-                  {%- assign _p2_full = _p2_rating | floor -%}
+                {%- if _p2_count > 0 -%}
                   {%- for i in (1..5) -%}{%- if i <= _p2_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
                   <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _p2_count }} Bewertungen</span>
                 {%- else -%}

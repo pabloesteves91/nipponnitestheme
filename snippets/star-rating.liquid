@@ -1,23 +1,22 @@
 {%- assign _badge = product.metafields.judgeme.badge -%}
+{%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
+{%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+{%- assign _full = _rating | floor -%}
 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
-  {%- if _badge contains '★' -%}
-    {%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
-    {%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
-    {%- assign _full = _rating | floor -%}
-    <div style="display:flex;gap:2px;align-items:center;">
+  <div style="display:flex;gap:2px;align-items:center;">
+    {%- if _count > 0 -%}
       {%- for i in (1..5) -%}
         {%- if i <= _full -%}<span style="color:#ffb4a9;font-size:15px;line-height:1;">★</span>
         {%- else -%}<span style="color:#ffb4a9;font-size:15px;line-height:1;opacity:0.25;">★</span>
         {%- endif -%}
       {%- endfor -%}
-    </div>
-    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">{{ _count }} Bewertungen</span>
-  {%- else -%}
-    <div style="display:flex;gap:2px;align-items:center;">
+    {%- else -%}
       <span style="color:#ffb4a9;font-size:15px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-    </div>
-    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">0 Bewertungen</span>
-  {%- endif -%}
+    {%- endif -%}
+  </div>
+  <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">
+    {{ _count }} Bewertungen
+  </span>
   {%- if show_button -%}
     <button
       onclick="var f=document.getElementById('jdgm-inline-{{ product.id }}');f.style.display=f.style.display==='none'?'block':'none';"
