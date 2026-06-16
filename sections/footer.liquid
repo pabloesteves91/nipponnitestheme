@@ -64,7 +64,9 @@
             {% if link_title_lower == 'faq' %}
               {% assign nav_url = '/pages/faq' %}
             {% endif %}
-            <li><a href="{{ nav_url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ link.title }}</a></li>
+            {% unless link_title_lower contains 'widerruf' %}
+              <li><a href="{{ nav_url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ link.title }}</a></li>
+            {% endunless %}
           {% endfor %}
         </ul>
       </div>
