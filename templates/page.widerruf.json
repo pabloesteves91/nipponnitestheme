@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-widerruf",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
