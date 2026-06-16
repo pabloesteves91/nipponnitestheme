@@ -27,6 +27,17 @@
   {%- endif -%}
 </div>
 {%- if show_button -%}
+  <style>
+    #jdgm-inline-{{ product.id }} input,
+    #jdgm-inline-{{ product.id }} textarea,
+    #jdgm-inline-{{ product.id }} select {
+      color: #1a1a1a !important;
+    }
+    #jdgm-inline-{{ product.id }} input::placeholder,
+    #jdgm-inline-{{ product.id }} textarea::placeholder {
+      color: #666666 !important;
+    }
+  </style>
   <div id="jdgm-inline-{{ product.id }}" style="display:none;margin-top:16px;">
     <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">
       {{ product.metafields.judgeme.widget }}
