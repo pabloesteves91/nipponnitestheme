@@ -128,7 +128,7 @@
           <span class="text-primary">{{ product.title | split: ' ' | last }}</span>
         </h1>
         <p id="product-price" class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
-        {% render 'star-rating', product: product %}
+        {% render 'star-rating', product: product, show_button: true %}
       </div>
 
       <!-- Short description -->

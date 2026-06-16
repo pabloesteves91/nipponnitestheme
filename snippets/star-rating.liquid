@@ -1,17 +1,23 @@
 {%- assign jdgm_badge = product.metafields.judgeme.badge -%}
-<div class="mt-2" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
   {%- if jdgm_badge != blank -%}
     <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">{{ jdgm_badge }}</div>
   {%- else -%}
-    <div style="display:flex;align-items:center;gap:8px;">
-      <span style="color:#ffb4a9;font-size:15px;letter-spacing:3px;line-height:1;">☆☆☆☆☆</span>
-      <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">Noch keine Bewertungen</span>
-    </div>
+    <span style="color:#ffb4a9;font-size:14px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
+    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">Noch keine Bewertungen</span>
   {%- endif -%}
-  <a class="jdgm-write-rev-link"
-     data-id="{{ product.id }}"
-     href="#"
-     style="font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#ffb4a9;text-decoration:none;border:1px solid rgba(255,180,169,0.4);padding:3px 10px;white-space:nowrap;transition:all 0.2s;">
-    + Bewertung schreiben
-  </a>
+  {%- if show_button -%}
+    <button
+      onclick="var f=document.getElementById('jdgm-inline-{{ product.id }}');f.style.display=f.style.display==='none'?'block':'none';"
+      style="font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#ffb4a9;background:transparent;border:1px solid rgba(255,180,169,0.4);padding:3px 10px;cursor:pointer;white-space:nowrap;">
+      + Bewertung schreiben
+    </button>
+  {%- endif -%}
 </div>
+{%- if show_button -%}
+  <div id="jdgm-inline-{{ product.id }}" style="display:none;margin-top:16px;">
+    <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  </div>
+{%- endif -%}
