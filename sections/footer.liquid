@@ -74,9 +74,12 @@
         <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6">Legal</p>
         <ul class="space-y-3">
           {% for policy in shop.policies %}
-            {% if policy.body != blank %}
-              <li><a href="{{ policy.url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ policy.title }}</a></li>
-            {% endif %}
+            {% assign policy_title_lower = policy.title | downcase %}
+            {% unless policy_title_lower contains 'widerruf' %}
+              {% if policy.body != blank %}
+                <li><a href="{{ policy.url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ policy.title }}</a></li>
+              {% endif %}
+            {% endunless %}
           {% endfor %}
           <li><a href="/pages/widerruf-formular" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Widerruf</a></li>
         </ul>
