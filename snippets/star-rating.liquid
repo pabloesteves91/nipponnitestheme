@@ -1,23 +1,23 @@
-{%- assign jdgm_count = product.metafields.judgeme.review_count | default: 0 -%}
-{%- assign jdgm_rating = product.metafields.judgeme.average_rating | times: 1.0 -%}
+{%- assign _badge = product.metafields.judgeme.badge -%}
 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
-  <div style="display:flex;gap:2px;align-items:center;">
-    {%- if jdgm_rating > 0 -%}
-      {%- assign full = jdgm_rating | floor -%}
+  {%- if _badge contains '★' -%}
+    {%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
+    {%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+    {%- assign _full = _rating | floor -%}
+    <div style="display:flex;gap:2px;align-items:center;">
       {%- for i in (1..5) -%}
-        {%- if i <= full -%}
-          <span style="color:#ffb4a9;font-size:15px;line-height:1;">★</span>
-        {%- else -%}
-          <span style="color:#ffb4a9;font-size:15px;line-height:1;opacity:0.25;">★</span>
+        {%- if i <= _full -%}<span style="color:#ffb4a9;font-size:15px;line-height:1;">★</span>
+        {%- else -%}<span style="color:#ffb4a9;font-size:15px;line-height:1;opacity:0.25;">★</span>
         {%- endif -%}
       {%- endfor -%}
-    {%- else -%}
+    </div>
+    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">{{ _count }} Bewertungen</span>
+  {%- else -%}
+    <div style="display:flex;gap:2px;align-items:center;">
       <span style="color:#ffb4a9;font-size:15px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-    {%- endif -%}
-  </div>
-  <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">
-    {{ jdgm_count }} Bewertungen
-  </span>
+    </div>
+    <span style="color:rgba(255,255,255,0.28);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">0 Bewertungen</span>
+  {%- endif -%}
   {%- if show_button -%}
     <button
       onclick="var f=document.getElementById('jdgm-inline-{{ product.id }}');f.style.display=f.style.display==='none'?'block':'none';"
@@ -30,16 +30,10 @@
   <style>
     #jdgm-inline-{{ product.id }} input,
     #jdgm-inline-{{ product.id }} textarea,
-    #jdgm-inline-{{ product.id }} select {
-      color: #1a1a1a !important;
-    }
+    #jdgm-inline-{{ product.id }} select { color: #1a1a1a !important; }
     #jdgm-inline-{{ product.id }} input::placeholder,
-    #jdgm-inline-{{ product.id }} textarea::placeholder {
-      color: #666666 !important;
-    }
-    #jdgm-inline-{{ product.id }} .jdgm-submit-rev-btn {
-      color: #ffffff !important;
-    }
+    #jdgm-inline-{{ product.id }} textarea::placeholder { color: #666666 !important; }
+    #jdgm-inline-{{ product.id }} .jdgm-submit-rev-btn { color: #ffffff !important; }
   </style>
   <div id="jdgm-inline-{{ product.id }}" style="display:none;margin-top:16px;">
     <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">

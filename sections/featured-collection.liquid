@@ -35,11 +35,18 @@
             </h3>
             <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
           </div>
-          {%- assign _jdgm_count = product.metafields.judgeme.review_count | default: 0 -%}
-          {%- assign _jdgm_rating = product.metafields.judgeme.average_rating | times: 1.0 -%}
+          {%- assign _badge = product.metafields.judgeme.badge -%}
           <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:2px;">
-            {%- if _jdgm_rating > 0 -%}{%- assign _jdgm_full = _jdgm_rating | floor -%}{%- for i in (1..5) -%}{%- if i <= _jdgm_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}{%- else -%}<span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>{%- endif -%}
-            <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _jdgm_count }} Bewertungen</span>
+            {%- if _badge contains '★' -%}
+              {%- assign _count = _badge | split: 'data-number-of-reviews="' | last | split: '"' | first | plus: 0 -%}
+              {%- assign _rating = _badge | split: 'data-average-rating="' | last | split: '"' | first | times: 1.0 -%}
+              {%- assign _full = _rating | floor -%}
+              {%- for i in (1..5) -%}{%- if i <= _full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
+              <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _count }} Bewertungen</span>
+            {%- else -%}
+              <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
+              <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
+            {%- endif -%}
           </div>
           {% if product.variants.size == 1 %}
             <form action="/cart/add" method="post" class="pt-3">
