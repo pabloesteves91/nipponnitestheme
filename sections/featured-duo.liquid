@@ -39,7 +39,12 @@
                 <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
               </h3>
             </div>
-            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
+            {%- if p1.handle == 'custom-hoodie-t-shirt' or p1.handle == 'custom-t-shirt' -%}
+              {%- assign _p1_disc = p1.price_min | times: 0.8 | round -%}
+              <span class="font-headline font-bold text-lg shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;font-size:0.875em;">{{ p1.price_min | money }}</s> <span class="text-on-surface/80">{{ _p1_disc | money }}</span></span>
+            {%- else -%}
+              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
+            {%- endif -%}
           </div>
         </div>
       {% endif %}
@@ -64,7 +69,12 @@
                 <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
               </h3>
             </div>
-            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
+            {%- if p2.handle == 'custom-hoodie-t-shirt' or p2.handle == 'custom-t-shirt' -%}
+              {%- assign _p2_disc = p2.price_min | times: 0.8 | round -%}
+              <span class="font-headline font-bold text-lg shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;font-size:0.875em;">{{ p2.price_min | money }}</s> <span class="text-on-surface/80">{{ _p2_disc | money }}</span></span>
+            {%- else -%}
+              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
+            {%- endif -%}
           </div>
         </div>
       {% endif %}

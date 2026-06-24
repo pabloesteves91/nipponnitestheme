@@ -33,7 +33,12 @@
             <h3 class="font-headline font-bold text-base uppercase leading-tight group-hover:text-primary transition-colors">
               <a href="{{ product.url }}">{{ product.title }}</a>
             </h3>
-            <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
+            {%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}
+              {%- assign _disc = product.price | times: 0.8 | round -%}
+              <span class="font-body text-sm shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;">{{ product.price | money }}</s> <span class="text-on-surface/70">{{ _disc | money }}</span></span>
+            {%- else -%}
+              <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
+            {%- endif -%}
           </div>
           {% if product.variants.size == 1 %}
             <form action="/cart/add" method="post" class="pt-3">

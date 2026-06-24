@@ -127,7 +127,16 @@
           {{ product.title | split: ' ' | first }}<br>
           <span class="text-primary">{{ product.title | split: ' ' | last }}</span>
         </h1>
-        <p id="product-price" class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
+        {%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}
+          {%- assign discounted_price = product.price | times: 0.8 | round -%}
+          <p id="product-price" class="text-2xl font-headline font-bold mt-4">
+            <s style="color:rgba(255,255,255,0.35);font-size:0.875em;font-weight:400;">{{ product.price | money }}</s>
+            <span style="margin-left:0.5rem;">{{ discounted_price | money }}</span>
+          </p>
+        {%- else -%}
+          <p id="product-price" class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
+        {%- endif -%}
+        {% render 'star-rating', product: product, show_button: true %}
       </div>
 
       <!-- Short description -->
@@ -204,15 +213,23 @@
               var priceEl = document.getElementById('product-price');
               if (priceEl && window.__moneyFormat) {
                 var fmt = window.__moneyFormat;
-                var amount = (match.price / 100).toFixed(2);
-                // Use concatenation so Liquid doesn't process {{ }} tokens
                 var _t1 = '{' + '{amount}}';
                 var _t2 = '{' + '{amount_with_comma_separator}}';
                 var _t3 = '{' + '{amount_no_decimals}}';
-                priceEl.textContent = fmt
-                  .replace(_t1, amount)
-                  .replace(_t2, amount.replace('.', ','))
-                  .replace(_t3, String(Math.floor(match.price / 100)));
+                var isCustom = {% if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' %}true{% else %}false{% endif %};
+                if (isCustom) {
+                  var origAmount = (match.price / 100).toFixed(2);
+                  var discAmount = (Math.round(match.price * 0.8) / 100).toFixed(2);
+                  var origFmt = fmt.replace(_t1, origAmount).replace(_t2, origAmount.replace('.', ',')).replace(_t3, String(Math.floor(match.price / 100)));
+                  var discFmt = fmt.replace(_t1, discAmount).replace(_t2, discAmount.replace('.', ',')).replace(_t3, String(Math.floor(match.price * 0.8 / 100)));
+                  priceEl.innerHTML = '<s style="color:rgba(255,255,255,0.35);font-size:0.875em;font-weight:400;">' + origFmt + '</s><span style="margin-left:0.5rem;">' + discFmt + '</span>';
+                } else {
+                  var amount = (match.price / 100).toFixed(2);
+                  priceEl.textContent = fmt
+                    .replace(_t1, amount)
+                    .replace(_t2, amount.replace('.', ','))
+                    .replace(_t3, String(Math.floor(match.price / 100)));
+                }
               }
             }
           }
