@@ -146,8 +146,9 @@ button:not([type="submit"]):hover {
 nav a,
 nav button,
 a[href*="login"] {
-  background: transparent !important;
-  color: rgba(255,255,255,0.8) !important;
+  background: #1b1b1b !important;
+  background-color: #1b1b1b !important;
+  color: #fff !important;
   border: 1px solid rgba(255,255,255,0.3) !important;
   border-radius: 999px !important;
   padding: 0.4rem 1rem !important;
