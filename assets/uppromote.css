@@ -1,0 +1,232 @@
+/* ═══════════════════════════════════════════════════════════════
+   NIPPON NITES – UpPromote Affiliate Page Custom CSS
+   Einfügen in: UpPromote Portal → Settings → Appearance → Custom CSS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&family=Inter:wght@400;700&display=swap');
+
+/* ── Reset & Page Background ── */
+html, body {
+  background-color: #131313 !important;
+  color: #fff !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* ── All containers / wrappers / panels ── */
+[class*="container"],
+[class*="wrapper"],
+[class*="register"],
+[class*="panel"],
+[class*="card"],
+[class*="box"],
+[class*="form"],
+.affiliate-portal,
+.affiliate-register-page,
+.affiliate-login-page,
+main, section, article, aside {
+  background-color: #1b1b1b !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ── Logo area / header ── */
+header,
+[class*="header"],
+[class*="logo"],
+nav {
+  background-color: #131313 !important;
+  border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+}
+
+/* ── Headings ── */
+h1, h2, h3, h4, h5, h6,
+[class*="title"],
+[class*="heading"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.02em !important;
+  color: #fff !important;
+}
+
+/* ── Form labels ── */
+label,
+[class*="label"] {
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  color: rgba(255,255,255,0.4) !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+/* ── Inputs, Selects, Textareas ── */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input:not([type="submit"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  padding: 1rem 1.25rem !important;
+  width: 100% !important;
+  transition: border-color 0.2s ease !important;
+  -webkit-appearance: none !important;
+}
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255,255,255,0.2) !important;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  border-color: #ffb4a9 !important;
+  box-shadow: none !important;
+}
+
+/* ── Submit / Join button ── */
+button[type="submit"],
+input[type="submit"],
+[class*="btn-join"],
+[class*="btn-register"],
+[class*="btn-submit"],
+[class*="join-btn"],
+[class*="register-btn"],
+[class*="submit-btn"],
+.btn-primary {
+  background: linear-gradient(to right, #ffb4a9, #fb5a48) !important;
+  color: #410000 !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1.25rem 2rem !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: filter 0.2s ease !important;
+}
+button[type="submit"]:hover,
+[class*="btn-join"]:hover {
+  filter: brightness(1.08) !important;
+}
+
+/* ── Secondary / outline buttons ── */
+button:not([type="submit"]),
+[class*="btn-secondary"],
+[class*="btn-outline"],
+[class*="btn-login"],
+[class*="login"] a {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  color: rgba(255,255,255,0.6) !important;
+  border-radius: 0 !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+button:not([type="submit"]):hover {
+  border-color: #ffb4a9 !important;
+  color: #ffb4a9 !important;
+}
+
+/* ── Benefits / program info table ── */
+[class*="benefit"],
+[class*="program-info"],
+[class*="info-table"],
+[class*="features"],
+table {
+  background: #131313 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+}
+td, th {
+  border-color: rgba(255,255,255,0.07) !important;
+  color: rgba(255,255,255,0.7) !important;
+  padding: 0.75rem 1rem !important;
+}
+th {
+  color: rgba(255,255,255,0.4) !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* ── Checkmark icons / badges ── */
+[class*="check"],
+[class*="tick"],
+[class*="badge"],
+[class*="icon"],
+svg path,
+.fas, .far, .fa {
+  color: #ffb4a9 !important;
+  fill: #ffb4a9 !important;
+}
+
+/* ── Links ── */
+a {
+  color: #ffb4a9 !important;
+  text-decoration: none !important;
+}
+a:hover {
+  filter: brightness(1.15) !important;
+}
+
+/* ── Paragraphs, body text, subtext ── */
+p, span, small, li {
+  color: rgba(255,255,255,0.6) !important;
+}
+strong, b {
+  color: #fff !important;
+}
+
+/* ── Dividers / separators ── */
+hr, [class*="divider"], [class*="separator"] {
+  border-color: rgba(255,255,255,0.07) !important;
+}
+
+/* ── Error messages ── */
+[class*="error"],
+[class*="alert"],
+[class*="invalid"] {
+  background: rgba(251,90,72,0.15) !important;
+  border-color: #fb5a48 !important;
+  color: #ffb4a9 !important;
+  border-radius: 0 !important;
+}
+
+/* ── Powered by footer ── */
+[class*="powered"],
+[class*="footer"],
+footer {
+  background: #131313 !important;
+  border-top: 1px solid rgba(255,255,255,0.07) !important;
+  color: rgba(255,255,255,0.2) !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #131313; }
+::-webkit-scrollbar-thumb { background: #ffb4a9; }
+
+/* ── Left banner / hero image ── */
+[class*="banner"],
+[class*="sidebar"],
+[class*="left"],
+[class*="hero-section"] {
+  border-radius: 0 !important;
+}

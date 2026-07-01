@@ -1,0 +1,69 @@
+<div class="bg-night min-h-screen">
+
+  <!-- Hero -->
+  <div class="bg-surface-container-low border-b border-white/5 px-6 lg:px-10 py-20">
+    <div class="max-w-4xl mx-auto">
+      <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-primary mb-4">Affiliate · Werde Partner</p>
+      <h1 class="font-headline font-black text-5xl md:text-7xl uppercase tracking-tighter text-white leading-none">
+        {{ section.settings.title | default: 'Werde' }}<br>
+        <span class="text-primary">{{ section.settings.title_line2 | default: 'Partner' }}</span>
+      </h1>
+      {% if section.settings.subtitle != blank %}
+        <p class="mt-6 text-white/50 font-body text-sm leading-relaxed max-w-xl">{{ section.settings.subtitle }}</p>
+      {% else %}
+        <p class="mt-6 text-white/50 font-body text-sm leading-relaxed max-w-xl">Empfehle Nippon Nites und verdiene 5 % Provision auf jeden Kauf über deinen Link oder Rabattcode. 30-Tage Cookie-Laufzeit.</p>
+      {% endif %}
+
+      <!-- Benefits -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+        <div class="border-l-2 border-primary bg-[#1b1b1b] px-5 py-4">
+          <p class="font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/30 mb-1">Commission</p>
+          <p class="font-headline font-black text-2xl text-primary">5%</p>
+          <p class="font-body text-xs text-white/40 mt-1">Prozent vom Verkauf</p>
+        </div>
+        <div class="border-l-2 border-primary bg-[#1b1b1b] px-5 py-4">
+          <p class="font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/30 mb-1">Cookie</p>
+          <p class="font-headline font-black text-2xl text-primary">30 Tage</p>
+          <p class="font-body text-xs text-white/40 mt-1">Tracking-Laufzeit</p>
+        </div>
+        <div class="border-l-2 border-primary bg-[#1b1b1b] px-5 py-4">
+          <p class="font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/30 mb-1">Auszahlung</p>
+          <p class="font-headline font-black text-2xl text-primary">Monatlich</p>
+          <p class="font-body text-xs text-white/40 mt-1">Per Link oder Code</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embed -->
+  <div class="max-w-4xl mx-auto px-6 lg:px-10 py-16">
+    {% if section.settings.uppromote_url != blank %}
+      <iframe
+        src="{{ section.settings.uppromote_url }}"
+        style="width:100%;min-height:820px;border:none;display:block;background:#1b1b1b;"
+        scrolling="no"
+        title="Affiliate Programm Registrierung"
+        onload="this.style.minHeight=''; this.style.height=(this.contentWindow.document.body.scrollHeight+40)+'px';"
+      ></iframe>
+    {% else %}
+      <div class="border border-white/10 bg-surface-container-low p-10 text-center">
+        <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-2">Setup</p>
+        <p class="font-body text-white/40 text-sm">Im Theme Editor die UpPromote Registrierungs-URL eintragen.</p>
+      </div>
+    {% endif %}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Partner Page",
+  "settings": [
+    { "type": "text",     "id": "title",         "label": "Titel Zeile 1",    "default": "Werde" },
+    { "type": "text",     "id": "title_line2",   "label": "Titel Zeile 2",    "default": "Partner" },
+    { "type": "textarea", "id": "subtitle",      "label": "Einleitungstext" },
+    { "type": "text",     "id": "uppromote_url", "label": "UpPromote Registrierungs-URL", "info": "z.B. https://affiliates.nipponnites.com/register" }
+  ],
+  "presets": [{ "name": "Partner Page" }]
+}
+{% endschema %}
