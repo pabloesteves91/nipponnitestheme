@@ -123,36 +123,6 @@ button[type="submit"]:hover,
   filter: brightness(1.08) !important;
 }
 
-/* ── Secondary / outline buttons ── */
-button:not([type="submit"]),
-[class*="btn-secondary"],
-[class*="btn-outline"] {
-  background: transparent !important;
-  border: 1px solid rgba(255,255,255,0.2) !important;
-  color: rgba(255,255,255,0.7) !important;
-  border-radius: 0 !important;
-  font-family: 'Space Grotesk', sans-serif !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-}
-button:not([type="submit"]):hover {
-  border-color: #ffb4a9 !important;
-  color: #ffb4a9 !important;
-}
-
-/* ── Nav / Header — alle Elemente ── */
-nav *, header * {
-  color: #fff !important;
-}
-nav a, nav button, nav span,
-header a, header button, header span,
-[class*="btn-login"], [class*="login-btn"],
-a[href*="login"] {
-  background: rgba(255,255,255,0.08) !important;
-  background-color: rgba(255,255,255,0.08) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255,255,255,0.25) !important;
-}
 
 /* ── Benefits / program info table ── */
 [class*="benefit"],
