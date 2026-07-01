@@ -39,6 +39,23 @@ header,
   border-bottom: 1px solid rgba(255,255,255,0.07) !important;
 }
 
+/* ── Nav buttons (Login, Select Language) — einheitlich ── */
+header button,
+header a,
+header select,
+[class*="header"] button,
+[class*="header"] a,
+[class*="header"] select,
+nav button,
+nav a,
+nav select {
+  background: rgba(255,255,255,0.08) !important;
+  background-color: rgba(255,255,255,0.08) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
+  border-radius: 4px !important;
+}
+
 /* ── Headings ── */
 h1, h2, h3, h4, h5, h6,
 [class*="title"],
