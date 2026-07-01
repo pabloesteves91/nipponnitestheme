@@ -1,156 +1,248 @@
-<!-- ── HERO ─────────────────────────────────────────────────────────────────── -->
-<section style="position:relative;min-height:90vh;display:flex;align-items:flex-end;overflow:hidden;">
+<style>
+  .pp-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 92vh;
+  }
+  .pp-img {
+    position: relative;
+    overflow: hidden;
+  }
+  .pp-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .pp-img-placeholder {
+    position: absolute;
+    inset: 0;
+    background: #1b1b1b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pp-content {
+    display: flex;
+    align-items: center;
+    padding: 5rem 4.5rem;
+  }
+  .pp-inner { max-width: 30rem; width: 100%; }
+  .pp-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #ffb4a9;
+    margin: 0 0 1.25rem;
+  }
+  .pp-h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: #fff;
+    margin: 0 0 1.5rem;
+  }
+  .pp-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.75;
+    margin: 0 0 2.5rem;
+  }
+  .pp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(to right, #ffb4a9, #fb5a48);
+    color: #410000;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+  .pp-cta:hover { filter: brightness(1.07); }
+  .pp-check-list { display: flex; flex-direction: column; gap: 1.75rem; }
+  .pp-check-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+  .pp-check-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1.5px solid rgba(255,180,169,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .pp-check-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fff;
+    margin: 0 0 0.35rem;
+  }
+  .pp-check-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.38);
+    margin: 0;
+    line-height: 1.65;
+  }
+  .pp-form-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin: 0 0 2rem;
+    line-height: 1.05;
+  }
+  @media (max-width: 767px) {
+    .pp-split { grid-template-columns: 1fr; min-height: auto; }
+    .pp-img { min-height: 60vw; }
+    .pp-content { padding: 3rem 1.5rem; }
+    .pp-mob-first { order: -1; }
+  }
+</style>
 
-  <!-- Background image -->
-  {% if section.settings.hero_image %}
-    <img
-      src="{{ section.settings.hero_image | img_url: '2000x' }}"
-      alt=""
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ section.settings.hero_image_position | default: 'center center' }};"
-    >
-  {% else %}
-    <div style="position:absolute;inset:0;background:#1b1b1b;"></div>
-  {% endif %}
+<!-- ── 1. HERO: Bild links · Text rechts ─────────────────────────────────────── -->
+<section class="pp-split" style="background:#131313;">
 
-  <!-- Gradient overlay -->
-  <div style="position:absolute;inset:0;background:linear-gradient(to top, #131313 20%, rgba(19,19,19,0.65) 60%, rgba(19,19,19,0.25) 100%);"></div>
-
-  <!-- Content -->
-  <div style="position:relative;z-index:1;padding:5rem 2.5rem;max-width:1280px;width:100%;">
-    <p style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#ffb4a9;margin-bottom:1.25rem;">
-      Affiliate Program
-    </p>
-    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,9rem);text-transform:uppercase;letter-spacing:-0.03em;line-height:0.9;color:#fff;margin:0;">
-      {{ section.settings.hero_line1 | default: 'Werde' }}<br>
-      <span style="-webkit-text-stroke:2px #ffb4a9;color:transparent;">{{ section.settings.hero_line2 | default: 'Partner' }}</span>
-    </h1>
-    <p style="font-family:'Inter',sans-serif;font-size:0.9375rem;color:rgba(255,255,255,0.5);max-width:30rem;margin-top:1.75rem;line-height:1.7;">
-      {{ section.settings.hero_subtitle | default: 'Empfehle Nippon Nites und verdiene mit jedem Verkauf. Dein Link. Dein Code. Deine Provision.' }}
-    </p>
+  <div class="pp-img">
+    {% if section.settings.hero_image %}
+      <img src="{{ section.settings.hero_image | img_url: '1000x1400', crop: 'center' }}" alt="">
+    {% else %}
+      <div class="pp-img-placeholder">
+        <p style="font-family:'Space Grotesk';font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.12);">Bild wählen</p>
+      </div>
+    {% endif %}
   </div>
+
+  <div class="pp-content" style="background:#131313;">
+    <div class="pp-inner">
+      <p class="pp-eyebrow">Affiliate Program</p>
+      <h1 class="pp-h1">{{ section.settings.hero_title | default: 'Das lukrativste Affiliate Program' }}</h1>
+      <p class="pp-body">{{ section.settings.hero_text | default: 'Trete unserem Affiliate-Programm bei und werde Teil der Nippon Nites Community. Du hast die einzigartige Möglichkeit, deine Leidenschaft für japanische Streetwear zu teilen und dabei attraktive Provisionen zu verdienen.' }}</p>
+      <a href="#partner-form" class="pp-cta">Jetzt anmelden &nbsp;→</a>
+    </div>
+  </div>
+
 </section>
 
-<!-- ── STATS BAR ──────────────────────────────────────────────────────────────── -->
-<div style="background:linear-gradient(to right,#ffb4a9,#fb5a48);">
-  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);">
-    <div style="padding:1.75rem 2rem;border-right:1px solid rgba(65,0,0,0.18);text-align:center;">
-      <p style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:2.75rem;color:#410000;letter-spacing:-0.04em;line-height:1;">5%</p>
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(65,0,0,0.6);margin-top:0.25rem;">Commission</p>
-    </div>
-    <div style="padding:1.75rem 2rem;border-right:1px solid rgba(65,0,0,0.18);text-align:center;">
-      <p style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:2.75rem;color:#410000;letter-spacing:-0.04em;line-height:1;">30</p>
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(65,0,0,0.6);margin-top:0.25rem;">Cookie Days</p>
-    </div>
-    <div style="padding:1.75rem 2rem;text-align:center;">
-      <p style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:2.75rem;color:#410000;letter-spacing:-0.04em;line-height:1;">∞</p>
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(65,0,0,0.6);margin-top:0.25rem;">Kein Limit</p>
-    </div>
-  </div>
-</div>
+<!-- ── 2. BENEFITS: Text links · Bild rechts ─────────────────────────────────── -->
+<section class="pp-split" style="background:#0e0e0e;">
 
-<!-- ── WHY PARTNER ────────────────────────────────────────────────────────────── -->
-<section style="background:#131313;padding:7rem 2.5rem;">
-  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;">
+  <div class="pp-content" style="background:#0e0e0e;">
+    <div class="pp-inner">
+      <p class="pp-eyebrow">Vorteile</p>
+      <h2 class="pp-h1" style="font-size:clamp(1.75rem,3vw,2.5rem);margin-bottom:2.25rem;">Entdecke die Vorteile der Partnerschaft</h2>
 
-    <!-- Left: copy -->
-    <div>
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;color:#ffb4a9;margin-bottom:1rem;">Warum wir?</p>
-      <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2.5rem,5vw,4rem);text-transform:uppercase;letter-spacing:-0.03em;line-height:0.95;color:#fff;margin:0 0 3rem;">
-        Echte Brand.<br>Echte Community.<br><span style="color:#ffb4a9;">Echte Einnahmen.</span>
-      </h2>
-
-      <div style="display:flex;flex-direction:column;gap:1.5rem;">
-        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
-          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+      <div class="pp-check-list">
+        <div class="pp-check-item">
+          <div class="pp-check-icon">
+            <span class="material-symbols-outlined" style="font-size:15px;color:#ffb4a9;">check</span>
+          </div>
           <div>
-            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Hand-illustrierte Designs</p>
-            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Einzigartige Streetwear, die deine Audience kennt und will.</p>
+            <p class="pp-check-title">Commission Rate</p>
+            <p class="pp-check-desc">Verdiene 5% Provision auf jeden Kauf, der über deinen Affiliate-Link oder Rabattcode getätigt wird.</p>
           </div>
         </div>
-        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
-          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+        <div class="pp-check-item">
+          <div class="pp-check-icon">
+            <span class="material-symbols-outlined" style="font-size:15px;color:#ffb4a9;">check</span>
+          </div>
           <div>
-            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Persönlicher Rabattcode</p>
-            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Dein eigener Code für deine Community — direkt einsetzbar.</p>
+            <p class="pp-check-title">Persönlicher Link & Code</p>
+            <p class="pp-check-desc">Du erhältst deinen eigenen Affiliate-Link und Rabattcode — direkt einsetzbar für deine Community.</p>
           </div>
         </div>
-        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
-          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+        <div class="pp-check-item">
+          <div class="pp-check-icon">
+            <span class="material-symbols-outlined" style="font-size:15px;color:#ffb4a9;">check</span>
+          </div>
           <div>
-            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Echtzeit-Tracking</p>
-            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Sieh live, was dein Link bringt — transparent und nachvollziehbar.</p>
+            <p class="pp-check-title">30 Tage Cookie</p>
+            <p class="pp-check-desc">Jeder Kauf innerhalb von 30 Tagen nach dem Klick auf deinen Link wird dir angerechnet.</p>
           </div>
         </div>
-        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
-          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+        <div class="pp-check-item">
+          <div class="pp-check-icon">
+            <span class="material-symbols-outlined" style="font-size:15px;color:#ffb4a9;">check</span>
+          </div>
           <div>
-            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Bio-Baumwolle &amp; Qualität</p>
-            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Produkte, hinter denen du stehen kannst.</p>
+            <p class="pp-check-title">Monatliche Auszahlung</p>
+            <p class="pp-check-desc">Deine Provisionen werden monatlich ausbezahlt — zuverlässig und transparent.</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Right: image -->
-    <div style="aspect-ratio:4/5;overflow:hidden;background:#1b1b1b;">
-      {% if section.settings.why_image %}
-        <img
-          src="{{ section.settings.why_image | img_url: '800x1000', crop: 'center' }}"
-          alt=""
-          style="width:100%;height:100%;object-fit:cover;"
-        >
-      {% else %}
-        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-          <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.15);">Bild wählen</p>
-        </div>
-      {% endif %}
-    </div>
-
   </div>
+
+  <div class="pp-img">
+    {% if section.settings.benefits_image %}
+      <img src="{{ section.settings.benefits_image | img_url: '1000x1400', crop: 'center' }}" alt="">
+    {% else %}
+      <div class="pp-img-placeholder" style="background:#181818;">
+        <p style="font-family:'Space Grotesk';font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.12);">Bild wählen</p>
+      </div>
+    {% endif %}
+  </div>
+
 </section>
 
-<!-- ── MARQUEE ─────────────────────────────────────────────────────────────────── -->
-<div style="background:#0e0e0e;padding:2rem 0;overflow:hidden;white-space:nowrap;">
-  <div style="display:inline-flex;animation:marquee 25s linear infinite;">
-    <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,5rem);text-transform:uppercase;color:#1f1f1f;padding:0 2rem;letter-spacing:-0.02em;">EARN WITH NIPPON NITES •&nbsp;</span>
-    <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,5rem);text-transform:uppercase;color:#1f1f1f;padding:0 2rem;letter-spacing:-0.02em;">EARN WITH NIPPON NITES •&nbsp;</span>
-    <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,5rem);text-transform:uppercase;color:#1f1f1f;padding:0 2rem;letter-spacing:-0.02em;">EARN WITH NIPPON NITES •&nbsp;</span>
+<!-- ── 3. FORM: Bild links · Formular rechts ─────────────────────────────────── -->
+<section id="partner-form" class="pp-split" style="background:#131313;">
+
+  <div class="pp-img">
+    {% if section.settings.form_image %}
+      <img src="{{ section.settings.form_image | img_url: '1000x1400', crop: 'center' }}" alt="">
+    {% else %}
+      <div class="pp-img-placeholder">
+        <p style="font-family:'Space Grotesk';font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.12);">Bild wählen</p>
+      </div>
+    {% endif %}
   </div>
-</div>
 
-<!-- ── FORM INTRO ──────────────────────────────────────────────────────────────── -->
-<div style="background:#131313;padding:5rem 2.5rem 2.5rem;text-align:center;">
-  <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#ffb4a9;margin-bottom:1rem;">Registrierung</p>
-  <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3.5rem);text-transform:uppercase;letter-spacing:-0.03em;color:#fff;margin:0;">
-    Jetzt kostenlos<br>anmelden →
-  </h2>
-  <p style="font-family:'Inter',sans-serif;font-size:0.875rem;color:rgba(255,255,255,0.35);margin-top:1rem;">Keine Vorabkosten. Kein Minimum. Einfach loslegen.</p>
-</div>
+  <div class="pp-content" style="background:#131313;align-items:flex-start;flex-direction:column;padding:4rem 4.5rem;overflow-y:auto;">
+    <h2 class="pp-form-title">JOIN OUR<br>PROGRAM</h2>
+    <div style="width:100%;">
+      {%- for block in section.blocks -%}
+        {%- render block -%}
+      {%- endfor -%}
+    </div>
+  </div>
 
-<style>
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
-}
-@media (max-width: 767px) {
-  /* Stack why-section on mobile */
-  .partner-why-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
-  .partner-why-img { display: none !important; }
-}
-</style>
+</section>
 
 {% schema %}
 {
   "name": "Partner Page",
+  "blocks": [{ "type": "@app" }],
   "settings": [
-    { "type": "header",   "content": "Hero" },
-    { "type": "image_picker", "id": "hero_image",    "label": "Hintergrundbild" },
-    { "type": "select",  "id": "hero_image_position", "label": "Bildposition", "options": [{"value":"center center","label":"Mitte"},{"value":"top center","label":"Oben"},{"value":"bottom center","label":"Unten"},{"value":"center left","label":"Links"},{"value":"center right","label":"Rechts"}], "default": "center center" },
-    { "type": "text",     "id": "hero_line1",   "label": "Headline Zeile 1", "default": "Werde" },
-    { "type": "text",     "id": "hero_line2",   "label": "Headline Zeile 2 (Outline)", "default": "Partner" },
-    { "type": "textarea", "id": "hero_subtitle","label": "Hero Untertext" },
-    { "type": "header",   "content": "Why-Section" },
-    { "type": "image_picker", "id": "why_image", "label": "Bild rechts" }
+    { "type": "header",       "content": "Section 1 – Hero" },
+    { "type": "image_picker", "id": "hero_image",    "label": "Bild links" },
+    { "type": "text",         "id": "hero_title",    "label": "Headline",          "default": "Das lukrativste Affiliate Program" },
+    { "type": "textarea",     "id": "hero_text",     "label": "Beschreibungstext" },
+    { "type": "header",       "content": "Section 2 – Benefits" },
+    { "type": "image_picker", "id": "benefits_image","label": "Bild rechts" },
+    { "type": "header",       "content": "Section 3 – Formular" },
+    { "type": "image_picker", "id": "form_image",    "label": "Bild links" }
   ],
   "presets": [{ "name": "Partner Page" }]
 }
