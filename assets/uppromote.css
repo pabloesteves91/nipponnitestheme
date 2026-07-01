@@ -140,19 +140,18 @@ button:not([type="submit"]):hover {
   color: #ffb4a9 !important;
 }
 
-/* ── Nav Login-Button — sichtbar ── */
-[class*="btn-login"],
-[class*="login-btn"],
-nav a,
-nav button,
-a[href*="login"] {
-  background: #1b1b1b !important;
-  background-color: #1b1b1b !important;
+/* ── Nav / Header — alle Elemente ── */
+nav *, header * {
   color: #fff !important;
-  border: 1px solid rgba(255,255,255,0.3) !important;
-  border-radius: 999px !important;
-  padding: 0.4rem 1rem !important;
-  font-size: 13px !important;
+}
+nav a, nav button, nav span,
+header a, header button, header span,
+[class*="btn-login"], [class*="login-btn"],
+a[href*="login"] {
+  background: rgba(255,255,255,0.08) !important;
+  background-color: rgba(255,255,255,0.08) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
 }
 
 /* ── Benefits / program info table ── */
