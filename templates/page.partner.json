@@ -1,9 +1,44 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "page-partner",
+      "settings": {
+        "title": "Werde",
+        "title_line2": "Partner",
+        "subtitle": "",
+        "uppromote_url": ""
+      }
+    },
+    "17829448212eac556a": {
+      "type": "apps",
+      "blocks": {
+        "uppromote_affiliate_registration_form_6WPbW7": {
+          "type": "shopify://apps/uppromote-affiliate/blocks/registration-form/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
+          "settings": {
+            "section_width": 100,
+            "border_radius": 4,
+            "top_margin": 20,
+            "bottom_margin": 4
+          }
+        }
+      },
+      "block_order": [
+        "uppromote_affiliate_registration_form_6WPbW7"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "17829448212eac556a"
+  ]
 }
