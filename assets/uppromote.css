@@ -34,10 +34,8 @@ main, section, article, aside {
 
 /* ── Logo area / header ── */
 header,
-[class*="header"],
-[class*="logo"],
-nav {
-  background-color: #131313 !important;
+[class*="header"] {
+  background-color: transparent !important;
   border-bottom: 1px solid rgba(255,255,255,0.07) !important;
 }
 
@@ -128,12 +126,10 @@ button[type="submit"]:hover,
 /* ── Secondary / outline buttons ── */
 button:not([type="submit"]),
 [class*="btn-secondary"],
-[class*="btn-outline"],
-[class*="btn-login"],
-[class*="login"] a {
+[class*="btn-outline"] {
   background: transparent !important;
   border: 1px solid rgba(255,255,255,0.2) !important;
-  color: rgba(255,255,255,0.6) !important;
+  color: rgba(255,255,255,0.7) !important;
   border-radius: 0 !important;
   font-family: 'Space Grotesk', sans-serif !important;
   text-transform: uppercase !important;
@@ -142,6 +138,20 @@ button:not([type="submit"]),
 button:not([type="submit"]):hover {
   border-color: #ffb4a9 !important;
   color: #ffb4a9 !important;
+}
+
+/* ── Nav Login-Button — sichtbar ── */
+[class*="btn-login"],
+[class*="login-btn"],
+nav a,
+nav button,
+a[href*="login"] {
+  background: transparent !important;
+  color: rgba(255,255,255,0.8) !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  border-radius: 999px !important;
+  padding: 0.4rem 1rem !important;
+  font-size: 13px !important;
 }
 
 /* ── Benefits / program info table ── */
