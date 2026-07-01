@@ -1,63 +1,156 @@
-<div class="bg-night min-h-screen">
+<!-- ── HERO ─────────────────────────────────────────────────────────────────── -->
+<section style="position:relative;min-height:90vh;display:flex;align-items:flex-end;overflow:hidden;">
 
-  <!-- Hero -->
-  <div class="bg-surface-container-low border-b border-white/5 px-6 lg:px-10 py-20">
-    <div class="max-w-4xl mx-auto">
-      <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-primary mb-4">Affiliate · Werde Partner</p>
-      <h1 class="font-headline font-black text-5xl md:text-7xl uppercase tracking-tighter text-white leading-none">
-        {{ section.settings.title | default: 'Werde' }}<br>
-        <span class="text-primary">{{ section.settings.title_line2 | default: 'Partner' }}</span>
-      </h1>
-      {% if section.settings.subtitle != blank %}
-        <p class="mt-6 text-white/50 font-body text-sm leading-relaxed max-w-xl">{{ section.settings.subtitle }}</p>
-      {% else %}
-        <p class="mt-6 text-white/50 font-body text-sm leading-relaxed max-w-xl">Empfehle Nippon Nites und verdiene 5 % Provision auf jeden Kauf über deinen Link oder Rabattcode. 30-Tage Cookie-Laufzeit.</p>
-      {% endif %}
+  <!-- Background image -->
+  {% if section.settings.hero_image %}
+    <img
+      src="{{ section.settings.hero_image | img_url: '2000x' }}"
+      alt=""
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ section.settings.hero_image_position | default: 'center center' }};"
+    >
+  {% else %}
+    <div style="position:absolute;inset:0;background:#1b1b1b;"></div>
+  {% endif %}
 
-      <!-- Benefits -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-        <div class="border-l-2 border-primary bg-[#1b1b1b] px-5 py-4">
-          <p class="font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/30 mb-1">Commission</p>
-          <p class="font-headline font-black text-2xl text-primary">5%</p>
-          <p class="font-body text-xs text-white/40 mt-1">Prozent vom Verkauf</p>
+  <!-- Gradient overlay -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to top, #131313 20%, rgba(19,19,19,0.65) 60%, rgba(19,19,19,0.25) 100%);"></div>
+
+  <!-- Content -->
+  <div style="position:relative;z-index:1;padding:5rem 2.5rem;max-width:1280px;width:100%;">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#ffb4a9;margin-bottom:1.25rem;">
+      Affiliate Program
+    </p>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(3.5rem,10vw,9rem);text-transform:uppercase;letter-spacing:-0.03em;line-height:0.9;color:#fff;margin:0;">
+      {{ section.settings.hero_line1 | default: 'Werde' }}<br>
+      <span style="-webkit-text-stroke:2px #ffb4a9;color:transparent;">{{ section.settings.hero_line2 | default: 'Partner' }}</span>
+    </h1>
+    <p style="font-family:'Inter',sans-serif;font-size:0.9375rem;color:rgba(255,255,255,0.5);max-width:30rem;margin-top:1.75rem;line-height:1.7;">
+      {{ section.settings.hero_subtitle | default: 'Empfehle Nippon Nites und verdiene mit jedem Verkauf. Dein Link. Dein Code. Deine Provision.' }}
+    </p>
+  </div>
+</section>
+
+<!-- ── STATS BAR ──────────────────────────────────────────────────────────────── -->
+<div style="background:linear-gradient(to right,#ffb4a9,#fb5a48);">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);">
+    <div style="padding:1.75rem 2rem;border-right:1px solid rgba(65,0,0,0.18);text-align:center;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:2.75rem;color:#410000;letter-spacing:-0.04em;line-height:1;">5%</p>
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(65,0,0,0.6);margin-top:0.25rem;">Commission</p>
+    </div>
+    <div style="padding:1.75rem 2rem;border-right:1px solid rgba(65,0,0,0.18);text-align:center;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:2.75rem;color:#410000;letter-spacing:-0.04em;line-height:1;">30</p>
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(65,0,0,0.6);margin-top:0.25rem;">Cookie Days</p>
+    </div>
+    <div style="padding:1.75rem 2rem;text-align:center;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:2.75rem;color:#410000;letter-spacing:-0.04em;line-height:1;">∞</p>
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:rgba(65,0,0,0.6);margin-top:0.25rem;">Kein Limit</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── WHY PARTNER ────────────────────────────────────────────────────────────── -->
+<section style="background:#131313;padding:7rem 2.5rem;">
+  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center;">
+
+    <!-- Left: copy -->
+    <div>
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;color:#ffb4a9;margin-bottom:1rem;">Warum wir?</p>
+      <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2.5rem,5vw,4rem);text-transform:uppercase;letter-spacing:-0.03em;line-height:0.95;color:#fff;margin:0 0 3rem;">
+        Echte Brand.<br>Echte Community.<br><span style="color:#ffb4a9;">Echte Einnahmen.</span>
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:1.5rem;">
+        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+          <div>
+            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Hand-illustrierte Designs</p>
+            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Einzigartige Streetwear, die deine Audience kennt und will.</p>
+          </div>
         </div>
-        <div class="border-l-2 border-primary bg-[#1b1b1b] px-5 py-4">
-          <p class="font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/30 mb-1">Cookie</p>
-          <p class="font-headline font-black text-2xl text-primary">30 Tage</p>
-          <p class="font-body text-xs text-white/40 mt-1">Tracking-Laufzeit</p>
+        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+          <div>
+            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Persönlicher Rabattcode</p>
+            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Dein eigener Code für deine Community — direkt einsetzbar.</p>
+          </div>
         </div>
-        <div class="border-l-2 border-primary bg-[#1b1b1b] px-5 py-4">
-          <p class="font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/30 mb-1">Auszahlung</p>
-          <p class="font-headline font-black text-2xl text-primary">Monatlich</p>
-          <p class="font-body text-xs text-white/40 mt-1">Per Link oder Code</p>
+        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+          <div>
+            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Echtzeit-Tracking</p>
+            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Sieh live, was dein Link bringt — transparent und nachvollziehbar.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:1.25rem;align-items:flex-start;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;color:#ffb4a9;font-size:1.1rem;line-height:1;margin-top:0.15rem;">→</span>
+          <div>
+            <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#fff;margin:0 0 0.25rem;">Bio-Baumwolle &amp; Qualität</p>
+            <p style="font-family:'Inter',sans-serif;font-size:0.8125rem;color:rgba(255,255,255,0.4);margin:0;line-height:1.6;">Produkte, hinter denen du stehen kannst.</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Embed -->
-  <div class="max-w-4xl mx-auto px-6 lg:px-10 py-16">
-    {% if section.settings.uppromote_url != blank %}
-      <iframe
-        src="{{ section.settings.uppromote_url }}"
-        style="width:100%;min-height:820px;border:none;display:block;background:#1b1b1b;"
-        scrolling="no"
-        title="Affiliate Programm Registrierung"
-        onload="this.style.minHeight=''; this.style.height=(this.contentWindow.document.body.scrollHeight+40)+'px';"
-      ></iframe>
-    {% endif %}
-  </div>
+    <!-- Right: image -->
+    <div style="aspect-ratio:4/5;overflow:hidden;background:#1b1b1b;">
+      {% if section.settings.why_image %}
+        <img
+          src="{{ section.settings.why_image | img_url: '800x1000', crop: 'center' }}"
+          alt=""
+          style="width:100%;height:100%;object-fit:cover;"
+        >
+      {% else %}
+        <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+          <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.15);">Bild wählen</p>
+        </div>
+      {% endif %}
+    </div>
 
+  </div>
+</section>
+
+<!-- ── MARQUEE ─────────────────────────────────────────────────────────────────── -->
+<div style="background:#0e0e0e;padding:2rem 0;overflow:hidden;white-space:nowrap;">
+  <div style="display:inline-flex;animation:marquee 25s linear infinite;">
+    <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,5rem);text-transform:uppercase;color:#1f1f1f;padding:0 2rem;letter-spacing:-0.02em;">EARN WITH NIPPON NITES •&nbsp;</span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,5rem);text-transform:uppercase;color:#1f1f1f;padding:0 2rem;letter-spacing:-0.02em;">EARN WITH NIPPON NITES •&nbsp;</span>
+    <span style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,6vw,5rem);text-transform:uppercase;color:#1f1f1f;padding:0 2rem;letter-spacing:-0.02em;">EARN WITH NIPPON NITES •&nbsp;</span>
+  </div>
 </div>
+
+<!-- ── FORM INTRO ──────────────────────────────────────────────────────────────── -->
+<div style="background:#131313;padding:5rem 2.5rem 2.5rem;text-align:center;">
+  <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#ffb4a9;margin-bottom:1rem;">Registrierung</p>
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3.5rem);text-transform:uppercase;letter-spacing:-0.03em;color:#fff;margin:0;">
+    Jetzt kostenlos<br>anmelden →
+  </h2>
+  <p style="font-family:'Inter',sans-serif;font-size:0.875rem;color:rgba(255,255,255,0.35);margin-top:1rem;">Keine Vorabkosten. Kein Minimum. Einfach loslegen.</p>
+</div>
+
+<style>
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+@media (max-width: 767px) {
+  /* Stack why-section on mobile */
+  .partner-why-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  .partner-why-img { display: none !important; }
+}
+</style>
 
 {% schema %}
 {
   "name": "Partner Page",
   "settings": [
-    { "type": "text",     "id": "title",         "label": "Titel Zeile 1",    "default": "Werde" },
-    { "type": "text",     "id": "title_line2",   "label": "Titel Zeile 2",    "default": "Partner" },
-    { "type": "textarea", "id": "subtitle",      "label": "Einleitungstext" },
-    { "type": "text",     "id": "uppromote_url", "label": "UpPromote Registrierungs-URL", "info": "z.B. https://affiliates.nipponnites.com/register" }
+    { "type": "header",   "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image",    "label": "Hintergrundbild" },
+    { "type": "select",  "id": "hero_image_position", "label": "Bildposition", "options": [{"value":"center center","label":"Mitte"},{"value":"top center","label":"Oben"},{"value":"bottom center","label":"Unten"},{"value":"center left","label":"Links"},{"value":"center right","label":"Rechts"}], "default": "center center" },
+    { "type": "text",     "id": "hero_line1",   "label": "Headline Zeile 1", "default": "Werde" },
+    { "type": "text",     "id": "hero_line2",   "label": "Headline Zeile 2 (Outline)", "default": "Partner" },
+    { "type": "textarea", "id": "hero_subtitle","label": "Hero Untertext" },
+    { "type": "header",   "content": "Why-Section" },
+    { "type": "image_picker", "id": "why_image", "label": "Bild rechts" }
   ],
   "presets": [{ "name": "Partner Page" }]
 }
