@@ -10,7 +10,7 @@
     <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
   </div>
 
-  <div class="absolute top-0 left-0 right-0 z-[5]">
+  <div style="position:absolute;top:0;left:0;right:0;z-index:5;">
     {%- if section.settings.promo_image -%}
       <a href="{{ section.settings.promo_link | default: '#' }}" style="display:block;line-height:0;">
         <img src="{{ section.settings.promo_image | img_url: '1200x' }}"
