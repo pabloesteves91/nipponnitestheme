@@ -1,4 +1,4 @@
-<section class="relative w-full overflow-hidden" style="min-height:50vh;">
+<section class="relative w-full overflow-hidden">
   <div class="absolute inset-0 z-0">
     {% if section.settings.bg_image != blank %}
       <img src="{{ section.settings.bg_image | img_url: '1920x' }}"
@@ -20,7 +20,7 @@
   </div>
   {%- endif -%}
 
-  <div class="relative z-10 px-8 pt-6 pb-12 max-w-7xl">
+  <div class="relative z-10 px-8 pt-2 pb-12 max-w-7xl">
     {% if section.settings.badge != blank %}
       <span class="inline-block bg-primary text-on-primary-fixed px-3 py-1 text-xs font-bold tracking-[0.2em] uppercase mb-6">
         {{ section.settings.badge }}
