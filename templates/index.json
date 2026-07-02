@@ -9,6 +9,26 @@
  */
 {
   "sections": {
+    "17829755496dd863a1": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ba62584_VNtnKR": {
+          "type": "ai_gen_block_ba62584",
+          "settings": {
+            "image": "shopify://shop_images/Unbenannt-1_cd0b41c7-af7e-4a12-8bdf-29d466e7a30e.png",
+            "aspect_ratio": "21/9",
+            "desktop_width_percent": 100,
+            "border_radius": 0,
+            "placeholder_bg_color": "#1b1b1b"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_ba62584_VNtnKR"
+      ],
+      "settings": {}
+    },
     "hero": {
       "type": "hero",
       "settings": {
@@ -21,8 +41,7 @@
         "cta_primary_label": "Dein Hoodie",
         "cta_primary_url": "/collections/all",
         "cta_secondary_label": "Brand Story",
-        "cta_secondary_url": "/pages/brand-story",
-        "promo_image": "shopify://shop_images/Unbenannt-1_cd0b41c7-af7e-4a12-8bdf-29d466e7a30e.png"
+        "cta_secondary_url": "/pages/brand-story"
       }
     },
     "featured_duo": {
@@ -55,6 +74,7 @@
     }
   },
   "order": [
+    "17829755496dd863a1",
     "hero",
     "featured_duo",
     "passion",
