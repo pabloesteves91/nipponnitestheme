@@ -10,19 +10,15 @@
     <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
   </div>
 
-  <div style="position:relative;z-index:5;">
-    {%- if section.settings.promo_image -%}
-      <a href="{{ section.settings.promo_link | default: '#' }}" style="display:block;line-height:0;">
-        <img src="{{ section.settings.promo_image | img_url: '1200x' }}"
-             alt="{{ section.settings.promo_image_alt | escape }}"
-             style="width:100%;height:auto;display:block;">
-      </a>
-    {%- else -%}
-      <div style="margin:1rem;border:2px dashed rgba(255,180,169,0.5);padding:1.5rem;text-align:center;background:rgba(0,0,0,0.6);">
-        <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,180,169,0.7);margin:0;">+ Promo-Bild → Theme Editor → Hero → Promo-Banner Bild</p>
-      </div>
-    {%- endif -%}
+  {%- if section.settings.promo_image -%}
+  <div style="position:relative;z-index:5;line-height:0;">
+    <a href="{{ section.settings.promo_link | default: '#' }}" style="display:block;line-height:0;">
+      <img src="{{ section.settings.promo_image | img_url: '1200x' }}"
+           alt="{{ section.settings.promo_image_alt | escape }}"
+           style="width:100%;height:auto;display:block;">
+    </a>
   </div>
+  {%- endif -%}
 
   <div class="relative z-10 px-8 pt-6 pb-12 max-w-7xl">
     {% if section.settings.badge != blank %}
