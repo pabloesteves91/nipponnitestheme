@@ -9,12 +9,6 @@
  */
 {
   "sections": {
-    "promo_banner": {
-      "type": "promo-banner",
-      "settings": {
-        "hide": false
-      }
-    },
     "hero": {
       "type": "hero",
       "settings": {
@@ -60,7 +54,6 @@
     }
   },
   "order": [
-    "promo_banner",
     "hero",
     "featured_duo",
     "passion",

@@ -10,6 +10,20 @@
     <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
   </div>
 
+  <div class="absolute top-0 left-0 right-0 z-[5]">
+    {%- if section.settings.promo_image -%}
+      <a href="{{ section.settings.promo_link | default: '#' }}" style="display:block;line-height:0;">
+        <img src="{{ section.settings.promo_image | img_url: '1200x' }}"
+             alt="{{ section.settings.promo_image_alt | escape }}"
+             style="width:100%;height:auto;display:block;">
+      </a>
+    {%- else -%}
+      <div style="padding:2rem 1.5rem;text-align:center;background:rgba(0,0,0,0.45);">
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.25);margin:0;">Promo-Bild → Theme Editor → Hero → Promo-Banner Bild</p>
+      </div>
+    {%- endif -%}
+  </div>
+
   <div class="relative z-10 px-8 pb-24 md:pb-32 max-w-7xl">
     {% if section.settings.badge != blank %}
       <span class="inline-block bg-primary text-on-primary-fixed px-3 py-1 text-xs font-bold tracking-[0.2em] uppercase mb-6">
@@ -56,7 +70,11 @@
     { "type": "text",         "id": "cta_primary_label",  "label": "Primary button",         "default": "Dein Hoodie" },
     { "type": "url",          "id": "cta_primary_url",    "label": "Primary button URL" },
     { "type": "text",         "id": "cta_secondary_label","label": "Secondary button",        "default": "Lookbook" },
-    { "type": "url",          "id": "cta_secondary_url",  "label": "Secondary button URL" }
+    { "type": "url",          "id": "cta_secondary_url",    "label": "Secondary button URL" },
+    { "type": "header",       "content": "Promo-Banner (oben)" },
+    { "type": "image_picker", "id": "promo_image",          "label": "Promo-Bild" },
+    { "type": "text",         "id": "promo_image_alt",      "label": "Alt-Text",   "default": "" },
+    { "type": "url",          "id": "promo_link",           "label": "Link (optional)" }
   ],
   "presets": [{ "name": "Hero – Night Runner" }]
 }
