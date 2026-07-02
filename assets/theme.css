@@ -1,6 +1,7 @@
 /* NIPPON NITES – Night Runner Theme */
 *, *::before, *::after { box-sizing: border-box; }
 body { background-color: #131313; color: #ffffff; font-family: 'Inter', sans-serif; margin: 0; }
+.shopify-section { margin: 0 !important; padding: 0 !important; }
 h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Space Grotesk', sans-serif; }
 .gradient-bg { background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(240,82,65,0.15), transparent); }
 .card-glow:hover { box-shadow: 0 0 24px rgba(240,82,65,0.25); transition: box-shadow 0.3s ease; }
