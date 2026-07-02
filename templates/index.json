@@ -12,7 +12,7 @@
     "promo_banner": {
       "type": "promo-banner",
       "settings": {
-        "show": true
+        "hide": false
       }
     },
     "hero": {
