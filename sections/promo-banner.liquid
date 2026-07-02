@@ -1,24 +1,26 @@
-{% if section.settings.show and section.settings.image %}
-<a href="{{ section.settings.link | default: '#' }}" style="display:block;width:100%;line-height:0;">
-  <img
-    src="{{ section.settings.image | img_url: '1600x' }}"
-    alt="{{ section.settings.image_alt | escape }}"
-    style="width:100%;height:auto;display:block;"
-    loading="eager">
-</a>
-{% elsif section.settings.show %}
-<div style="background:#1b1b1b;width:100%;padding:3rem 1.5rem;text-align:center;">
-  <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.2);margin:0;">Bild wählen → Theme Editor → Promo Banner</p>
-</div>
-{% endif %}
+{% unless section.settings.hide %}
+  {% if section.settings.image %}
+    <a href="{{ section.settings.link | default: '#' }}" style="display:block;width:100%;line-height:0;">
+      <img
+        src="{{ section.settings.image | img_url: '1600x' }}"
+        alt="{{ section.settings.image_alt | escape }}"
+        style="width:100%;height:auto;display:block;"
+        loading="eager">
+    </a>
+  {% else %}
+    <div style="background:#1b1b1b;width:100%;padding:3rem 1.5rem;text-align:center;">
+      <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.2);margin:0;">Bild wählen → Theme Editor → Promo Banner</p>
+    </div>
+  {% endif %}
+{% endunless %}
 
 {% schema %}
 {
   "name": "Promo Banner",
   "settings": [
-    { "type": "checkbox",     "id": "show",       "label": "Banner anzeigen",  "default": true },
+    { "type": "checkbox",     "id": "hide",       "label": "Banner ausblenden", "default": false },
     { "type": "image_picker", "id": "image",      "label": "Banner-Bild" },
-    { "type": "text",         "id": "image_alt",  "label": "Alt-Text",         "default": "" },
+    { "type": "text",         "id": "image_alt",  "label": "Alt-Text",          "default": "" },
     { "type": "url",          "id": "link",       "label": "Link (optional)" }
   ],
   "presets": [{ "name": "Promo Banner" }]
