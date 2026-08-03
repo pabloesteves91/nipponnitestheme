@@ -15,6 +15,7 @@
         "ai_gen_block_ba62584_VNtnKR": {
           "type": "ai_gen_block_ba62584",
           "name": "Promo Banner",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Unbenannt-1_cd0b41c7-af7e-4a12-8bdf-29d466e7a30e.png",
             "aspect_ratio": "21/9",
