@@ -174,6 +174,20 @@ async function updateCartCount() {
   } catch(e) {}
 }
 document.addEventListener('DOMContentLoaded', updateCartCount);
+
+// Scroll reveal — IntersectionObserver
+(function() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.sr').forEach(function(el) { el.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.sr').forEach(function(el) { io.observe(el); });
+})();
 const menuBtn = document.getElementById('mobile-menu-btn');
 const mobileNav = document.getElementById('mobile-nav');
 if (menuBtn && mobileNav) {

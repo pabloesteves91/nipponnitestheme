@@ -1,73 +1,109 @@
 {% assign p1 = all_products[section.settings.product1] %}
 {% assign p2 = all_products[section.settings.product2] %}
 
-<!-- Tokyo Drift Featured -->
-<section class="bg-surface py-32 px-8">
+<section class="bg-surface py-24 md:py-32 px-8">
   <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
-      <h2 class="font-headline text-4xl md:text-6xl uppercase font-black tracking-tighter">
+
+    <!-- Asymmetric section header -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20 sr">
+      <h2 class="font-headline text-5xl md:text-7xl uppercase font-black tracking-tighter leading-none max-w-sm">
         {{ section.settings.title_line1 }}<br>
-        <span class="text-primary-fixed-dim">{{ section.settings.title_line2 }}</span>
+        <span style="-webkit-text-stroke: 1.5px #ffb4a9; color: transparent;">{{ section.settings.title_line2 }}</span>
       </h2>
-      <p class="max-w-md text-tertiary-container font-body leading-relaxed">
-        {{ section.settings.description }}
-      </p>
+      <div class="md:text-right max-w-xs">
+        <p class="text-white/40 font-body text-sm leading-relaxed mb-4">{{ section.settings.description }}</p>
+        <a href="/collections/all" class="font-headline text-[11px] uppercase tracking-[0.25em] text-primary hover:brightness-125 transition-all border-b border-primary pb-px">
+          Alle Produkte &rarr;
+        </a>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      {% if p1.title == blank and p2.title == blank %}
-        <p class="col-span-2 text-white/30 text-center py-20">Produkte im Theme-Editor auswählen.</p>
-      {% endif %}
+    <!-- Product grid with vertical stagger -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
 
       {% if p1.title != blank %}
-        <div class="group">
+        <div class="group relative sr sr-delay-1">
+          <!-- Number overlay -->
+          <span class="absolute top-4 left-4 z-10 font-headline font-black text-[6rem] leading-none text-white/5 select-none pointer-events-none">01</span>
+
           <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
             {% if p1.featured_image %}
               <a href="{{ p1.url }}" class="block w-full h-full">
                 <img src="{{ p1.featured_image | img_url: '800x1000', crop: 'center' }}"
                      alt="{{ p1.featured_image.alt | default: p1.title | escape }}"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
               </a>
             {% else %}
               <div class="w-full h-full bg-surface-container-highest"></div>
             {% endif %}
-          </div>
-          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
-            <div>
-              {% if p1.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p1.type }}</span>{% endif %}
-              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
-                <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
-              </h3>
+
+            <!-- Hover overlay -->
+            <div class="absolute inset-0 bg-[#131313]/80 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+              {% if p1.type != blank %}
+                <span class="text-primary text-[9px] tracking-[0.25em] font-headline font-black uppercase block mb-1">{{ p1.type }}</span>
+              {% endif %}
+              <h3 class="font-headline text-2xl uppercase font-black leading-tight mb-2">{{ p1.title }}</h3>
+              <span class="font-headline font-bold text-primary text-sm mb-4">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
+              <a href="{{ p1.url }}" class="inline-block bg-primary text-on-primary-fixed font-headline font-black uppercase text-xs tracking-widest py-3 px-6 hover:brightness-110 transition-all self-start">
+                Ansehen &rarr;
+              </a>
             </div>
-            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
+          </div>
+
+          <!-- Static label below (always visible) -->
+          <div class="pt-4 flex justify-between items-start">
+            <h3 class="font-headline text-sm uppercase font-bold tracking-tight text-white/60">
+              <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
+            </h3>
+            <span class="font-headline text-sm font-bold text-white/40 shrink-0 ml-4">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
           </div>
         </div>
       {% endif %}
 
       {% if p2.title != blank %}
-        <div class="group">
+        <!-- Staggered: push second card down on desktop -->
+        <div class="group relative md:mt-24 sr sr-delay-2">
+          <!-- Number overlay -->
+          <span class="absolute top-4 left-4 z-10 font-headline font-black text-[6rem] leading-none text-white/5 select-none pointer-events-none">02</span>
+
           <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
             {% if p2.featured_image %}
               <a href="{{ p2.url }}" class="block w-full h-full">
                 <img src="{{ p2.featured_image | img_url: '800x1000', crop: 'center' }}"
                      alt="{{ p2.featured_image.alt | default: p2.title | escape }}"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
               </a>
             {% else %}
               <div class="w-full h-full bg-surface-container-highest"></div>
             {% endif %}
-          </div>
-          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
-            <div>
-              {% if p2.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p2.type }}</span>{% endif %}
-              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
-                <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
-              </h3>
+
+            <!-- Hover overlay -->
+            <div class="absolute inset-0 bg-[#131313]/80 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+              {% if p2.type != blank %}
+                <span class="text-primary text-[9px] tracking-[0.25em] font-headline font-black uppercase block mb-1">{{ p2.type }}</span>
+              {% endif %}
+              <h3 class="font-headline text-2xl uppercase font-black leading-tight mb-2">{{ p2.title }}</h3>
+              <span class="font-headline font-bold text-primary text-sm mb-4">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
+              <a href="{{ p2.url }}" class="inline-block bg-primary text-on-primary-fixed font-headline font-black uppercase text-xs tracking-widest py-3 px-6 hover:brightness-110 transition-all self-start">
+                Ansehen &rarr;
+              </a>
             </div>
-            <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
+          </div>
+
+          <!-- Static label below -->
+          <div class="pt-4 flex justify-between items-start">
+            <h3 class="font-headline text-sm uppercase font-bold tracking-tight text-white/60">
+              <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
+            </h3>
+            <span class="font-headline text-sm font-bold text-white/40 shrink-0 ml-4">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
           </div>
         </div>
       {% endif %}
+
+      {% if p1.title == blank and p2.title == blank %}
+        <p class="col-span-2 text-white/20 text-center py-20 font-headline uppercase tracking-tighter">Produkte im Theme-Editor auswahlen.</p>
+      {% endif %}
+
     </div>
   </div>
 </section>
@@ -76,11 +112,11 @@
 {
   "name": "Featured Duo",
   "settings": [
-    { "type": "product", "id": "product1", "label": "Produkt 1" },
-    { "type": "product", "id": "product2", "label": "Produkt 2" },
-    { "type": "text",    "id": "title_line1", "label": "Titel Zeile 1", "default": "Tokyo Drift" },
-    { "type": "text",    "id": "title_line2", "label": "Titel Zeile 2", "default": "Edition" },
-    { "type": "textarea","id": "description", "label": "Beschreibung",  "default": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed." }
+    { "type": "product",  "id": "product1",    "label": "Produkt 1" },
+    { "type": "product",  "id": "product2",    "label": "Produkt 2" },
+    { "type": "text",     "id": "title_line1", "label": "Titel Zeile 1",  "default": "Tokyo Drift" },
+    { "type": "text",     "id": "title_line2", "label": "Titel Zeile 2",  "default": "Edition" },
+    { "type": "textarea", "id": "description", "label": "Beschreibung",   "default": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed." }
   ],
   "presets": [{ "name": "Featured Duo" }]
 }

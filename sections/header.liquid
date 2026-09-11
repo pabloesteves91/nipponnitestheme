@@ -20,8 +20,8 @@
         {% for link in linklists[section.settings.menu].links %}
           <a
             href="{{ link.url }}"
-            class="font-headline font-bold text-sm uppercase tracking-widest text-white/60 hover:text-white transition-colors{% if link.active %} text-white{% endif %}"
-          >{{ link.title }}</a>
+            class="font-headline font-bold text-xs uppercase tracking-widest transition-colors relative{% if link.active %} text-primary{% else %} text-white/50 hover:text-white{% endif %}"
+          >{{ link.title }}{% if link.active %}<span class="absolute -bottom-1 left-0 right-0 h-px bg-primary"></span>{% endif %}</a>
         {% endfor %}
       </nav>
 

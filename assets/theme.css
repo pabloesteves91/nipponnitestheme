@@ -14,3 +14,10 @@ h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Space Grotesk', sans-serif
 ::-webkit-scrollbar-thumb { background: #F05241; border-radius: 3px; }
 :focus-visible { outline: 2px solid #F05241; outline-offset: 2px; }
 .shopify-payment-button__button { border-radius: 0 !important; font-family: 'Space Grotesk',sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; }
+/* Scroll reveal */
+.sr { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+.sr.is-visible { opacity: 1; transform: translateY(0); }
+.sr-delay-1 { transition-delay: 0.1s; }
+.sr-delay-2 { transition-delay: 0.2s; }
+.sr-delay-3 { transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) { .sr { opacity: 1; transform: none; transition: none; } }
