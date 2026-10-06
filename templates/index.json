@@ -36,11 +36,11 @@
       "settings": {
         "bg_image": "shopify://shop_images/Guide-to-Experience-Tokyo-Nightlife-1.jpg",
         "bg_image_alt": "Tokyo night street",
-        "badge": "Limited Drop 001",
+        "badge": "",
         "headline_line1": "BESTELLE DEINEN",
         "headline_outline": "EIGENEN",
-        "headline_line2": "HOODIE",
-        "cta_primary_label": "Dein Hoodie",
+        "headline_line2": "MERCH",
+        "cta_primary_label": "Dein Merch",
         "cta_primary_url": "/collections/all",
         "cta_secondary_label": "Brand Story",
         "cta_secondary_url": "/pages/brand-story"
@@ -69,7 +69,7 @@
       "type": "featured-collection",
       "settings": {
         "eyebrow": "Kollektion",
-        "title": "Unsere Hoodies",
+        "title": "Unser Merch",
         "collection": "",
         "products_to_show": 8
       }
