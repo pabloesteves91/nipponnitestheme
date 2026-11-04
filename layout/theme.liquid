@@ -16,7 +16,7 @@
   {%- assign og_img_alt = shop.name -%}
   {%- if template.name == 'product' and product.featured_image -%}
     {%- assign og_img = product.featured_image | image_url: width: 1200 -%}
-    {%- assign og_img_alt = product.featured_image.alt | default: product.title -%}
+    {%- assign og_img_alt = product.title -%}
     {%- assign og_type = 'product' -%}
   {%- elsif template.name == 'collection' and collection.image -%}
     {%- assign og_img = collection.image | image_url: width: 1200 -%}
