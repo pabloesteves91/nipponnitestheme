@@ -1,7 +1,6 @@
 {% assign p1 = all_products[section.settings.product1] %}
 {% assign p2 = all_products[section.settings.product2] %}
 
-<!-- Tokyo Drift Featured -->
 <section class="bg-surface py-32 px-8">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
@@ -19,13 +18,16 @@
         <p class="col-span-2 text-white/30 text-center py-20">Produkte im Theme-Editor auswählen.</p>
       {% endif %}
 
-      {% if p1.title != blank %}
+      {% for i in (1..2) %}
+        {% if i == 1 %}{% assign p = p1 %}{% else %}{% assign p = p2 %}{% endif %}
+        {% if p.title != blank %}
         <div class="group">
           <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
-            {% if p1.featured_image %}
-              <a href="{{ p1.url }}" class="block w-full h-full">
-                <img src="{{ p1.featured_image | img_url: '800x1000', crop: 'center' }}"
-                     alt="{{ p1.featured_image.alt | default: p1.title | escape }}"
+            {% if p.featured_image %}
+              <a href="{{ p.url }}" class="block w-full h-full">
+                <img src="{{ p.featured_image | img_url: '800x1000', crop: 'center' }}"
+                     alt="{{ p.featured_image.alt | default: p.title | escape }}"
+                     loading="lazy"
                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
               </a>
             {% else %}
@@ -34,76 +36,31 @@
           </div>
           <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
             <div>
-              {% if p1.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p1.type }}</span>{% endif %}
+              {% if p.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p.type }}</span>{% endif %}
               <h3 class="font-headline text-xl uppercase font-bold leading-tight">
-                <a href="{{ p1.url }}" class="hover:text-primary transition-colors">{{ p1.title }}</a>
+                <a href="{{ p.url }}" class="hover:text-primary transition-colors">{{ p.title }}</a>
               </h3>
-              {%- assign _p1_count = p1.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
-              {%- assign _p1_rating = p1.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
-              {%- assign _p1_full = _p1_rating | floor -%}
-              <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
-                {%- if _p1_count > 0 -%}
-                  {%- for i in (1..5) -%}{%- if i <= _p1_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
-                  <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _p1_count }} Bewertungen</span>
-                {%- else -%}
-                  <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-                  <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
-                {%- endif -%}
-              </div>
+              {%- assign _count = p.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- if _count > 0 -%}
+                {%- assign _rating = p.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
+                {%- assign _full = _rating | floor -%}
+                <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+                  {%- for s in (1..5) -%}{%- if s <= _full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
+                  <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _count }} {% if _count == 1 %}Bewertung{% else %}Bewertungen{% endif %}</span>
+                </div>
+              {%- endif -%}
             </div>
-            {%- assign _factor = 1 -%}{%- if p1.handle == 'custom-hoodie-t-shirt' or p1.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if p1.handle == 'wheelhead-niko-light' or p1.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
+            {%- assign _factor = 1 -%}{%- if p.handle == 'custom-hoodie-t-shirt' or p.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if p.handle == 'wheelhead-niko-light' or p.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
             {%- if _factor != 1 -%}
-              {%- assign _p1_disc = p1.price_min | times: _factor | round -%}
-              <span class="font-headline font-bold text-lg shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;font-size:0.875em;">{{ p1.price_min | money }}</s> <span class="text-on-surface/80">{{ _p1_disc | money }}</span></span>
+              {%- assign _disc = p.price_min | times: _factor | round -%}
+              <span class="font-headline font-bold text-lg shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;font-size:0.875em;">{{ p.price_min | money }}</s> <span class="text-on-surface/80">{{ _disc | money }}</span></span>
             {%- else -%}
-              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p1.price_varies %}ab {% endif %}{{ p1.price_min | money }}</span>
+              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p.price_varies %}ab {% endif %}{{ p.price_min | money }}</span>
             {%- endif -%}
           </div>
         </div>
-      {% endif %}
-
-      {% if p2.title != blank %}
-        <div class="group">
-          <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
-            {% if p2.featured_image %}
-              <a href="{{ p2.url }}" class="block w-full h-full">
-                <img src="{{ p2.featured_image | img_url: '800x1000', crop: 'center' }}"
-                     alt="{{ p2.featured_image.alt | default: p2.title | escape }}"
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-              </a>
-            {% else %}
-              <div class="w-full h-full bg-surface-container-highest"></div>
-            {% endif %}
-          </div>
-          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
-            <div>
-              {% if p2.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p2.type }}</span>{% endif %}
-              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
-                <a href="{{ p2.url }}" class="hover:text-primary transition-colors">{{ p2.title }}</a>
-              </h3>
-              {%- assign _p2_count = p2.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
-              {%- assign _p2_rating = p2.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
-              {%- assign _p2_full = _p2_rating | floor -%}
-              <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
-                {%- if _p2_count > 0 -%}
-                  {%- for i in (1..5) -%}{%- if i <= _p2_full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
-                  <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _p2_count }} Bewertungen</span>
-                {%- else -%}
-                  <span style="color:#ffb4a9;font-size:13px;letter-spacing:2px;line-height:1;">☆☆☆☆☆</span>
-                  <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">0 Bewertungen</span>
-                {%- endif -%}
-              </div>
-            </div>
-            {%- assign _factor = 1 -%}{%- if p2.handle == 'custom-hoodie-t-shirt' or p2.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if p2.handle == 'wheelhead-niko-light' or p2.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
-            {%- if _factor != 1 -%}
-              {%- assign _p2_disc = p2.price_min | times: _factor | round -%}
-              <span class="font-headline font-bold text-lg shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;font-size:0.875em;">{{ p2.price_min | money }}</s> <span class="text-on-surface/80">{{ _p2_disc | money }}</span></span>
-            {%- else -%}
-              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p2.price_varies %}ab {% endif %}{{ p2.price_min | money }}</span>
-            {%- endif -%}
-          </div>
-        </div>
-      {% endif %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </section>

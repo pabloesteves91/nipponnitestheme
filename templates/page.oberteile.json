@@ -13,12 +13,10 @@
       "type": "page-oberteile",
       "settings": {
         "title": "Shop",
-        "subtitle": "Hoodies, T-Shirts und mehr. Hand-illustriert. Bio-Baumwolle.",
+        "subtitle": "Hoodies, T-Shirts, Caps und Accessoires für die JDM-Szene. Eigene Designs aus Winterthur.",
         "collection_handle": ""
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
