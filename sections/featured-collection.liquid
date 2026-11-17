@@ -29,25 +29,28 @@
           {% if product.type != blank %}
             <p class="font-label text-[10px] tracking-[0.2em] uppercase text-primary">{{ product.type }}</p>
           {% endif %}
-          <div class="flex justify-between items-start gap-2">
-            <h3 class="font-headline font-bold text-base uppercase leading-tight group-hover:text-primary transition-colors">
-              <a href="{{ product.url }}">{{ product.title }}</a>
-            </h3>
-            {%- assign _factor = 1 -%}{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
-            {%- if _factor != 1 -%}
-              {%- assign _disc = product.price | times: _factor | round -%}
-              <span class="font-body text-sm shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;">{{ product.price | money }}</s> <span class="text-on-surface/70">{{ _disc | money }}</span></span>
-            {%- else -%}
-              <span class="font-body text-sm text-on-surface/70 shrink-0">{{ product.price | money }}</span>
-            {%- endif -%}
-          </div>
+          <h3 class="font-headline font-bold text-base uppercase leading-tight group-hover:text-primary transition-colors">
+            <a href="{{ product.url }}">{{ product.title }}</a>
+          </h3>
+          {%- assign _factor = 1 -%}{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
+          {%- if _factor != 1 -%}
+            {%- assign _disc = product.price | times: _factor | round -%}
+            {%- assign _pct = 1 | minus: _factor | times: 100 | round -%}
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;padding-top:2px;">
+              <span class="font-headline font-bold text-sm text-white">{{ _disc | money }}</span>
+              <s style="color:rgba(255,255,255,0.35);font-size:12px;font-weight:400;">{{ product.price | money }}</s>
+              <span style="background:#ffb4a9;color:#410000;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.05em;padding:2px 6px;line-height:1.3;">−{{ _pct }}%</span>
+            </div>
+          {%- else -%}
+            <p class="font-body text-sm text-on-surface/70" style="padding-top:2px;">{{ product.price | money }}</p>
+          {%- endif -%}
           {%- assign _count = product.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
           {%- if _count > 0 -%}
             {%- assign _rating = product.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
             {%- assign _full = _rating | floor -%}
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px;margin-bottom:2px;">
-              {%- for i in (1..5) -%}{%- if i <= _full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
-              <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _count }} {% if _count == 1 %}Bewertung{% else %}Bewertungen{% endif %}</span>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:6px;margin-bottom:2px;">
+              <span style="white-space:nowrap;">{%- for i in (1..5) -%}{%- if i <= _full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}</span>
+              <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;white-space:nowrap;">{{ _count }} {% if _count == 1 %}Bewertung{% else %}Bewertungen{% endif %}</span>
             </div>
           {%- endif -%}
           {% if product.variants.size == 1 %}
