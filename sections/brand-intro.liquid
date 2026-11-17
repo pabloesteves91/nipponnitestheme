@@ -1,0 +1,38 @@
+<style>
+  .nn-intro{background:#1b1b1b;padding:56px 16px;}
+  .nn-intro__wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:20px;}
+  .nn-intro__eyebrow{font-family:'Space Grotesk',sans-serif;color:#ffb4a9;font-weight:700;font-size:12px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 12px;}
+  .nn-intro__title{font-family:'Space Grotesk',sans-serif;font-weight:900;text-transform:uppercase;line-height:.95;letter-spacing:-.03em;font-size:36px;margin:0;color:#fff;}
+  .nn-intro__title span{color:transparent;-webkit-text-stroke:1.5px #ffb4a9;}
+  .nn-intro__text{font-family:'Inter',sans-serif;color:rgba(255,255,255,.7);font-size:16px;line-height:1.7;margin:0;}
+  .nn-intro__text p{margin:0 0 14px;}
+  .nn-intro__text p:last-child{margin-bottom:0;}
+  .nn-intro__text a{color:#ffb4a9;text-decoration:underline;}
+  @media (min-width:768px){
+    .nn-intro{padding:96px 32px;}
+    .nn-intro__wrap{grid-template-columns:5fr 7fr;gap:64px;align-items:start;}
+    .nn-intro__title{font-size:56px;}
+    .nn-intro__text{font-size:17px;}
+  }
+</style>
+<section class="nn-intro">
+  <div class="nn-intro__wrap">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="nn-intro__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="nn-intro__title">{{ section.settings.title_line1 }}{% if section.settings.title_outline != blank %}<br><span>{{ section.settings.title_outline }}</span>{% endif %}</h1>
+    </div>
+    <div class="nn-intro__text">{{ section.settings.text }}</div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Über Nippon Nites",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Über Nippon Nites" },
+    { "type": "text", "id": "title_line1", "label": "Hauptüberschrift (H1) Zeile 1", "default": "JDM Merch & Streetwear" },
+    { "type": "text", "id": "title_outline", "label": "Hauptüberschrift Zeile 2 (Outline)", "default": "aus Winterthur" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Nippon Nites ist eine JDM-Streetwear-Marke aus Winterthur.</p>" }
+  ],
+  "presets": [{ "name": "Über Nippon Nites" }]
+}
+{% endschema %}

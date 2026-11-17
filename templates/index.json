@@ -26,7 +26,9 @@
           "blocks": {}
         }
       },
-      "block_order": ["ai_gen_block_ba62584_VNtnKR"],
+      "block_order": [
+        "ai_gen_block_ba62584_VNtnKR"
+      ],
       "settings": {}
     },
     "hero_product": {
@@ -43,18 +45,47 @@
         "cta_primary_label": "Jetzt shoppen",
         "cta_primary_url": "/products/wheelhead-niko-premium",
         "cta_secondary_label": "Alle Drops",
-        "cta_secondary_url": "/collections/all"
+        "cta_secondary_url": "/pages/shop"
       }
     },
     "trust": {
       "type": "trust-strip",
       "blocks": {
-        "t1": { "type": "item", "settings": { "icon": "payments", "text": "TWINT, PayPal & Karte" } },
-        "t2": { "type": "item", "settings": { "icon": "undo", "text": "14 Tage Rückgaberecht" } },
-        "t3": { "type": "item", "settings": { "icon": "draw", "text": "Eigene Designs, kein KI" } },
-        "t4": { "type": "item", "settings": { "icon": "location_on", "text": "Brand aus Winterthur" } }
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "payments",
+            "text": "TWINT, PayPal & Karte"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "undo",
+            "text": "14 Tage Rückgaberecht"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "draw",
+            "text": "Eigene Designs, kein KI"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "location_on",
+            "text": "Brand aus Winterthur"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4"],
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
       "settings": {}
     },
     "hero": {
@@ -68,9 +99,9 @@
         "headline_outline": "EIGENEN",
         "headline_line2": "MERCH",
         "cta_primary_label": "Dein Merch",
-        "cta_primary_url": "/collections/all",
+        "cta_primary_url": "/pages/shop",
         "cta_secondary_label": "Brand Story",
-        "cta_secondary_url": "/pages/brand-story"
+        "cta_secondary_url": "/pages/brandstory"
       }
     },
     "featured_duo": {
@@ -100,6 +131,15 @@
         "headline_line2": "A CRIME.",
         "subline": "Street Heritage // 2024"
       }
+    },
+    "brand_intro": {
+      "type": "brand-intro",
+      "settings": {
+        "eyebrow": "Über Nippon Nites",
+        "title_line1": "JDM Merch & Streetwear",
+        "title_outline": "aus Winterthur",
+        "text": "<p>Nippon Nites ist eine JDM-Streetwear-Marke aus Winterthur, 2024 gegründet von Fabio Berta. Wir machen Hoodies, T-Shirts und Accessoires für alle, die die japanische Autokultur leben. Jedes Design wird von Hand gezeichnet, ohne KI.</p><p>Mit unserem <a href=\"/collections/custom\" title=\"Custom Merch\">Custom-Service</a> wird dein eigenes Auto zum Motiv auf Hoodie oder T-Shirt. Alle Teile werden nach deiner Bestellung für dich produziert und in 10–20 Werktagen geliefert, weltweit. Bezahlen kannst du mit TWINT, PayPal oder Karte.</p>"
+      }
     }
   },
   "order": [
@@ -109,6 +149,7 @@
     "hero",
     "featured_duo",
     "collection_grid",
+    "brand_intro",
     "passion"
   ]
 }

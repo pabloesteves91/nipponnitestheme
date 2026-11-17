@@ -103,7 +103,7 @@
           {% if section.settings.hq_image != blank %}
             <img
               src="{{ section.settings.hq_image | img_url: '1200x' }}"
-              alt="{{ section.settings.hq_image.alt | escape }}"
+              alt="{{ section.settings.hq_image.alt | default: 'Winterthur – Headquarter von Nippon Nites' | escape }}"
               class="w-full h-full object-cover grayscale brightness-50 contrast-125"
             >
           {% else %}

@@ -7,3 +7,135 @@
   },
   "order": ["main"]
 }
+*/
+{
+  "sections": {
+    "main": {
+      "type": "page-faq",
+      "blocks": {
+        "group_1": {
+          "type": "group",
+          "settings": {
+            "title": "Bestellungen & Versand"
+          }
+        },
+        "q_1": {
+          "type": "question",
+          "settings": {
+            "question": "Wie lange dauert die Lieferung?",
+            "answer": "<p>Alle Teile werden nach deiner Bestellung für dich produziert. Die Lieferung dauert 10–20 Werktage, inklusive Produktion und Versand. So sparen wir Lagerkosten und bleiben transparent.</p><p>Custom-Designs brauchen zusätzlich 1–2 Wochen für die Illustration und die Abstimmung mit dir. Dafür bekommst du etwas Einzigartiges.</p>"
+          }
+        },
+        "q_2": {
+          "type": "question",
+          "settings": {
+            "question": "Liefert ihr international?",
+            "answer": "<p>Ja, wir liefern weltweit. Rechne mit 10–20 Werktagen, inklusive Produktion und Versand. Die Versandkosten siehst du im Checkout.</p>"
+          }
+        },
+        "q_3": {
+          "type": "question",
+          "settings": {
+            "question": "Wie verfolge ich meine Bestellung?",
+            "answer": "<p>Nach dem Versand erhältst du automatisch eine E-Mail mit einem Tracking-Link. Bei Fragen schreib uns: <a href=\"mailto:info@nipponnites.com\">info@nipponnites.com</a></p>"
+          }
+        },
+        "group_2": {
+          "type": "group",
+          "settings": {
+            "title": "Rückgabe & Umtausch"
+          }
+        },
+        "q_4": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich zurückgeben oder umtauschen?",
+            "answer": "<p>Standard-Produkte kannst du innerhalb von 14 Tagen zurückgeben oder umtauschen, ungetragen und mit Etikett. Custom-Bestellungen (eigenes Design) sind von der Rückgabe ausgeschlossen, da sie speziell für dich angefertigt werden.</p>"
+          }
+        },
+        "q_5": {
+          "type": "question",
+          "settings": {
+            "question": "Was mache ich bei einem falschen oder beschädigten Artikel?",
+            "answer": "<p>Schreib uns sofort an <a href=\"mailto:info@nipponnites.com\">info@nipponnites.com</a> mit Foto und Bestellnummer. Wir kümmern uns umgehend darum.</p>"
+          }
+        },
+        "group_3": {
+          "type": "group",
+          "settings": {
+            "title": "Custom Bestellungen"
+          }
+        },
+        "q_6": {
+          "type": "question",
+          "settings": {
+            "question": "Wie funktioniert eine Custom-Bestellung?",
+            "answer": "<p>1. Bestelle deinen Custom Hoodie oder dein Custom T-Shirt im Shop. 2. Nach der Bestellung kontaktieren wir dich per E-Mail. 3. Du schickst uns Fotos deines Fahrzeugs und deine Design-Ideen. 4. Wir illustrieren dein Unikat von Hand. 5. Produktion und Versand.</p>"
+          }
+        },
+        "q_7": {
+          "type": "question",
+          "settings": {
+            "question": "Kann ich mein eigenes Logo oder Design einsenden?",
+            "answer": "<p>Ja! Schick uns deine Idee, Skizze oder Referenzbilder. Wir setzen sie gemeinsam mit dir in unserem handgezeichneten Stil um.</p>"
+          }
+        },
+        "q_8": {
+          "type": "question",
+          "settings": {
+            "question": "Welche Fahrzeuge könnt ihr illustrieren?",
+            "answer": "<p>Jedes Fahrzeug: JDM-Klassiker, europäische Sportwagen, Muscle Cars, Tuning-Projekte. Wenn du es fährst, illustrieren wir es.</p>"
+          }
+        },
+        "group_4": {
+          "type": "group",
+          "settings": {
+            "title": "Produkt & Material"
+          }
+        },
+        "q_9": {
+          "type": "question",
+          "settings": {
+            "question": "Aus welchem Material sind eure Hoodies?",
+            "answer": "<p>Wir verwenden 100 % Bio-Baumwolle (450 g/m²): schwer, weich und langlebig. Kein billiges Fleece, sondern echte Qualität, die den Alltag übersteht.</p>"
+          }
+        },
+        "q_10": {
+          "type": "question",
+          "settings": {
+            "question": "Wie pflege ich meinen Hoodie?",
+            "answer": "<p>Auf links gedreht bei max. 30 °C waschen. Nicht in den Trockner. Bei niedriger Temperatur bügeln und Druckbereiche aussparen. So bleibt das Design lange scharf.</p>"
+          }
+        },
+        "q_11": {
+          "type": "question",
+          "settings": {
+            "question": "Wie fällt die Grösse aus?",
+            "answer": "<p>Unsere Hoodies sind bewusst im Oversized-Schnitt gehalten. Im Zweifel eine Grösse grösser wählen für den vollen Streetwear-Look. Die Grössentabelle findest du auf jeder Produktseite.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "group_1",
+        "q_1",
+        "q_2",
+        "q_3",
+        "group_2",
+        "q_4",
+        "q_5",
+        "group_3",
+        "q_6",
+        "q_7",
+        "q_8",
+        "group_4",
+        "q_9",
+        "q_10",
+        "q_11"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

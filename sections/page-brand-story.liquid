@@ -4,7 +4,7 @@
     {% if section.settings.hero_image != blank %}
       <img
         src="{{ section.settings.hero_image | img_url: '2000x' }}"
-        alt="{{ section.settings.hero_image.alt | escape }}"
+        alt="{{ section.settings.hero_image.alt | default: 'JDM-Autoszene bei Nacht – Nippon Nites Brand Story' | escape }}"
         class="w-full h-full object-cover grayscale opacity-60 contrast-125"
       >
     {% else %}
@@ -126,7 +126,7 @@
     {% if section.settings.cta_image != blank %}
       <img
         src="{{ section.settings.cta_image | img_url: '2000x' }}"
-        alt="{{ section.settings.cta_image.alt | escape }}"
+        alt="{{ section.settings.cta_image.alt | default: 'Nippon Nites Community – Join the Underground' | escape }}"
         class="w-full h-full object-cover grayscale brightness-50"
       >
     {% else %}

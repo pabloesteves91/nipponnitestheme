@@ -16,7 +16,7 @@
       <div>
         <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6 pb-3 border-b border-white/5">Shop</p>
         <ul class="space-y-3">
-          <li><a href="/collections/all" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Alle Produkte</a></li>
+          <li><a href="/pages/shop" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Alle Produkte</a></li>
           {% for collection in collections %}
             {% if collection.handle != 'frontpage' %}
               <li><a href="{{ collection.url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ collection.title }}</a></li>
@@ -30,7 +30,7 @@
         <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6 pb-3 border-b border-white/5">Info</p>
         <ul class="space-y-3">
           <li><a href="/" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Startseite</a></li>
-          <li><a href="/pages/brand-story" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Über uns</a></li>
+          <li><a href="/pages/brandstory" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Über uns</a></li>
           <li><a href="/pages/faq" class="text-white/60 hover:text-primary text-sm font-body transition-colors">FAQ</a></li>
           <li><a href="/pages/contact" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Kontakt</a></li>
           <li><a href="/search" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Suche</a></li>

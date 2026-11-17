@@ -4,7 +4,7 @@
     {% if section.settings.hero_image != blank %}
       <img
         src="{{ section.settings.hero_image | img_url: '2000x' }}"
-        alt="{{ section.settings.hero_image.alt | escape }}"
+        alt="{{ section.settings.hero_image.alt | default: 'Custom Hoodie mit deinem eigenen Auto – Nippon Nites' | escape }}"
         class="w-full h-full object-cover brightness-50"
       >
     {% else %}
@@ -47,7 +47,7 @@
         {% if section.settings.step1_image != blank %}
           <img
             src="{{ section.settings.step1_image | img_url: '600x' }}"
-            alt="{{ section.settings.step1_image.alt | escape }}"
+            alt="{{ section.settings.step1_image.alt | default: 'Schritt 1: Hoodie oder T-Shirt auswählen' | escape }}"
             class="w-full grayscale brightness-75"
           >
         {% else %}
@@ -66,7 +66,7 @@
           <div class="relative overflow-hidden group">
             <img
               src="{{ section.settings.step2_image | img_url: '600x' }}"
-              alt="{{ section.settings.step2_image.alt | escape }}"
+              alt="{{ section.settings.step2_image.alt | default: 'Schritt 2: Design für dein Auto abstimmen' | escape }}"
               class="w-full"
             >
             <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -86,7 +86,7 @@
         {% if section.settings.step3_image != blank %}
           <img
             src="{{ section.settings.step3_image | img_url: '600x' }}"
-            alt="{{ section.settings.step3_image.alt | escape }}"
+            alt="{{ section.settings.step3_image.alt | default: 'Schritt 3: Produktion und Versand deines Unikats' | escape }}"
             class="w-full brightness-50"
           >
         {% else %}
@@ -107,7 +107,7 @@
       {% if section.settings.passion_image != blank %}
         <img
           src="{{ section.settings.passion_image | img_url: '1200x' }}"
-          alt="{{ section.settings.passion_image.alt | escape }}"
+          alt="{{ section.settings.passion_image.alt | default: 'JDM-Auto bei Nacht – Passion is not a crime' | escape }}"
           class="w-full h-auto object-cover grayscale"
         >
       {% else %}

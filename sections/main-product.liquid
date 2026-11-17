@@ -1,18 +1,70 @@
+{%- comment -%} Strukturierte Produktdaten (Google, KI-Suchen). Preise = Preis nach automatischem Rabatt, Streichpreis = regulärer Preis {%- endcomment -%}
+{%- assign _ld_factor = 1 -%}
+{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _ld_factor = 0.8 -%}{%- endif -%}
+{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _ld_factor = 0.85 -%}{%- endif -%}
+{%- assign _ld_custom = false -%}
+{%- if product.handle contains 'custom' -%}{%- assign _ld_custom = true -%}{%- endif -%}
+{%- assign _ld_desc = product.description | replace: '</p>', ' </p>' | replace: '<br', ' <br' | replace: '</li>', ' </li>' | replace: '</h2>', ' </h2>' | replace: '</h3>', ' </h3>' | replace: '</div>', ' </div>' | strip_html | replace: '&amp;', '&' | replace: '&nbsp;', ' ' | replace: '&quot;', '"' | strip_newlines | split: ' ' | join: ' ' | truncate: 4900 -%}
+{%- assign _ld_count = product.metafields.reviews.rating_count.value | default: 0 | plus: 0 -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
-  "name": "{{ product.title | escape }}",
-  "description": "{{ product.description | strip_html | strip_newlines | escape }}",
-  "image": "https:{{ product.featured_image | image_url: width: 1200 }}",
-  "brand": { "@type": "Brand", "name": "{{ shop.name | escape }}" },
-  "offers": {
-    "@type": "Offer",
-    "price": "{{ product.price | divided_by: 100.0 }}",
-    "priceCurrency": "{{ cart.currency.iso_code }}",
-    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
-    "url": "{{ shop.url }}{{ product.url }}"
-  }
+  "@id": "{{ shop.url }}{{ product.url }}#product",
+  "name": {{ product.title | json }},
+  "url": "{{ shop.url }}{{ product.url }}",
+  "description": {{ _ld_desc | json }},
+  "image": [{% for image in product.images limit: 6 %}"https:{{ image | image_url: width: 1200 }}"{% unless forloop.last %}, {% endunless %}{% endfor %}],
+  "brand": { "@type": "Brand", "name": {{ shop.name | json }} },
+  {%- if product.type != blank %}
+  "category": {{ product.type | json }},
+  {%- endif %}
+  {%- if product.selected_or_first_available_variant.sku != blank %}
+  "sku": {{ product.selected_or_first_available_variant.sku | json }},
+  {%- endif %}
+  {%- if _ld_count > 0 %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ product.metafields.reviews.rating.value.rating | json }},
+    "bestRating": {{ product.metafields.reviews.rating.value.scale_max | default: 5 | json }},
+    "worstRating": 1,
+    "reviewCount": {{ _ld_count }}
+  },
+  {%- endif %}
+  "offers": [
+    {%- for variant in product.variants %}
+    {
+      "@type": "Offer",
+      "url": "{{ shop.url }}{{ variant.url }}",
+      {%- if variant.sku != blank %}
+      "sku": {{ variant.sku | json }},
+      {%- endif %}
+      {%- if variant.title != 'Default Title' %}
+      "name": {{ product.title | append: ' – ' | append: variant.title | json }},
+      {%- endif %}
+      "price": "{{ variant.price | times: _ld_factor | round | divided_by: 100.0 | round: 2 }}",
+      "priceCurrency": "{{ cart.currency.iso_code }}",
+      {%- if _ld_factor != 1 %}
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "priceType": "https://schema.org/StrikethroughPrice",
+        "price": "{{ variant.price | divided_by: 100.0 | round: 2 }}",
+        "priceCurrency": "{{ cart.currency.iso_code }}"
+      },
+      {%- endif %}
+      "availability": "{% if variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "itemCondition": "https://schema.org/NewCondition",
+      {%- if _ld_custom %}
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "CH",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+      },
+      {%- endif %}
+      "seller": { "@id": "{{ shop.url }}/#organization" }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
 }
 </script>
 {%- comment -%} Titel sauber aufteilen: 'A | B' oder letztes Wort farbig {%- endcomment -%}

@@ -114,7 +114,7 @@ async function refreshAndOpenCart() {
     if (ctaEl) {
       ctaEl.innerHTML = cart.item_count > 0
         ? `<a href="/checkout" class="block w-full py-5 bg-gradient-to-br from-[#ffb4a9] to-[#fb5a48] text-[#410000] font-headline font-black uppercase text-center tracking-tighter text-lg hover:brightness-110 active:scale-[0.98] transition-all duration-300">PROCEED TO CHECKOUT</a>`
-        : `<a href="/collections/all" class="block w-full py-5 bg-[#353535] text-white/60 font-headline font-black uppercase text-center tracking-tighter text-lg hover:bg-[#ffb4a9] hover:text-[#410000] transition-all">SHOP NOW</a>`;
+        : `<a href="/pages/shop" class="block w-full py-5 bg-[#353535] text-white/60 font-headline font-black uppercase text-center tracking-tighter text-lg hover:bg-[#ffb4a9] hover:text-[#410000] transition-all">SHOP NOW</a>`;
     }
   } catch(e) { console.error('Cart refresh failed:', e); }
 

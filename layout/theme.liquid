@@ -1,14 +1,37 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
+<html class="no-js" lang="de-CH">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="canonical" href="{{ canonical_url }}">
-  <meta name="robots" content="index, follow">
-  <title>{{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
-  {% assign meta_desc = page_description | default: shop.description %}
-  {% if meta_desc %}<meta name="description" content="{{ meta_desc | escape }}">{% endif %}
+  {%- comment -%} SEO: Titel, Beschreibung, Canonical und Indexierung {%- endcomment -%}
+  {%- assign seo_title = page_title -%}
+  {%- assign meta_desc = page_description | default: shop.description -%}
+  {%- assign seo_canonical = canonical_url -%}
+  {%- assign seo_index = true -%}
+  {%- if request.page_type == 'collection' and collection.handle == 'all' -%}
+    {%- assign seo_title = 'Alle Produkte – JDM Merch & Streetwear' -%}
+    {%- assign meta_desc = 'Alle Drops von Nippon Nites: JDM Hoodies, T-Shirts, Caps und Accessoires mit eigenen, von Hand gezeichneten Designs aus Winterthur.' -%}
+    {%- assign seo_canonical = shop.url | append: '/pages/shop' -%}
+  {%- elsif request.page_type == 'page' and page.handle == 'custom' -%}
+    {%- assign seo_canonical = shop.url | append: '/collections/custom' -%}
+  {%- endif -%}
+  {%- if request.page_type == 'search' or request.page_type == 'password' or request.page_type == 'captcha' -%}{%- assign seo_index = false -%}{%- endif -%}
+  {%- if request.page_type == 'page' -%}
+    {%- case page.handle -%}{%- when 'wishlist', 'shared-wishlists', 'reviews', 'data-sharing-opt-out' -%}{%- assign seo_index = false -%}{%- endcase -%}
+  {%- endif -%}
+  {%- if request.page_type == 'collection' and collection.handle == 'frontpage' -%}{%- assign seo_index = false -%}{%- endif -%}
+  {%- if current_page > 1 -%}{%- assign seo_title = seo_title | append: ' – Seite ' | append: current_page -%}{%- endif -%}
+  <title>{{ seo_title }}{% unless seo_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
+  {% if meta_desc != blank %}<meta name="description" content="{{ meta_desc | escape }}">{% endif %}
+  <link rel="canonical" href="{{ seo_canonical }}">
+  <meta name="robots" content="{% if seo_index %}index, follow, max-image-preview:large{% else %}noindex, follow{% endif %}">
+  {%- comment -%} Rabatt-Faktor (gleiche Logik wie in den Sections; muss zum automatischen Rabatt in Shopify passen) {%- endcomment -%}
+  {%- assign _factor = 1 -%}
+  {%- if template.name == 'product' -%}
+    {%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}
+    {%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
+  {%- endif -%}
   {%- comment -%} Link-Vorschau (WhatsApp, Instagram, Facebook): Produktbild → Kollektionsbild → Share-Bild aus Theme-Einstellungen → Logo {%- endcomment -%}
   {%- assign og_type = 'website' -%}
   {%- assign og_img_w = '' -%}
@@ -29,13 +52,14 @@
   {%- else -%}
     {%- assign og_img = 'logo_nippon.png' | file_img_url: '1200x630' -%}
   {%- endif -%}
-  {%- if og_img contains '//' -%}{%- assign og_img_start = og_img | slice: 0, 2 -%}{%- if og_img_start == '//' -%}{%- assign og_img = og_img | prepend: 'https:' -%}{%- endif -%}{%- endif -%}
+  {%- assign og_img_start = og_img | slice: 0, 2 -%}{%- if og_img_start == '//' -%}{%- assign og_img = og_img | prepend: 'https:' -%}{%- endif -%}
+  {%- assign logo_url = 'logo_nippon.png' | file_img_url: '512x512' | prepend: 'https:' -%}
   <link rel="icon" type="image/png" href="{{ 'logo_nippon.png' | file_img_url: '64x64' }}">
   <link rel="apple-touch-icon" href="{{ 'logo_nippon.png' | file_img_url: '180x180' }}">
   <meta property="og:type" content="{{ og_type }}">
-  <meta property="og:title" content="{{ page_title | escape }}">
-  <meta property="og:url" content="{{ canonical_url }}">
-  {% if meta_desc %}<meta property="og:description" content="{{ meta_desc | escape }}">{% endif %}
+  <meta property="og:title" content="{{ seo_title | escape }}">
+  <meta property="og:url" content="{{ seo_canonical }}">
+  {% if meta_desc != blank %}<meta property="og:description" content="{{ meta_desc | escape }}">{% endif %}
   <meta property="og:image" content="{{ og_img }}">
   <meta property="og:image:secure_url" content="{{ og_img }}">
   {%- if og_img_w != '' %}
@@ -46,21 +70,30 @@
   <meta property="og:site_name" content="{{ shop.name }}">
   <meta property="og:locale" content="de_CH">
   {%- if template.name == 'product' %}
-  <meta property="product:price:amount" content="{{ product.price | divided_by: 100.0 }}">
+  <meta property="product:price:amount" content="{{ product.price | times: _factor | round | divided_by: 100.0 }}">
   <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
   {%- endif %}
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page_title | escape }}">
-  {% if meta_desc %}<meta name="twitter:description" content="{{ meta_desc | escape }}">{% endif %}
+  <meta name="twitter:title" content="{{ seo_title | escape }}">
+  {% if meta_desc != blank %}<meta name="twitter:description" content="{{ meta_desc | escape }}">{% endif %}
   <meta name="twitter:image" content="{{ og_img }}">
+  {%- comment -%} Strukturierte Daten für Google und KI-Suchen {%- endcomment -%}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "{{ shop.name | escape }}",
+    "@type": "OnlineStore",
+    "@id": "{{ shop.url }}/#organization",
+    "name": {{ shop.name | json }},
     "url": "{{ shop.url }}",
-    "logo": "{{ 'logo_nippon.png' | file_img_url: '200x200' }}",
-    "description": "{{ shop.description | strip_html | escape }}",
+    "logo": {{ logo_url | json }},
+    "image": {{ og_img | json }},
+    "description": {{ shop.description | strip_html | json }},
+    "email": "info@nipponnites.com",
+    "founder": { "@type": "Person", "name": "Fabio Berta" },
+    "foundingDate": "2024",
+    "foundingLocation": { "@type": "Place", "name": "Winterthur, Schweiz" },
+    "areaServed": "Weltweit",
+    "knowsAbout": ["JDM", "Japanese Domestic Market", "Streetwear", "Custom Merch", "Autokultur"],
     "sameAs": ["https://www.instagram.com/nipponnites/", "https://www.tiktok.com/@nippon_nites"],
     "address": {
       "@type": "PostalAddress",
@@ -69,9 +102,65 @@
       "postalCode": "8405",
       "addressRegion": "ZH",
       "addressCountry": "CH"
+    },
+    "contactPoint": { "@type": "ContactPoint", "contactType": "customer support", "email": "info@nipponnites.com", "availableLanguage": ["de", "en"] },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "@id": "{{ shop.url }}/#returnpolicy",
+      "applicableCountry": "CH",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/ReturnFeesCustomerResponsibility",
+      "merchantReturnLink": "{{ shop.url }}/policies/refund-policy"
     }
   }
   </script>
+  {%- if request.page_type == 'index' %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "{{ shop.url }}/#website",
+    "name": {{ shop.name | json }},
+    "url": "{{ shop.url }}",
+    "inLanguage": "de-CH",
+    "publisher": { "@id": "{{ shop.url }}/#organization" },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": { "@type": "EntryPoint", "urlTemplate": "{{ shop.url }}/search?q={search_term_string}" },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  {%- endif %}
+  {%- assign crumb_name = '' -%}
+  {%- case request.page_type -%}
+    {%- when 'product' -%}{%- assign crumb_name = product.title -%}{%- assign crumb_url = shop.url | append: product.url -%}
+    {%- when 'collection' -%}{%- unless collection.handle == 'all' -%}{%- assign crumb_name = collection.title -%}{%- assign crumb_url = shop.url | append: collection.url -%}{%- endunless -%}
+    {%- when 'page' -%}{%- assign crumb_name = page.title -%}{%- assign crumb_url = shop.url | append: page.url -%}
+  {%- endcase -%}
+  {%- if crumb_name != blank %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ shop.url }}/" },
+      {%- assign crumb_coll = nil -%}
+      {%- if request.page_type == 'product' -%}
+        {%- for c in product.collections -%}{%- unless c.handle == 'frontpage' -%}{%- assign crumb_coll = c -%}{%- break -%}{%- endunless -%}{%- endfor -%}
+      {%- endif -%}
+      {%- if crumb_coll -%}
+      { "@type": "ListItem", "position": 2, "name": {{ crumb_coll.title | json }}, "item": "{{ shop.url }}{{ crumb_coll.url }}" },
+      { "@type": "ListItem", "position": 3, "name": {{ crumb_name | json }}, "item": "{{ crumb_url }}" }
+      {%- else %}
+      { "@type": "ListItem", "position": 2, "name": {{ crumb_name | json }}, "item": "{{ crumb_url }}" }
+      {%- endif %}
+    ]
+  }
+  </script>
+  {%- endif %}
   {{ content_for_header }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
